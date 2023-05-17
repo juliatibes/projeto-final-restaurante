@@ -61,5 +61,9 @@ public class Main {
         chamaMenuPrincipal();
     }
 
+    private static void cadastroCompra(){
+        Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o nome do cliente"));
+        String nome = JOptionPane.showInputDialog(null, "Digite o nome do cliente");
+    }
 
 }
