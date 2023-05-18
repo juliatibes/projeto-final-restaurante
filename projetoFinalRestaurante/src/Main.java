@@ -1,7 +1,11 @@
 import model.ClienteExemplo;
+import model.Compra;
+import model.UnidadeMedidaEnum;
 import repository.ClienteDAOExemplo;
+import repository.CompraDAO;
 
 import javax.swing.*;
+import java.math.BigDecimal;
 
 public class Main {
 
@@ -11,7 +15,7 @@ public class Main {
     }
 
     private static void chamaMenuPrincipal() {
-        String[] opcoesMenu = {"Cadastros", "Processos", "Relatorios", "Sair"};
+        String[] opcoesMenu = {"Cadastros", "Compras", "Relatorios", "Sair"};
         int opcao = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Menu Principal",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenu, opcoesMenu[0]);
@@ -19,11 +23,11 @@ public class Main {
             case 0: //Cadastros
                 chamaMenuCadastros();
                 break;
-            case 1: //Processos
-
+            case 1: //Compras
+                cadastroCompra();
                 break;
             case 2: //Relatorios
-                JOptionPane.showMessageDialog(null, ClienteDAOExemplo.buscaTodos());
+                JOptionPane.showMessageDialog(null, CompraDAO.listarCompras());
                 chamaMenuPrincipal();
                 break;
             case 3: //SAIR
@@ -62,8 +66,20 @@ public class Main {
     }
 
     private static void cadastroCompra(){
-        Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o nome do cliente"));
-        String nome = JOptionPane.showInputDialog(null, "Digite o nome do cliente");
+        UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.GRAMA,UnidadeMedidaEnum.UNIDADE,UnidadeMedidaEnum.LITRO,
+                UnidadeMedidaEnum.KILOGRAMA,UnidadeMedidaEnum.MILIGRAMA,UnidadeMedidaEnum.MILILITRO};
+        Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id do item"));
+        String dataCompra = JOptionPane.showInputDialog(null, "Digite a data do item");
+        String dataValidade = JOptionPane.showInputDialog(null, "Digite o data de validade do item");
+        String nomeProduto = JOptionPane.showInputDialog(null, "Digite o nome do item");
+        Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a quantidade"));
+        int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha a unidade de medida:","Cadastro de produto",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUnidadeMedida, opcoesUnidadeMedida[0]);
+        BigDecimal valorCompra = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor:")));
+        Compra produto = new Compra(id,dataCompra,dataValidade,nomeProduto,quantidade,opcoesUnidadeMedida[menuCadastro],valorCompra);
+        CompraDAO.AdicionarNovaCompra(produto);
+        chamaMenuPrincipal();
+
     }
 
 }

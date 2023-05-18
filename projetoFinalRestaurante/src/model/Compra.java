@@ -9,12 +9,12 @@ public class Compra {
     private String dataCompra; //mudar para LOCALDATE perguntar para o teacher
     private String dataValidade; //mudar para LOCALDATE perguntar para o teacher JOPTION
     private String nomeProduto;
-    private Integer quantidade;
+    private Double quantidade;
     private UnidadeMedidaEnum unidadeMedida;
     private BigDecimal valorCompra;
 
     public Compra(Integer id, String dataCompra, String dataValidade, String nomeProduto,
-                  Integer quantidade, UnidadeMedidaEnum unidadeMedida, BigDecimal valorCompra) {
+                  Double quantidade, UnidadeMedidaEnum unidadeMedida, BigDecimal valorCompra) {
         this.id = id;
         this.dataCompra = dataCompra;
         this.dataValidade = dataValidade;
@@ -56,11 +56,11 @@ public class Compra {
         this.nomeProduto = nomeProduto;
     }
 
-    public Integer getQuantidade() {
+    public Double getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(Integer quantidade) {
+    public void setQuantidade(Double quantidade) {
         this.quantidade = quantidade;
     }
 
@@ -78,5 +78,18 @@ public class Compra {
 
     public void setValorCompra(BigDecimal valorCompra) {
         this.valorCompra = valorCompra;
+    }
+
+    @Override
+    public String toString() {
+        return "Compra{" +
+                "id=" + id +
+                ", dataCompra='" + dataCompra + '\'' +
+                ", dataValidade='" + dataValidade + '\'' +
+                ", nomeProduto='" + nomeProduto + '\'' +
+                ", quantidade=" + quantidade +
+                ", unidadeMedida=" + unidadeMedida +
+                ", valorCompra=" + valorCompra +
+                '}';
     }
 }
