@@ -14,6 +14,9 @@ public class Main {
 
     public static void main(String[] args) {
         chamaMenuPrincipal();
+
+
+
     }
 
     private static void chamaMenuPrincipal() {
@@ -88,6 +91,8 @@ public class Main {
         Compra compra = new Compra(id,dataCompra,,quantidade,opcoesUnidadeMedida[menuCadastro]);
         CompraDAO.salvarNovaCompra(compra);
         chamaMenuPrincipal();
+
+
 
     }
 
