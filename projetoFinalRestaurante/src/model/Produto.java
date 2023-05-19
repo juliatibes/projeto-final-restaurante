@@ -1,12 +1,16 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class Produto {
     private Integer id;
     private String nome;
+    private BigDecimal valorUnitario;
 
-    public Produto(Integer id, String nome) {
+    public Produto(Integer id, String nome, BigDecimal valorUnitario) {
         this.id = id;
         this.nome = nome;
+        this.valorUnitario = valorUnitario;
     }
 
     public Integer getId() {
@@ -25,11 +29,12 @@ public class Produto {
         this.nome = nome;
     }
 
-    @Override
-    public String toString() {
-        return "Produto{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                '}';
+    public BigDecimal getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(BigDecimal valorUnitario) {
+        this.valorUnitario = valorUnitario;
     }
 }
+

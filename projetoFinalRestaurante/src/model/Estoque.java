@@ -1,10 +1,12 @@
 package model;
 
+import repository.CompraDAO;
+
 import java.math.BigDecimal;
 
 public class Estoque {
     private Integer id;
-    private Compra compra;
+    private Produto Produto;
     private Double quantidade;
     private UnidadeMedidaEnum unidadeMedida;
     private BigDecimal valorCusto;

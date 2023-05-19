@@ -7,7 +7,7 @@ import java.util.List;
 public class ProdutoDAO {
     static List<Produto> listaProdutos = new ArrayList<>();
 
-    public static void salvar(Produto produto) {
+    public static void salvarListaProdutos(Produto produto) {
         listaProdutos.add(produto);
     }
 
