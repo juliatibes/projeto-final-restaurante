@@ -8,6 +8,7 @@ import repository.ProdutoDAO;
 
 import javax.swing.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Main {
 
@@ -80,6 +81,13 @@ public class Main {
     private static void cadastroCompra(){
         UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.GRAMA,UnidadeMedidaEnum.UNIDADE,UnidadeMedidaEnum.LITRO,
                 UnidadeMedidaEnum.KILOGRAMA,UnidadeMedidaEnum.MILIGRAMA,UnidadeMedidaEnum.MILILITRO};
+
+        Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArray();
+        String initialSelectionProduto = (String) selectionValuesProdutos[0];
+        Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o produto da venda",
+                "VendasApp", JOptionPane.QUESTION_MESSAGE, null, selectionValuesProdutos, initialSelectionProduto);
+        List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionProduto);
+
         Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id do item"));
         String dataCompra = JOptionPane.showInputDialog(null, "Digite a data do item");
         Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a quantidade"));
@@ -89,6 +97,5 @@ public class Main {
         CompraDAO.salvarNovaCompra(compra);
         chamaMenuPrincipal();
 
-    }
 
 }
