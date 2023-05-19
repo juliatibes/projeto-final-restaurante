@@ -12,6 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
         chamaMenuPrincipal();
+
+
+
     }
 
     private static void chamaMenuPrincipal() {
@@ -79,6 +82,8 @@ public class Main {
         Compra produto = new Compra(id,dataCompra,dataValidade,nomeProduto,quantidade,opcoesUnidadeMedida[menuCadastro],valorCompra);
         CompraDAO.AdicionarNovaCompra(produto);
         chamaMenuPrincipal();
+
+
 
     }
 
