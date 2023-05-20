@@ -31,7 +31,6 @@ public class ProdutoDAO {
         for (Produto produto : produtos) {
             produtosNomes.add(produto.getNome());
         }
-
         return produtosNomes.toArray();
     }
 

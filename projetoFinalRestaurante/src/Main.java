@@ -93,7 +93,7 @@ public class Main {
         Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a quantidade"));
         int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha a unidade de medida:","Cadastro de produto",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUnidadeMedida, opcoesUnidadeMedida[0]);
-        Compra compra = new Compra(id,dataCompra,,quantidade,opcoesUnidadeMedida[menuCadastro]);
+        Compra compra = new Compra(id,dataCompra,Produto[selectionProduto],quantidade,opcoesUnidadeMedida[menuCadastro]);
         CompraDAO.salvarNovaCompra(compra);
         chamaMenuPrincipal();
 
