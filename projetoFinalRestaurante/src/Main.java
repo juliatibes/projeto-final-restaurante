@@ -8,15 +8,15 @@ import repository.ProdutoDAO;
 
 import javax.swing.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class Main {
 
 
     public static void main(String[] args) {
         chamaMenuPrincipal();
-
-
-
     }
 
     private static void chamaMenuPrincipal() {
@@ -71,29 +71,44 @@ public class Main {
         chamaMenuPrincipal();
     }
 
-    private static void cadastroProduto(){
+    private static void cadastroProduto() {
 
         Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id do item"));
         String nomeProduto = JOptionPane.showInputDialog(null, "Digite o nome do item");
         BigDecimal valorUnitario = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor:")));
-        Produto produto1 = new Produto(id,nomeProduto,valorUnitario);
+        Produto produto1 = new Produto(id, nomeProduto, valorUnitario);
         ProdutoDAO.salvarListaProdutos(produto1);
+        chamaMenuPrincipal();
     }
 
-    private static void cadastroCompra(){
-        UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.GRAMA,UnidadeMedidaEnum.UNIDADE,UnidadeMedidaEnum.LITRO,
-                UnidadeMedidaEnum.KILOGRAMA,UnidadeMedidaEnum.MILIGRAMA,UnidadeMedidaEnum.MILILITRO};
+    private static void cadastroCompra() {
+
+        UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.UNIDADE, UnidadeMedidaEnum.LITRO,
+                UnidadeMedidaEnum.KILOGRAMA, UnidadeMedidaEnum.MILIGRAMA, UnidadeMedidaEnum.MILILITRO};
+
         Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id do item"));
-        String dataCompra = JOptionPane.showInputDialog(null, "Digite a data do item");
+
+        LocalDate dataCompra = LocalDate.now();
+        String inputData = JOptionPane.showInputDialog(null, "Digite uma data (formato: dd/MM/yyyy):");
+        try {
+            dataCompra = LocalDate.parse(inputData, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Formato de data inválido!");
+        }
+
+        Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArray();
+        String initialSelectionProduto = (String) selectionValuesProdutos[0];
+        Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o produto da venda",
+                "VendasApp", JOptionPane.QUESTION_MESSAGE, null, selectionValuesProdutos, initialSelectionProduto);
+        List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionProduto);
+
         Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a quantidade"));
-        int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha a unidade de medida:","Cadastro de produto",
+        int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha a unidade de medida:", "Cadastro de produto",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUnidadeMedida, opcoesUnidadeMedida[0]);
-        Compra compra = new Compra(id,dataCompra,,quantidade,opcoesUnidadeMedida[menuCadastro]);
+        Compra compra = new Compra(id, dataCompra, produtos.get(0), quantidade, opcoesUnidadeMedida[menuCadastro]);
         CompraDAO.salvarNovaCompra(compra);
         chamaMenuPrincipal();
 
 
-
     }
-
 }
