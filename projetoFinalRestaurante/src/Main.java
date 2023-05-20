@@ -20,48 +20,36 @@ public class Main {
     }
 
     private static void chamaMenuPrincipal() {
-        String[] opcoesMenu = {"Cadastros", "Compras", "Relatorios", "Sair"};
-        int opcao = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+        String[] opcoesMenuPrincipal = {"Planejamento de Produção","Estoque","Compras", "Receitas", "Cardapio", "Venda","Relatorios","Sair"};
+        int opcaoMenuPrincipal = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Menu Principal",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenu, opcoesMenu[0]);
-        switch (opcao) {
-            case 0: //Cadastros
-                chamaMenuCadastros();
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPrincipal, opcoesMenuPrincipal[0]);
+        switch (opcaoMenuPrincipal) {
+            case 0: //Planejamento de produção
+                chamaMenuPlanejamento();
                 break;
-            case 1: //Compras
-                cadastroCompra();
+            case 1: //Estoque
+                chamaMenuEstoque();
                 break;
-            case 2: //Relatorios
+            case 2: //Compra
+                //chamaMenuCadastroCompra();
+                break;
+            case 3:// Receitas
+               // chamaMenuCadastroReceitas();
+                break;
+            case 4:// Cardapio
+               // chamaMenuCardapio();
+                break;
+            case 5:// Vendas
+               // chamaMenuVenda();
+                break;
+            case 6:// Relatorios
+                //chamaMenuRelatorios();
                 JOptionPane.showMessageDialog(null, CompraDAO.listarCompras());
                 chamaMenuPrincipal();
                 break;
-            case 3: //SAIR
-
-                break;
         }
     }
-
-    private static void chamaMenuCadastros() {
-        String[] opcoesMenuCadastro = {"Produto", "Compra", "aaaaa", "Voltar"};
-        int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Cadastros",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
-
-        switch (menuCadastro) {
-            case 0: //Pessoa
-                cadastroProduto();
-                break;
-            case 1: //Compra
-                cadastroCompra();
-                break;
-            case 2: //Seguro
-                break;
-            case 3: //Voltar
-                chamaMenuPrincipal();
-                break;
-        }
-    }
-
     private static void cadastroDeCliente() {
         String nome = JOptionPane.showInputDialog(null, "Digite o nome do cliente");
         String cpf = JOptionPane.showInputDialog(null, "Digite o cpf do cliente");
@@ -71,14 +59,66 @@ public class Main {
         chamaMenuPrincipal();
     }
 
+    private static void chamaMenuPlanejamento() {
+        String[] opcoesMenuPlanejamento = {"Planejado", "Produzido","Voltar"};
+        int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Cadastrar",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
+
+        switch (menuPlanejamento) {
+            case 0: //Planejado
+               // chamaCadastroPlanejado();
+                break;
+            case 1: //Produzido
+               // chamaCadastroProduzido();
+                break;
+            case 2: //Voltar
+                chamaMenuPrincipal();
+                break;
+        }
+    }
+    private static void chamaMenuEstoque() {
+        String[] opcoesMenuCadastro = {"Produto", "Voltar"};
+        int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Estoque",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
+
+        switch (menuCadastro) {
+            case 0: //Produto
+                cadastroProduto();
+                break;
+            case 1: //Voltar
+                chamaMenuPrincipal();
+                break;
+        }
+    }
+
     private static void cadastroProduto() {
 
         Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id do item"));
         String nomeProduto = JOptionPane.showInputDialog(null, "Digite o nome do item");
         BigDecimal valorUnitario = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor:")));
         Produto produto1 = new Produto(id, nomeProduto, valorUnitario);
-        ProdutoDAO.salvarListaProdutos(produto1);
-        chamaMenuPrincipal();
+
+
+        String[] opcoesMenuCadastroProduto = {"Novo Cadastro", "Cancelar","Finalizar Cadastro"};
+        int menuCadastroProduto = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Cadastrar Produto",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroProduto, opcoesMenuCadastroProduto[0]);
+
+        switch (menuCadastroProduto) {
+            case 0: //NovoCadastro
+                ProdutoDAO.salvarListaProdutos(produto1);
+                cadastroProduto();
+                break;
+            case 1: //Cancelar
+                chamaMenuPrincipal();
+                break;
+            case 2: //Finalizar Cadastro
+                ProdutoDAO.salvarListaProdutos(produto1);
+                chamaMenuPrincipal();
+                break;
+        }
     }
 
     private static void cadastroCompra() {
