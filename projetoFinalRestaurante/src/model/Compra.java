@@ -11,6 +11,15 @@ public class Compra {
     private Double quantidade;
     private UnidadeMedidaEnum unidadeMedida;
 
+
+    public Compra(Integer id, LocalDate dataCompra, Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedida) {
+        this.id = id;
+        this.dataCompra = dataCompra;
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.unidadeMedida = unidadeMedida;
+    }
+
     public Integer getId() {
         return id;
     }
