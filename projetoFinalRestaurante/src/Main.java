@@ -20,12 +20,12 @@ public class Main {
     }
 
     private static void chamaMenuPrincipal() {
-        String[] opcoesMenu = {"Cadastros", "Compras", "Relatorios", "Sair"};
+        String[] opcoesMenu = {"Estoque", "Compras", "Relatorios", "Sair"};
         int opcao = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Menu Principal",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenu, opcoesMenu[0]);
         switch (opcao) {
-            case 0: //Cadastros
+            case 0: //Estoque
                 chamaMenuCadastros();
                 break;
             case 1: //Compras
@@ -42,9 +42,9 @@ public class Main {
     }
 
     private static void chamaMenuCadastros() {
-        String[] opcoesMenuCadastro = {"Produto", "Compra", "aaaaa", "Voltar"};
+        String[] opcoesMenuCadastro = {"Produto", "Compra", "Planejamento", "Voltar"};
         int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Cadastros",
+                "Cadastrar",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
 
         switch (menuCadastro) {
@@ -54,7 +54,7 @@ public class Main {
             case 1: //Compra
                 cadastroCompra();
                 break;
-            case 2: //Seguro
+            case 2: //Planejamento
                 break;
             case 3: //Voltar
                 chamaMenuPrincipal();
