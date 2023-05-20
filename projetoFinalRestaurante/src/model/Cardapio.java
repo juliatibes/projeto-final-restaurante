@@ -8,6 +8,7 @@ public class Cardapio {
     private String descricao;
     private BigDecimal valorVenda;
 
+
     public Cardapio(Integer id, Receita receita, String descricao, BigDecimal valorVenda) {
         this.id = id;
         this.receita = receita;

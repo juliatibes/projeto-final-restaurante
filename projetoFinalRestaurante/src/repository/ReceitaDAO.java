@@ -5,6 +5,7 @@ import model.Receita;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ReceitaDAO {
     static List<Receita> listaReceita = new ArrayList<>();
 

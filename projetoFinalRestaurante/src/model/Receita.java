@@ -9,6 +9,7 @@ public class Receita {
     private BigDecimal valorCusto;
 
 
+
     public Receita(Produto produto, String descricao, BigDecimal valorReceita, BigDecimal valorCusto) {
         this.produto = produto;
         this.descricao = descricao;
