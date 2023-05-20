@@ -32,7 +32,7 @@ public class Main {
                 chamaMenuEstoque();
                 break;
             case 2: //Compra
-                //chamaMenuCadastroCompra();
+                chamaMenuCadastroCompra();
                 break;
             case 3:// Receitas
                // chamaMenuCadastroReceitas();
@@ -121,6 +121,22 @@ public class Main {
         }
     }
 
+    private static void chamaMenuCadastroCompra() {
+        String[] opcoesMenuCadastroCompra = {"Adicionar Compra", "Voltar"};
+        int menuCadastroCompra = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Cadastrar Compras",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroCompra, opcoesMenuCadastroCompra[0]);
+
+        switch (menuCadastroCompra) {
+            case 0: //Nova compra
+                cadastroCompra();
+                break;
+            case 1: //Cancelar
+                chamaMenuPrincipal();
+                break;
+        }
+    }
+
     private static void cadastroCompra() {
 
         UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.UNIDADE, UnidadeMedidaEnum.LITRO,
@@ -145,9 +161,28 @@ public class Main {
         Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a quantidade"));
         int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha a unidade de medida:", "Cadastro de produto",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUnidadeMedida, opcoesUnidadeMedida[0]);
-        Compra compra = new Compra(id, dataCompra, produtos.get(0), quantidade, opcoesUnidadeMedida[menuCadastro]);
-        CompraDAO.salvarNovaCompra(compra);
-        chamaMenuPrincipal();
+        Compra produto = new Compra(id, dataCompra, produtos.get(0), quantidade, opcoesUnidadeMedida[menuCadastro]);
+        CompraDAO.salvarNovaCompra(produto);
+
+        //Menu de cadastro Compras
+        String[] opcoesMenuCadastroCompra = {"Nova Compra", "Cancelar","Finalizar Compras"};
+        int menuCadastroCompra = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Cadastrar Compras",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroCompra, opcoesMenuCadastroCompra[0]);
+
+        switch (menuCadastroCompra) {
+            case 0: //Nova compra
+                CompraDAO.salvarNovaCompra(produto);
+                cadastroCompra();
+                break;
+            case 1: //Cancelar
+                chamaMenuPrincipal();
+                break;
+            case 2: //Finalizar compra
+                CompraDAO.salvarNovaCompra(produto);
+                chamaMenuPrincipal();
+                break;
+        }
 
 
     }
