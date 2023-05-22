@@ -6,13 +6,12 @@ public class Produto {
     private Integer id;
     private String nome;
     private ProdutoEnum tipoProduto;
-    private BigDecimal valorUnitario;
 
-    public Produto(Integer id, String nome, ProdutoEnum tipoProduto, BigDecimal valorUnitario) {
+
+    public Produto(Integer id, String nome, ProdutoEnum tipoProduto) {
         this.id = id;
         this.nome = nome;
         this.tipoProduto = tipoProduto;
-        this.valorUnitario = valorUnitario;
     }
 
     public Integer getId() {
@@ -31,13 +30,6 @@ public class Produto {
         this.nome = nome;
     }
 
-    public BigDecimal getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(BigDecimal valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
 
     @Override
     public String toString() {
@@ -45,7 +37,6 @@ public class Produto {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", tipoProduto=" + tipoProduto +
-                ", valorUnitario=" + valorUnitario +
                 '}';
     }
 }
