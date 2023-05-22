@@ -103,9 +103,7 @@ public class Main {
                 "Cadastro Produto", JOptionPane.DEFAULT_OPTION);
         int ProdutoSelecionado = JOptionPane.showOptionDialog(null, "Escolha o tipo de produto:", "Cadastro Produto",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesTipoPagamento, opcoesTipoPagamento[0]);
-        BigDecimal valorUnitario = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor:",
-                "Cadastro Produto", JOptionPane.DEFAULT_OPTION)));
-        Produto produto1 = new Produto(id, nomeProduto,opcoesTipoPagamento[ProdutoSelecionado] ,valorUnitario);
+        Produto produto1 = new Produto(id, nomeProduto,opcoesTipoPagamento[ProdutoSelecionado]);
 
 
         String[] opcoesMenuCadastroProduto = {"Novo Cadastro", "Cancelar","Finalizar Cadastro"};
@@ -137,8 +135,9 @@ private static void removerProduto() {
     List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionProduto);
     ProdutoDAO.removerProduto(produtos.get(0));
     chamaMenuEstoque();
+}
 
-    private static void chamaMenuCadastroCompra() {
+    private static void chamaMenuCadastroCompra () {
         String[] opcoesMenuCadastroCompra = {"Adicionar Compra", "Voltar"};
         int menuCadastroCompra = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Cadastrar Compras",
@@ -154,13 +153,14 @@ private static void removerProduto() {
         }
     }
 
+
     private static void cadastroCompra() {
 
         UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.UNIDADE, UnidadeMedidaEnum.LITRO,
                 UnidadeMedidaEnum.KILOGRAMA, UnidadeMedidaEnum.MILIGRAMA, UnidadeMedidaEnum.MILILITRO};
 
-        Integer  id = CompraDAO.aiID();
-                //Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id:","Cadastro Compra", JOptionPane.DEFAULT_OPTION));
+        Integer  id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id:",
+                "Cadastro Compra", JOptionPane.DEFAULT_OPTION));
 
         LocalDate dataCompra = LocalDate.now();
         String inputData = JOptionPane.showInputDialog(null, "Digite uma data (formato: dd/MM/yyyy):",

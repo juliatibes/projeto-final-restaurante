@@ -16,9 +16,5 @@ public class CompraDAO {
     public static List<Compra> listarCompras() {
         return listaCompras;
     }
-   public static Integer aiID (){
-        Integer aiID = 0;
-         aiID =+ 1;
-        return aiID;
     }
-}
+
