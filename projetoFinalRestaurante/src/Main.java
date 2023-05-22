@@ -138,6 +138,20 @@ private static void removerProduto() {
     ProdutoDAO.removerProduto(produtos.get(0));
     chamaMenuEstoque();
 
+    private static void chamaMenuCadastroCompra() {
+        String[] opcoesMenuCadastroCompra = {"Adicionar Compra", "Voltar"};
+        int menuCadastroCompra = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Cadastrar Compras",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroCompra, opcoesMenuCadastroCompra[0]);
+
+        switch (menuCadastroCompra) {
+            case 0: //Nova compra
+                cadastroCompra();
+                break;
+            case 1: //Cancelar
+                chamaMenuPrincipal();
+                break;
+        }
     }
 
     private static void cadastroCompra() {
@@ -171,7 +185,5 @@ private static void removerProduto() {
         Compra compra = new Compra(id, dataCompra, produtos.get(0), quantidade, opcoesUnidadeMedida[tipoUnidadeSelecionado]);
         CompraDAO.salvarNovaCompra(compra);
         chamaMenuPrincipal();
-
-
     }
 }
