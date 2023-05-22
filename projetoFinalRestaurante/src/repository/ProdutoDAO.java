@@ -1,6 +1,7 @@
 package repository;
 import model.Produto;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,12 @@ public class ProdutoDAO {
 
     public static void salvarListaProdutos(Produto produto) {
         listaProdutos.add(produto);
+    }
+
+    public static Integer removerProduto(Produto produto){
+        listaProdutos.remove(produto);
+        return JOptionPane.showConfirmDialog(null,"Produto excluido com sucesso!",
+                "Remover Produto",JOptionPane.DEFAULT_OPTION);
     }
 
     public static List<Produto> buscaTodos() {

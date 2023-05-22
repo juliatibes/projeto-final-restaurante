@@ -2,7 +2,6 @@ package repository;
 
 import model.Compra;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +16,9 @@ public class CompraDAO {
     public static List<Compra> listarCompras() {
         return listaCompras;
     }
-    public static void Cancelar(){}
-
-    public static void FinalizarCompra(){
-
+   public static Integer aiID (){
+        Integer aiID = 0;
+         aiID =+ 1;
+        return aiID;
     }
 }
