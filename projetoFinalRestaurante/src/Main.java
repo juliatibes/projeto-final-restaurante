@@ -156,11 +156,10 @@ private static void removerProduto() {
 
     private static void cadastroCompra() {
 
-        UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.UNIDADE, UnidadeMedidaEnum.LITRO,
-                UnidadeMedidaEnum.KILOGRAMA, UnidadeMedidaEnum.MILIGRAMA, UnidadeMedidaEnum.MILILITRO};
+        UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.KILO, UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.LITRO,
+                UnidadeMedidaEnum.MILILITRO, UnidadeMedidaEnum.UNIDADE};
 
-        Integer  id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id:",
-                "Cadastro Compra", JOptionPane.DEFAULT_OPTION));
+        Integer  id = CompraDAO.aiID();
 
         LocalDate dataCompra = LocalDate.now();
         String inputData = JOptionPane.showInputDialog(null, "Digite uma data (formato: dd/MM/yyyy):",
@@ -168,7 +167,7 @@ private static void removerProduto() {
         try {
             dataCompra = LocalDate.parse(inputData, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(null, "Formato de data inválido!",
+            JOptionPane.showMessageDialog(null, "Formato inválido!",
                     "Cadastro Compra", JOptionPane.ERROR_MESSAGE);
         }
 
