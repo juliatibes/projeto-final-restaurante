@@ -1,44 +1,50 @@
 package model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Receita {
-    private Produto produto;
-    private String descricao;
-    private BigDecimal valorReceita;
+
+    private Integer id;
+    private String nome;
+    private List<ReceitaIngrediente> listaIngredientes =  new ArrayList<>();
     private BigDecimal valorCusto;
+    private BigDecimal valorVenda;
 
-
-
-    public Receita(Produto produto, String descricao, BigDecimal valorReceita, BigDecimal valorCusto) {
-        this.produto = produto;
-        this.descricao = descricao;
-        this.valorReceita = valorReceita;
-        this.valorCusto = valorCusto;
+    public Receita(Integer id, String nome) {
+        this.id = id;
+        this.nome = nome;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public void adicionarIngrediente (ReceitaIngrediente ingrediente){
+        listaIngredientes.add(ingrediente);
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+
+
+    public Integer getId() {
+        return id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setDescricao(String descricao) {
-        descricao = descricao;
+    public String getNome() {
+        return nome;
     }
 
-    public BigDecimal getValorReceita() {
-        return valorReceita;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public void setValorReceita(BigDecimal valorReceita) {
-        this.valorReceita = valorReceita;
+    public List<ReceitaIngrediente> getListaIngredientes() {
+        return listaIngredientes;
+    }
+
+    public void setListaIngredientes(List<ReceitaIngrediente> listaIngredientes) {
+        this.listaIngredientes = listaIngredientes;
     }
 
     public BigDecimal getValorCusto() {
@@ -49,13 +55,22 @@ public class Receita {
         this.valorCusto = valorCusto;
     }
 
+    public BigDecimal getValorVenda() {
+        return valorVenda;
+    }
+
+    public void setValorVenda(BigDecimal valorVenda) {
+        this.valorVenda = valorVenda;
+    }
+
     @Override
     public String toString() {
         return "Receita{" +
-                "produto=" + produto +
-                ", descricao='" + descricao + '\'' +
-                ", valorReceita=" + valorReceita +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", listaIngredientes=" + listaIngredientes +
                 ", valorCusto=" + valorCusto +
+                ", valorVenda=" + valorVenda +
                 '}';
     }
 }

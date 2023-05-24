@@ -31,6 +31,13 @@ public class Produto {
         this.nome = nome;
     }
 
+    public ProdutoEnum getTipoProduto() {
+        return tipoProduto;
+    }
+
+    public void setTipoProduto(ProdutoEnum tipoProduto) {
+        this.tipoProduto = tipoProduto;
+    }
 
     @Override
     public String toString() {
