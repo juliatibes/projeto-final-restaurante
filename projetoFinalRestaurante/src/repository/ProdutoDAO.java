@@ -46,7 +46,7 @@ public class ProdutoDAO {
         public static List<Produto> buscarPorNome(String nome) {
             List<Produto> produtosFiltradas = new ArrayList<>();
             for (Produto produto : listaProdutos) {
-                if (produto.getNome().contains(nome)) {
+                if (produto.getNome().contains(nome))  {
                     produtosFiltradas.add(produto);
                 }
             }
@@ -62,6 +62,19 @@ public class ProdutoDAO {
         }
         return produtosNomes.toArray();
     }
+
+    public static Object[] findprodutosInArrayIngrediente() {
+        List<Produto> produtos = buscaTodos();
+        List<String> produtosNomes = new ArrayList<>();
+
+        for (Produto produto : produtos) {
+            if (produto.getTipoProduto() == ProdutoEnum.INGREDIENTE){
+                produtosNomes.add(produto.getNome());
+            }
+        }
+        return produtosNomes.toArray();
+    }
+
 
     }
 
