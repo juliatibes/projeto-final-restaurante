@@ -1,5 +1,6 @@
 package model;
 
+import javax.annotation.Generated;
 import java.math.BigDecimal;
 
 public class Produto {

@@ -1,12 +1,34 @@
 package repository;
 import model.Produto;
+import model.ProdutoEnum;
+import model.UnidadeMedidaEnum;
 
 import javax.swing.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoDAO {
-    static List<Produto> listaProdutos = new ArrayList<>();
+
+    private Integer id;
+    private String nome;
+    private ProdutoEnum tipoProduto;
+
+    static List<Produto> listaProdutos = new ArrayList<Produto>();
+
+    public ProdutoDAO(Integer id, String nome, ProdutoEnum tipoProduto) {
+        this.id = id;
+        this.nome = nome;
+        this.tipoProduto = tipoProduto;
+    }
+
+    public static void inputDados(){
+        if (ProdutoDAO.listaProdutos.isEmpty()) {
+            listaProdutos.add(new Produto(1, "Arroz", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(2, "Feijão", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(3, "Coca-cola 2L", ProdutoEnum.BEBIBA));
+        }
+    }
 
     public static void salvarListaProdutos(Produto produto) {
         listaProdutos.add(produto);
