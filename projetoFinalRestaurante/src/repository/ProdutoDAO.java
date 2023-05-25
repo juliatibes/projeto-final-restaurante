@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ProdutoDAO {
 
-    static List<Produto> listaProdutos = new ArrayList<Produto>();
+    static List<Produto> listaProdutos = new ArrayList<>();
 
 
     public ProdutoDAO() {

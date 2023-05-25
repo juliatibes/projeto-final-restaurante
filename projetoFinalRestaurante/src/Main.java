@@ -15,6 +15,9 @@ public class Main {
 
 
     public static void main(String[] args) {
+        ProdutoDAO.inputProdutos();
+        CompraDAO.inputCompras();
+        ReceitaDAO.inputReceita();
         chamaMenuPrincipal();
     }
 
