@@ -24,9 +24,12 @@ public class ProdutoDAO {
 
     public static void inputDados(){
         if (ProdutoDAO.listaProdutos.isEmpty()) {
-            listaProdutos.add(new Produto(1, "Arroz", ProdutoEnum.INGREDIENTE));
-            listaProdutos.add(new Produto(2, "Feijão", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(1, "Massa caseira zézé", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(2, "Bacon", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(3, "Coca-cola 2L", ProdutoEnum.BEBIBA));
+            listaProdutos.add(new Produto(4, "Cebolinha Verde", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(5, "ovo", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(6, "Creme de leite", ProdutoEnum.INGREDIENTE));
         }
     }
 
@@ -37,7 +40,7 @@ public class ProdutoDAO {
     public static Integer removerProduto(Produto produto){
         listaProdutos.remove(produto);
         return JOptionPane.showConfirmDialog(null,"Produto excluido com sucesso!",
-                "Remover Produto",JOptionPane.DEFAULT_OPTION);
+                "Remover Produto",JOptionPane.DEFAULT_OPTION,JOptionPane.DEFAULT_OPTION,null);
     }
 
     public static List<Produto> buscaTodos() {

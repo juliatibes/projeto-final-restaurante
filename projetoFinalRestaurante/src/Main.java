@@ -16,6 +16,8 @@ public class Main {
 
     public static void main(String[] args) {
         ProdutoDAO.inputDados();
+        CompraDAO.inputCompras();
+        ReceitaDAO.inputReceita();
         chamaMenuPrincipal();
     }
 
@@ -32,7 +34,7 @@ public class Main {
                 chamaMenuEstoque();
                 break;
             case 2: //Compra
-                cadastroCompra();
+                chamaMenuCadastroCompra();
                 break;
             case 3:// Receitas
                 chamaMenuCadastroReceitas();
@@ -44,9 +46,7 @@ public class Main {
                 // chamaMenuVenda();
                 break;
             case 6:// Relatorios
-                //chamaMenuRelatorios();
-                JOptionPane.showMessageDialog(null, CompraDAO.listarCompras());
-                chamaMenuPrincipal();
+                chamaMenuRelatorios();
                 break;
         }
     }
@@ -143,16 +143,22 @@ public class Main {
     }
 
     private static void chamaMenuCadastroCompra() {
-        String[] opcoesMenuCadastroCompra = {"Adicionar Compra", "Voltar"};
+        String[] opcoesMenuCadastroCompra = {"Cadastrar Compra","Remover Compra","Editar Compra","Voltar"};
         int menuCadastroCompra = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Cadastrar Compras",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroCompra, opcoesMenuCadastroCompra[0]);
 
         switch (menuCadastroCompra) {
-            case 0: //Nova compra
+            case 0: //Adicionar Compra
                 cadastroCompra();
                 break;
-            case 1: //Cancelar
+            case 1: //Remover Compra
+
+                break;
+            case 2: //Editar Compra
+
+                break;
+            case 3: //Voltar
                 chamaMenuPrincipal();
                 break;
         }
@@ -161,38 +167,43 @@ public class Main {
 
     private static void cadastroCompra() {
 
-        UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.KILO, UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.LITRO,
+       try{ UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.KILO, UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.LITRO,
                 UnidadeMedidaEnum.MILILITRO, UnidadeMedidaEnum.UNIDADE};
 
         Integer id = CompraDAO.aiID();
 
         LocalDate dataCompra = LocalDate.now();
         String inputData = JOptionPane.showInputDialog(null, "Digite uma data (formato: dd/MM/yyyy):",
-                "Cadastro Compra", JOptionPane.DEFAULT_OPTION);
+                "Cadastrar Compra", JOptionPane.DEFAULT_OPTION);
         try {
             dataCompra = LocalDate.parse(inputData, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(null, "Formato inválido!",
-                    "Cadastro Compra", JOptionPane.ERROR_MESSAGE);
+                    "Cadastrar Compra", JOptionPane.ERROR_MESSAGE);
+            cadastroCompra();
         }
 
         Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArray();
         String initialSelectionProduto = (String) selectionValuesProdutos[0];
         Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o produto da venda",
-                "Cadastro Compra", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutos, initialSelectionProduto);
+                "Cadastrar Compra", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutos, initialSelectionProduto);
         List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionProduto);
 
         Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a quantidade",
-                "Cadastro Compra", JOptionPane.DEFAULT_OPTION));
-        int tipoUnidadeSelecionado = JOptionPane.showOptionDialog(null, "Escolha a unidade de medida:", "Cadastro de produto",
+                "Cadastrar Compra", JOptionPane.DEFAULT_OPTION));
+        int tipoUnidadeSelecionado = JOptionPane.showOptionDialog(null, "Informe a unidade de medida:",
+                "Cadastrar Compra",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUnidadeMedida, opcoesUnidadeMedida[0]);
         Compra compra = new Compra(id, dataCompra, produtos.get(0), quantidade, opcoesUnidadeMedida[tipoUnidadeSelecionado]);
         CompraDAO.salvarNovaCompra(compra);
-        chamaMenuPrincipal();
+        chamaMenuPrincipal();}
+       catch (NullPointerException nullPointerException){
+           chamaMenuPrincipal(); // tratamento de erro se clica em cancelar ( não sei se esta certo mas funcionou XD)
+       }
     }
 
     public static void chamaMenuCadastroReceitas() {
-        String[] opcoesMenuCadastro = {"Cadastrar Receita", "Remover Receita", "Editar receita", "Voltar"};
+        String[] opcoesMenuCadastro = {"Cadastrar Receita", "Remover Receita", "Editar Receita", "Voltar"};
         int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Receita",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
@@ -202,7 +213,7 @@ public class Main {
                 cadastroReceita();
                 break;
             case 1: //RemoverReceita
-             //   removerReceita();
+                removerReceita();
                 break;
             case 2: //EditarReceita
                 //editarReceita();
@@ -219,37 +230,43 @@ public class Main {
 
         UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.KILO, UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.LITRO,
                 UnidadeMedidaEnum.MILILITRO, UnidadeMedidaEnum.UNIDADE};
+        ReceitaClasseEnum[] opcoesReceitaClasse = {ReceitaClasseEnum.ENTRADA,ReceitaClasseEnum.MASSA,ReceitaClasseEnum.RISOTO,
+                ReceitaClasseEnum.CARNE,ReceitaClasseEnum.SOBREMESA};
 
         Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o ID:",
-                "Cadastro Receita", JOptionPane.DEFAULT_OPTION));
+                "Cadastrar Receita", JOptionPane.DEFAULT_OPTION));
         String nome = JOptionPane.showInputDialog(null, "Informe o nome:",
-                "Cadastro Receita", JOptionPane.DEFAULT_OPTION);
+                "Cadastrar Receita", JOptionPane.DEFAULT_OPTION);
+        int receitaClasseSelecionado = JOptionPane.showOptionDialog(null, "Escolha a classe da receita:",
+                "Cadastrar Receita",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesReceitaClasse, opcoesReceitaClasse[0]);
 
-        Receita receita1 = new Receita(id, nome);
+        Receita receita1 = new Receita(id, nome,opcoesReceitaClasse[receitaClasseSelecionado]);
 
         do {
             Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArrayIngrediente();
             String initialSelectionProduto = (String) selectionValuesProdutos[0];
-            Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o produto da Receita",
-                    "Cadastro Receita", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutos, initialSelectionProduto);
+            Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o ingrediente da Receita",
+                    "Cadastrar Receita", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutos, initialSelectionProduto);
             List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionProduto);
 
             Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe a quantidade",
-                    "Cadastro Receita", JOptionPane.DEFAULT_OPTION));
+                    "Cadastrar Receita", JOptionPane.DEFAULT_OPTION));
 
-            int tipoUnidadeSelecionado = JOptionPane.showOptionDialog(null, "Escolha a unidade de medida:", "Cadastro Receita",
+            int tipoUnidadeSelecionado = JOptionPane.showOptionDialog(null, "Informe a unidade de medida:",
+                    "Cadastrar Receita",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUnidadeMedida, opcoesUnidadeMedida[0]);
 
             ReceitaIngrediente ingrediente = new ReceitaIngrediente(produtos.get(0), quantidade, opcoesUnidadeMedida[tipoUnidadeSelecionado]);
             receita1.adicionarIngrediente(ingrediente);
 
-            String[] opcoesMenuCadastroReceita = {"Adicionar Novo Ingrediente", "Remover ingrediente", "Finalizar Cadastro"};
+            String[] opcoesMenuCadastroReceita = {"Adicionar Novo Ingrediente", "Remover ingrediente", "Finalizar Cadastro Ingrediente"};
             int menuCadastroReceita = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                    "Cadastrar Ingrediente Receita",
+                    "Cadastrar Receita Ingredientes",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroReceita, opcoesMenuCadastroReceita[0]);
 
             switch (menuCadastroReceita) {
-                case 0: //NovoCadastro
+                case 0: //Adicionar Novo Ingrediente
 
                     break;
                 case 1: //RemoverIngrediente
@@ -262,7 +279,7 @@ public class Main {
         }
         while (x <= 0);
 
-        String[] opcoesMenuCadastroReceita = {"Novo Cadastro", "Cancelar", "Finalizar Cadastro"};
+        String[] opcoesMenuCadastroReceita = {"Novo Cadastro Receita", "Cancelar", "Finalizar Cadastro Receita"};
         int menuCadastroReceita = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Cadastrar Receita",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroReceita, opcoesMenuCadastroReceita[0]);
@@ -283,4 +300,45 @@ public class Main {
 
         }
     }
+    private static void removerReceita() {
+
+        Object[] selectionValuesReceita = ReceitaDAO.findreceitasInArray();
+        String initialSelectionReceita = (String) selectionValuesReceita[0];
+        Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o produto para remover:",
+                "Remover Produto", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
+        List<Receita> receitas = ReceitaDAO.buscarPorNome((String) selectionProduto);
+        ReceitaDAO.removerReceita(receitas.get(0));
+        chamaMenuCadastroReceitas();
+    }
+
+    public static void chamaMenuRelatorios (){
+        String[] opcoesMenuRelatorio = {"Compras","Vendas","ProdutoTeste","ReceitaTeste"};
+        int menuRelatorios = JOptionPane.showOptionDialog(null,"Escolha uma opção:",
+                "Relatorios",
+                JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,opcoesMenuRelatorio,opcoesMenuRelatorio[0]);
+
+        switch (menuRelatorios){
+
+            case 0: //Compras
+                JOptionPane.showMessageDialog(null,CompraDAO.buscarTodos());
+                chamaMenuPrincipal();
+                break;
+            case 1: //Vendas
+                chamaMenuPrincipal();
+                break;
+            case 2: //ProdutoTeste
+                JOptionPane.showMessageDialog(null,ProdutoDAO.buscaTodos());
+                chamaMenuPrincipal();
+                break;
+            case 3: //ReceitaTeste
+                JOptionPane.showMessageDialog(null,ReceitaDAO.buscaTodos());
+                chamaMenuPrincipal();
+                break;
+        }
+    }
+
+
+
+
+
 }

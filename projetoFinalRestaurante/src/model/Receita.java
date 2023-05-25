@@ -9,12 +9,15 @@ public class Receita {
     private Integer id;
     private String nome;
     private List<ReceitaIngrediente> listaIngredientes =  new ArrayList<>();
+    private ReceitaClasseEnum receitaClasse;
     private BigDecimal valorCusto;
     private BigDecimal valorVenda;
 
-    public Receita(Integer id, String nome) {
+
+    public Receita(Integer id, String nome, ReceitaClasseEnum receitaClasse) {
         this.id = id;
         this.nome = nome;
+        this.receitaClasse = receitaClasse;
     }
 
     public void adicionarIngrediente (ReceitaIngrediente ingrediente){
@@ -47,6 +50,14 @@ public class Receita {
         this.listaIngredientes = listaIngredientes;
     }
 
+    public ReceitaClasseEnum getReceitaClasse() {
+        return receitaClasse;
+    }
+
+    public void setReceitaClasse(ReceitaClasseEnum receitaClasse) {
+        this.receitaClasse = receitaClasse;
+    }
+
     public BigDecimal getValorCusto() {
         return valorCusto;
     }
@@ -69,6 +80,7 @@ public class Receita {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", listaIngredientes=" + listaIngredientes +
+                ", receitaClasse=" + receitaClasse +
                 ", valorCusto=" + valorCusto +
                 ", valorVenda=" + valorVenda +
                 '}';

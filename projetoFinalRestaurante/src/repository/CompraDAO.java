@@ -27,9 +27,14 @@ public class CompraDAO {
         this.unidadeMedida = unidadeMedida;
     }
 
-    public static void inputirdados(){
+    public static void inputCompras(){
         if (CompraDAO.listaCompras.isEmpty()) {
-            CompraDAO compraDAO = new CompraDAO(10, LocalDate.now(), ProdutoDAO.listaProdutos.get(0), 5.0, UnidadeMedidaEnum.UNIDADE);
+            listaCompras.add(new Compra(1, LocalDate.now(), ProdutoDAO.listaProdutos.get(0), 5000.0, UnidadeMedidaEnum.GRAMA));
+            listaCompras.add(new Compra(2, LocalDate.now(), ProdutoDAO.listaProdutos.get(1), 500.0, UnidadeMedidaEnum.GRAMA));
+            listaCompras.add(new Compra(3, LocalDate.now(), ProdutoDAO.listaProdutos.get(2), 5.0, UnidadeMedidaEnum.UNIDADE));
+            listaCompras.add(new Compra(4, LocalDate.now(), ProdutoDAO.listaProdutos.get(3), 200.0, UnidadeMedidaEnum.GRAMA));
+            listaCompras.add(new Compra(5, LocalDate.now(), ProdutoDAO.listaProdutos.get(4), 5.0, UnidadeMedidaEnum.UNIDADE));
+            listaCompras.add(new Compra(6, LocalDate.now(), ProdutoDAO.listaProdutos.get(5), 300.0, UnidadeMedidaEnum.GRAMA));
         }
     }
 
@@ -41,7 +46,7 @@ public class CompraDAO {
     public static void salvarNovaCompra(Compra produto) {
         listaCompras.add(produto);
     }
-    public static List<Compra> listarCompras() {
+    public static List<Compra> buscarTodos() {
         return listaCompras;
     }
 
