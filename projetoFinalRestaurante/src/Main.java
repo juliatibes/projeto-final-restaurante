@@ -1,8 +1,5 @@
 import model.*;
-import repository.ClienteDAOExemplo;
-import repository.CompraDAO;
-import repository.ProdutoDAO;
-import repository.ReceitaDAO;
+import repository.*;
 import sun.security.mscapi.CPublicKey;
 
 import javax.swing.*;
@@ -11,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import static repository.PlanejamentoProducaoDAO.planeja;
 import static repository.ProdutoDAO.inputDados;
 
 public class Main {
@@ -63,17 +61,17 @@ public class Main {
     }
 
     private static void chamaMenuPlanejamento() {
-        String[] opcoesMenuPlanejamento = {"Planejado", "Produzido", "Voltar"};
+        String[] opcoesMenuPlanejamento = {"Cadastrar planejamento", "Planejamento", "Voltar"};
         int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Cadastrar",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
 
         switch (menuPlanejamento) {
-            case 0: //Planejado
-                // chamaCadastroPlanejado();
+            case 0: //Cadastrar Planejamento
+                //cadastroPlanejamento();
                 break;
-            case 1: //Produzido
-                // chamaCadastroProduzido();
+            case 1: //Planejado
+               // planeja()
                 break;
             case 2: //Voltar
                 chamaMenuPrincipal();
