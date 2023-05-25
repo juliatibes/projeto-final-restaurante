@@ -12,19 +12,8 @@ import java.util.List;
 
 public class CompraDAO {
 
-    private Integer id;
-    private LocalDate dataCompra;
-    private Produto produto;
-    private Double quantidade;
-    private UnidadeMedidaEnum unidadeMedida;
-
-
-    public CompraDAO(Integer id, LocalDate dataCompra, Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedida) {
-        this.id = id;
-        this.dataCompra = dataCompra;
-        this.produto = produto;
-        this.quantidade = quantidade;
-        this.unidadeMedida = unidadeMedida;
+    public CompraDAO() {
+        inputCompras();
     }
 
     public static void inputCompras(){

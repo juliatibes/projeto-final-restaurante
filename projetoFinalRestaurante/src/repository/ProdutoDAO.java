@@ -10,19 +10,14 @@ import java.util.List;
 
 public class ProdutoDAO {
 
-    private Integer id;
-    private String nome;
-    private ProdutoEnum tipoProduto;
-
     static List<Produto> listaProdutos = new ArrayList<Produto>();
 
-    public ProdutoDAO(Integer id, String nome, ProdutoEnum tipoProduto) {
-        this.id = id;
-        this.nome = nome;
-        this.tipoProduto = tipoProduto;
+
+    public ProdutoDAO() {
+        inputProdutos();
     }
 
-    public static void inputDados(){
+    public static void inputProdutos(){
         if (ProdutoDAO.listaProdutos.isEmpty()) {
             listaProdutos.add(new Produto(1, "Massa caseira zézé", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(2, "Bacon", ProdutoEnum.INGREDIENTE));

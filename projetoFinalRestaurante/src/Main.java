@@ -9,15 +9,12 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import static repository.PlanejamentoProducaoDAO.planeja;
-import static repository.ProdutoDAO.inputDados;
+
 
 public class Main {
 
 
     public static void main(String[] args) {
-        ProdutoDAO.inputDados();
-        CompraDAO.inputCompras();
-        ReceitaDAO.inputReceita();
         chamaMenuPrincipal();
     }
 

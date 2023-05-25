@@ -11,15 +11,19 @@ import java.util.List;
 public class ReceitaDAO {
     static List<Receita> listaReceita = new ArrayList<>();
 
+    public ReceitaDAO() {
+        inputReceita();
+    }
 
     public static void inputReceita(){
+        if (ReceitaDAO.listaReceita.isEmpty()) {
        Receita receita1 = new Receita(10,"Massa Carbonara",ReceitaClasseEnum.MASSA);
        receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0),200.0,UnidadeMedidaEnum.GRAMA ));
        receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(1),50.0,UnidadeMedidaEnum.GRAMA ));
         receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(3),30.0,UnidadeMedidaEnum.GRAMA ));
         receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(4),2.0,UnidadeMedidaEnum.UNIDADE ));
         receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(5),100.0,UnidadeMedidaEnum.MILILITRO ));
-       listaReceita.add(receita1);
+       listaReceita.add(receita1);}
 
     }
 
