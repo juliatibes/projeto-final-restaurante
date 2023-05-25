@@ -12,5 +12,5 @@ public class CardapioDAO {
 
     public static void salvarNovaReceita(Cardapio produto) { listaCardapio.add(produto);}
 
-    public static List<Cardapio> listarCompras() {return listaCardapio;}
+    public static List<Cardapio> buscarTodos() {return listaCardapio;}
 }
