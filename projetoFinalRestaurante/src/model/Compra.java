@@ -61,17 +61,12 @@ public class Compra {
     }
 
     public Integer converterUnidadeMedida {
-       return
+
                if (unidadeMedida = KILOGRAMA){
             unidadeMedida = unidadeMedida * 1000;
-        if (unidadeMedida = RAMA ){
-            unidadeMedida = unidadeMedida / 1000;
+        if (unidadeMedida = LITRO ){
+            unidadeMedida = unidadeMedida * 1000;
         }}
-    }
-    public double converterGramaaraKg(double grama){
-
-        return 0.001*grama;
-
     }
 
 
