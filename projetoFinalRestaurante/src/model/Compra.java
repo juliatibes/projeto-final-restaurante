@@ -60,13 +60,16 @@ public class Compra {
         this.unidadeMedida = unidadeMedida;
     }
 
-    public Integer converterUnidadeMedida {
+    public Integer converterUnidadeMedida
 
-               if (unidadeMedida = KILOGRAMA){
+    {
+
+        if (unidadeMedida = KILOGRAMA) {
             unidadeMedida = unidadeMedida * 1000;
-        if (unidadeMedida = LITRO ){
-            unidadeMedida = unidadeMedida * 1000;
-        }}
+            if (unidadeMedida = LITRO) {
+                unidadeMedida = unidadeMedida * 1000;
+            }
+        }
     }
 
 
