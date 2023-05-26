@@ -1,5 +1,6 @@
 package model;
 
+import javax.annotation.Generated;
 import java.math.BigDecimal;
 
 public class Produto {
@@ -30,6 +31,13 @@ public class Produto {
         this.nome = nome;
     }
 
+    public ProdutoEnum getTipoProduto() {
+        return tipoProduto;
+    }
+
+    public void setTipoProduto(ProdutoEnum tipoProduto) {
+        this.tipoProduto = tipoProduto;
+    }
 
     @Override
     public String toString() {
