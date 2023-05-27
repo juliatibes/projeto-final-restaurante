@@ -1,6 +1,6 @@
 import model.*;
 import repository.*;
-import sun.security.mscapi.CPublicKey;
+
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -68,7 +68,7 @@ public class Main {
 
         switch (menuPlanejamento) {
             case 0: //Cadastrar Planejamento
-                //cadastroPlanejamento();
+                cadastroPlanejamento();
                 break;
             case 1: //Planejado
                // planeja()
@@ -77,6 +77,22 @@ public class Main {
                 chamaMenuPrincipal();
                 break;
         }
+
+    }
+
+    private static void cadastroPlanejamento(){
+        LocalDate dataPlanejamento = LocalDate.now();
+        String inputData = JOptionPane.showInputDialog(null, "Digite uma data (formato: dd/MM/yyyy):",
+                "Cadastrar Planejamento", JOptionPane.DEFAULT_OPTION);
+        try {
+            dataPlanejamento = LocalDate.parse(inputData, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Formato inválido!",
+                    "Cadastrar Planejamento", JOptionPane.ERROR_MESSAGE);
+            chamaMenuPlanejamento();
+        }
+
+
     }
 
     private static void chamaMenuEstoque() {
