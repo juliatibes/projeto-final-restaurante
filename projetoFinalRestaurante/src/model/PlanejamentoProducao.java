@@ -13,6 +13,7 @@ public class PlanejamentoProducao {
     private UnidadeMedidaEnum unidadeMedida;
 
 
+
     public PlanejamentoProducao(Integer id, Receita receita, Double quantidadePlanejada,
                                 UnidadeMedidaEnum unidadeMedida, LocalDate diaPlanejado) {
         this.id = id;
