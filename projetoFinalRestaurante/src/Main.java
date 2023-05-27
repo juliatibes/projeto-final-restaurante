@@ -216,7 +216,7 @@ public class Main {
                 removerReceita();
                 break;
             case 2: //EditarReceita
-                //editarReceita();
+                editarReceita();
                 break;
             case 3: //Voltar
                 chamaMenuPrincipal();
@@ -260,7 +260,7 @@ public class Main {
             ReceitaIngrediente ingrediente = new ReceitaIngrediente(produtos.get(0), quantidade, opcoesUnidadeMedida[tipoUnidadeSelecionado]);
             receita1.adicionarIngrediente(ingrediente);
 
-            String[] opcoesMenuCadastroReceita = {"Adicionar Novo Ingrediente", "Remover ingrediente", "Finalizar Cadastro Ingrediente"};
+            String[] opcoesMenuCadastroReceita = {"Adicionar Novo Ingrediente", "Finalizar Cadastro Ingrediente"};
             int menuCadastroReceita = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                     "Cadastrar Receita Ingredientes",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroReceita, opcoesMenuCadastroReceita[0]);
@@ -269,10 +269,7 @@ public class Main {
                 case 0: //Adicionar Novo Ingrediente
 
                     break;
-                case 1: //RemoverIngrediente
-                    x = 3;
-                    break;
-                case 2: //Finaliza Cadastro
+                case 1: //Finaliza Cadastro Ingrediente
                     x = 2;
                     break;
             }
@@ -304,11 +301,121 @@ public class Main {
 
         Object[] selectionValuesReceita = ReceitaDAO.findreceitasInArray();
         String initialSelectionReceita = (String) selectionValuesReceita[0];
-        Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o produto para remover:",
-                "Remover Produto", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
-        List<Receita> receitas = ReceitaDAO.buscarPorNome((String) selectionProduto);
-        ReceitaDAO.removerReceita(receitas.get(0));
+        Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione a receita para remover:",
+                "Remover Receita", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
+        Integer receitas = ReceitaDAO.buscaPosicaoReceita((String) selectionProduto);
+        ReceitaDAO.removerReceita(receitas);
         chamaMenuCadastroReceitas();
+    }
+
+    private static void editarReceita() {
+
+        ReceitaClasseEnum[] opcoesReceitaClasse = {ReceitaClasseEnum.ENTRADA,ReceitaClasseEnum.MASSA,ReceitaClasseEnum.RISOTO,
+                ReceitaClasseEnum.CARNE,ReceitaClasseEnum.SOBREMESA};
+
+        Object[] selectionValuesReceita = ReceitaDAO.findreceitasInArray();
+        String initialSelectionReceita = (String) selectionValuesReceita[0];
+        Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione a receita para editar:",
+                "Editar Receita", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
+        Integer receitas = ReceitaDAO.buscaPosicaoReceita((String) selectionProduto);
+
+        String[] opcoesEditarReceita = {"ID", "Nome","Classe","Ingredientes"};
+            int menuEditarReceita = JOptionPane.showOptionDialog(null, "Escolha a opção que você deseja editar do(a) " +
+                            ReceitaDAO.buscaTodos().get(receitas).getNome()+":", "Editar Receita",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesEditarReceita, opcoesEditarReceita[0]);
+
+        switch (menuEditarReceita) {
+            case 0: //editarReceitaID
+                Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o NOVO ID da(o) "+
+                        ReceitaDAO.buscaTodos().get(receitas).getNome()+":", "Editar Receita", JOptionPane.DEFAULT_OPTION));
+                ReceitaDAO.editarReceitaId(receitas, id);
+                chamaMenuPrincipal();
+                break;
+            case 1: //editarReceitaNome
+                String nome = JOptionPane.showInputDialog(null, "Informe o NOVO NOME para substiruir "
+                                +ReceitaDAO.buscaTodos().get(receitas).getNome()+":", "Editar Receita", JOptionPane.DEFAULT_OPTION);
+                ReceitaDAO.editarReceitaNome(receitas, nome);
+                chamaMenuPrincipal();
+                break;
+            case 2: //editarReceitaClasse
+                int receitaClasseSelecionado = JOptionPane.showOptionDialog(null, "Escolha a NOVA CLASSE do(a) "+
+                                ReceitaDAO.buscaTodos().get(receitas).getNome()+":", "Editar Receita",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesReceitaClasse, opcoesReceitaClasse[0]);
+                ReceitaDAO.editarReceitaClasse(receitas,opcoesReceitaClasse[receitaClasseSelecionado]);
+                chamaMenuPrincipal();
+
+            case 3: // editarReceitaIngredientes
+                Integer contadorWhile = 0;
+
+                UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.KILO, UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.LITRO,
+                        UnidadeMedidaEnum.MILILITRO, UnidadeMedidaEnum.UNIDADE};
+
+                Object[] selectionValuesReceitaIngrediente = ReceitaDAO.findReceitasIngredientesInArray(((String) selectionProduto));
+                String initialSelectionReceitaIngrediente = (String) selectionValuesReceita[0];
+                Object selectionReceitaIngrediente = JOptionPane.showInputDialog(null, "Selecione o ingrediente da "
+                                +ReceitaDAO.buscaTodos().get(receitas).getNome()+" que você deseja editar:",
+                        "Editar Receita Ingredientes", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaIngrediente,
+                        initialSelectionReceitaIngrediente);
+                Integer receitaIngredientes = ReceitaDAO.buscaPosicaoReceitaIngrediente(receitas, (String) selectionReceitaIngrediente);
+
+                String nomeIngredienteEditarReceitaIngrediente = ReceitaDAO.buscaTodos().get(receitas).
+                        getListaIngredientes().get(receitaIngredientes).getProduto().getNome();
+
+               do { String[] opcoesEditarReceitaIngrediente = {"Ingrediente", "Quantidade", "Unidade de medida"};
+                    int menuEditarReceitaIngrediente = JOptionPane.showOptionDialog(null, "Escolha a opção que você deseja editar do(a) "
+                                +nomeIngredienteEditarReceitaIngrediente+":", "Editar Receita Ingrediente",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                        opcoesEditarReceitaIngrediente, opcoesEditarReceitaIngrediente[0]);
+
+              switch (menuEditarReceitaIngrediente) {
+                      case 0: //NovoIngrediente
+
+                          Object[] selectionValuesNovoIngrediente = ProdutoDAO.findprodutosInArrayIngrediente();
+                          String initialSelectionNovoIngrediente = (String) selectionValuesNovoIngrediente[0];
+                          Object selectionNovoIngrediente = JOptionPane.showInputDialog(null, "Selecione o NOVO INGREDIENTE para subtituir o(a) "+
+                                          nomeIngredienteEditarReceitaIngrediente+":", "Editar Receita Ingrediente", JOptionPane.DEFAULT_OPTION, null,
+                                  selectionValuesNovoIngrediente, initialSelectionNovoIngrediente);
+                          List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionNovoIngrediente);
+
+                          ReceitaDAO.editarReceitaIngrediente(receitas, receitaIngredientes, produtos.get(0));
+                          break;
+                      case 1: //NovaQuantidade
+                          Double novaQuantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe a NOVA QUANTIDADE do(a) "
+                                          +nomeIngredienteEditarReceitaIngrediente+":",
+                                  "Editar Receita Ingrediente", JOptionPane.DEFAULT_OPTION));
+                          ReceitaDAO.editarReceitaIngredienteQtd(receitas,receitaIngredientes,novaQuantidade);
+
+                          break;
+                      case 2: //NovaUnidade de medida
+                          int tipoNovaUnidadeSelecionada = JOptionPane.showOptionDialog(null, "Escolha a NOVA UNIDADE DE MEDIDA do(a) "+
+                                          nomeIngredienteEditarReceitaIngrediente+":", "Editar Receita Ingrediente",
+                                  JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUnidadeMedida, opcoesUnidadeMedida[0]);
+                          ReceitaDAO.editarReceitaIngredienteUM(receitas,receitaIngredientes,opcoesUnidadeMedida[tipoNovaUnidadeSelecionada]);
+                          break;
+                  }
+
+                  String[] opcoesEditarOutraReceitaIngrediente = {"Sim", "Não"};
+                   int menuEditarOutraReceitaIngrediente = JOptionPane.showOptionDialog(null,
+                           "Você deseja editar outra informação do(a) "
+                                   +ReceitaDAO.buscaTodos().get(receitas).getListaIngredientes().get(receitaIngredientes).getProduto().getNome()+
+                                   "?", "Editar Receita Ingrediente",
+                           JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+                           opcoesEditarOutraReceitaIngrediente, opcoesEditarOutraReceitaIngrediente[0]);
+                        switch (menuEditarOutraReceitaIngrediente) {
+
+                            case 0://SIM
+
+                                break;
+                            case 1://NÃO
+                                contadorWhile = 2;
+                                chamaMenuPrincipal();
+                                break;
+                        }
+               } while (contadorWhile <= 0);
+
+                break;
+
+        }
     }
 
     public static void chamaMenuRelatorios (){
