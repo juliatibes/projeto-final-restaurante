@@ -447,7 +447,7 @@ public class Main {
                 Object selectionProdutoBebida = JOptionPane.showInputDialog(null, "Selecione a bebida",
                         "Cardapio Bebida", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutos, initialSelectionProduto);
                 break;
-            case 1: // Entrada
+            case 1: // Entradas
 
                 break;
             case 2: // Massas
