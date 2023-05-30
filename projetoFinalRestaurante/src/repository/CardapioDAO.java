@@ -15,7 +15,7 @@ public class CardapioDAO {
 
     public static List<Cardapio> buscarTodos() {return listaCardapio;}
 
-    public static Object[] findcardapioInArray() {
+    public static Object[] findcardapiosInArray() {
         List<Produto> produtos = ProdutoDAO.buscaTodos();
         List<String> bebidasNomes = new ArrayList<>();
 
