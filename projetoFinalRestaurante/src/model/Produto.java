@@ -2,6 +2,7 @@ package model;
 
 import javax.annotation.Generated;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Produto {
     private Integer id;
@@ -37,6 +38,19 @@ public class Produto {
 
     public void setTipoProduto(ProdutoEnum tipoProduto) {
         this.tipoProduto = tipoProduto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

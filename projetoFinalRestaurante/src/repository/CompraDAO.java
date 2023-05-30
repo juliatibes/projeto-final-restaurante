@@ -9,14 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class CompraDAO {
 
-    public CompraDAO() {
-        inputCompras();
-    }
+    static List<Compra> listaCompras = new ArrayList<>();
 
-    public static void inputCompras(){
+    public static void inputCompras() {
         if (CompraDAO.listaCompras.isEmpty()) {
             listaCompras.add(new Compra(1, LocalDate.now(), ProdutoDAO.listaProdutos.get(0), 5000.0, UnidadeMedidaEnum.GRAMA));
             listaCompras.add(new Compra(2, LocalDate.now(), ProdutoDAO.listaProdutos.get(1), 500.0, UnidadeMedidaEnum.GRAMA));
@@ -27,23 +24,21 @@ public class CompraDAO {
         }
     }
 
-
-
-    static List<Compra> listaCompras = new ArrayList<>();
-
-
-    public static void salvarNovaCompra(Compra produto) {
-        listaCompras.add(produto);
+    public static void salvarNovaCompra(Compra compra) {
+        listaCompras.add(compra);
+        EstoqueDAO.salvarProdutoEstoque(compra.getProduto(), compra.getQuantidade(), compra.getUnidadeMedida());
     }
+
     public static List<Compra> buscarTodos() {
+        inputCompras();
         return listaCompras;
     }
 
-    public static Integer aiID(){
+    public static Integer aiID() {
         Integer id = listaCompras.size() + 1;
         return id;
     }
 
 
-    }
+}
 
