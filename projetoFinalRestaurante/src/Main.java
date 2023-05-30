@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.EnumMap;
 import java.util.List;
 
 import static repository.PlanejamentoProducaoDAO.planeja;
@@ -431,6 +432,43 @@ public class Main {
 
                 break;
 
+        }
+    }
+    private static void chamaMenuCardapio() {
+        String[] opcoesMenuCardapio = {"Bebidas","Entradas" , "Massas", "Risotos", "Carnes", "Sobremesas", "Prato do dia", "Voltar"};
+        int opcaoMenuCardapio = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Menu de Cardápio",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCardapio, opcoesMenuCardapio[0]);
+
+        switch (opcaoMenuCardapio) {
+            case 0: // Bebidas
+                Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArrayIngrediente();
+                String initialSelectionProduto = (String) selectionValuesProdutos[0];
+                Object selectionProdutoBebida = JOptionPane.showInputDialog(null, "Selecione a bebida",
+                        "Cardapio Bebida", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutos, initialSelectionProduto);
+                break;
+            case 1: // Entradas
+
+                break;
+            case 2: // Massas
+
+                break;
+            case 3: // Risotos
+
+                break;
+            case 4: // Carnes
+
+                break;
+            case 5: // Sobremesas
+
+                break;
+
+            case 6: // Prato do dia
+
+                break;
+            case 7: // Voltar
+                chamaMenuPrincipal();
+                break;
         }
     }
 
