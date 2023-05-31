@@ -240,8 +240,10 @@ public class Main {
         int receitaClasseSelecionado = JOptionPane.showOptionDialog(null, "Escolha a classe da receita:",
                 "Cadastrar Receita",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesReceitaClasse, opcoesReceitaClasse[0]);
+        BigDecimal valorCusto = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null,"Infome o valor de custo:",
+                "Cadastrar Receita", JOptionPane.DEFAULT_OPTION)));
 
-        Receita receita1 = new Receita(id, nome,opcoesReceitaClasse[receitaClasseSelecionado]);
+        Receita receita1 = new Receita(id, nome,opcoesReceitaClasse[receitaClasseSelecionado],valorCusto);
 
         do {
             Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArrayIngrediente();
@@ -319,7 +321,7 @@ public class Main {
                 "Editar Receita", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
         Integer receitas = ReceitaDAO.buscaPosicaoReceita((String) selectionProduto);
 
-        String[] opcoesEditarReceita = {"ID", "Nome","Classe","Ingredientes"};
+        String[] opcoesEditarReceita = {"ID", "Nome","Classe","Valor de custo","Ingredientes"};
             int menuEditarReceita = JOptionPane.showOptionDialog(null, "Escolha a opção que você deseja editar do(a) " +
                             ReceitaDAO.buscaTodos().get(receitas).getNome()+":", "Editar Receita",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesEditarReceita, opcoesEditarReceita[0]);
@@ -343,8 +345,15 @@ public class Main {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesReceitaClasse, opcoesReceitaClasse[0]);
                 ReceitaDAO.editarReceitaClasse(receitas,opcoesReceitaClasse[receitaClasseSelecionado]);
                 chamaMenuPrincipal();
+            case 3: //editarReceitaValorCusto
+                BigDecimal valorCusto = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null,
+                        "Informe o NOVO VALOR DE CUSTO do(a) "+ReceitaDAO.buscaTodos().get(receitas).getNome()+":",
+                        "Editar Receita", JOptionPane.DEFAULT_OPTION)));
+                ReceitaDAO.editarReceitaValorCusto(receitas, valorCusto);
+                chamaMenuPrincipal();
+                break;
 
-            case 3: // editarReceitaIngredientes
+            case 4: // editarReceitaIngredientes
                 Integer contadorWhile = 0;
 
                 UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.KILO, UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.LITRO,
