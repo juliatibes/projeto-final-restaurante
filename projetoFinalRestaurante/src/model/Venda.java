@@ -3,27 +3,29 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Venda {
+    private static final AtomicInteger count = new AtomicInteger(0);
     private Integer id;
     private LocalDate dataVenda;
     private Receita receita;
-    private UnidadeMedidaEnum unidadeMedida;
+    private FormaPagamentoEnum formaPagamento;
 
-    public Venda(Integer id, LocalDate dataVenda, Receita receita, UnidadeMedidaEnum unidadeMedida) {
-        this.id = id;
+    public Venda(Receita receita, FormaPagamentoEnum formaPagamento) {
+        this.id = count.incrementAndGet();
         this.dataVenda = LocalDate.now();
         this.receita = receita;
-        this.unidadeMedida = unidadeMedida;
+        this.formaPagamento = formaPagamento;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public LocalDate getDataVenda() {
         return dataVenda;
@@ -41,12 +43,12 @@ public class Venda {
         this.receita = receita;
     }
 
-    public UnidadeMedidaEnum getUnidadeMedida() {
-        return unidadeMedida;
+    public FormaPagamentoEnum getFormaPagamento() {
+        return formaPagamento;
     }
 
-    public void setUnidadeMedida(UnidadeMedidaEnum unidadeMedida) {
-        this.unidadeMedida = unidadeMedida;
+    public void setFormaPagamento(FormaPagamentoEnum formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class Venda {
                 "id=" + id +
                 ", dataVenda=" + dataVenda +
                 ", receita=" + receita +
-                ", unidadeMedida=" + unidadeMedida +
+                ", formaPagamento=" + formaPagamento +
                 '}';
     }
 }
