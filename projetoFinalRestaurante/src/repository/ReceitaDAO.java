@@ -9,6 +9,7 @@ import java.util.List;
 
 
 public class ReceitaDAO {
+
     static List<Receita> listaReceita = new ArrayList<>();
 
     public ReceitaDAO() {
@@ -17,7 +18,7 @@ public class ReceitaDAO {
 
     public static void inputReceita(){
         if (ReceitaDAO.listaReceita.isEmpty()) {
-       Receita receita1 = new Receita(10,"Massa Carbonara",ReceitaClasseEnum.MASSA);
+       Receita receita1 = new Receita(10,"Massa Carbonara",ReceitaClasseEnum.MASSA,BigDecimal.valueOf(25.00));
        receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0),200.0,UnidadeMedidaEnum.GRAMA ));
        receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(1),50.0,UnidadeMedidaEnum.GRAMA ));
         receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(3),30.0,UnidadeMedidaEnum.GRAMA ));
@@ -47,6 +48,14 @@ public class ReceitaDAO {
         String nomeReceita = listaReceita.get(posicaoReceita).getNome();
         listaReceita.get(posicaoReceita).setReceitaClasse(receitaClasseEnum);
         return JOptionPane.showConfirmDialog(null, "A classe da(o) " + nomeReceita + " foi editada com sucesso!",
+                "Editar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+    }
+    public static Integer editarReceitaValorCusto(Integer posicaoReceita, BigDecimal valorCusto){
+        String nomeReceita = listaReceita.get(posicaoReceita).getNome();
+        listaReceita.get(posicaoReceita).setValorCusto(valorCusto);
+        listaReceita.get(posicaoReceita).setValorVenda(valorCusto.add(valorCusto.multiply(
+                BigDecimal.valueOf(100).divide(BigDecimal.valueOf(100)))));
+        return JOptionPane.showConfirmDialog(null, "O valor de custo da(o) " + nomeReceita + " foi editado com sucesso!",
                 "Editar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
     }
 

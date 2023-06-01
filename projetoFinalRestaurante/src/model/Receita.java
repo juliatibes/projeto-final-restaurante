@@ -14,17 +14,22 @@ public class Receita {
     private BigDecimal valorVenda;
 
 
-    public Receita(Integer id, String nome, ReceitaClasseEnum receitaClasse) {
+    public Receita(Integer id, String nome, ReceitaClasseEnum receitaClasse,BigDecimal valorCusto) {
         this.id = id;
         this.nome = nome;
         this.receitaClasse = receitaClasse;
+        this.valorCusto = valorCusto;
+        this.valorVenda = calculaValorVenda(valorCusto);
     }
 
     public void adicionarIngrediente (ReceitaIngrediente ingrediente){
         listaIngredientes.add(ingrediente);
     }
 
-
+    public BigDecimal calculaValorVenda(BigDecimal valorCusto){
+       valorVenda = valorCusto.add(valorCusto.multiply(BigDecimal.valueOf(100).divide(BigDecimal.valueOf(100))));
+        return valorVenda;
+    }
 
     public Integer getId() {
         return id;
