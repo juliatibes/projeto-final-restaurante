@@ -10,12 +10,14 @@ public class Venda {
     private Integer id;
     private LocalDate dataVenda;
     private Receita receita;
+    private Integer quantidade;
     private FormaPagamentoEnum formaPagamento;
 
-    public Venda(Receita receita, FormaPagamentoEnum formaPagamento) {
+    public Venda(Receita receita, Integer quantidade, FormaPagamentoEnum formaPagamento) {
         this.id = count.incrementAndGet();
         this.dataVenda = LocalDate.now();
         this.receita = receita;
+        this.quantidade = quantidade;
         this.formaPagamento = formaPagamento;
     }
 
@@ -43,6 +45,14 @@ public class Venda {
         this.receita = receita;
     }
 
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
     public FormaPagamentoEnum getFormaPagamento() {
         return formaPagamento;
     }
@@ -57,6 +67,7 @@ public class Venda {
                 "id=" + id +
                 ", dataVenda=" + dataVenda +
                 ", receita=" + receita +
+                ", quantidade=" + quantidade +
                 ", formaPagamento=" + formaPagamento +
                 '}';
     }
