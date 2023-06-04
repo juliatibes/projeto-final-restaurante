@@ -104,7 +104,7 @@ public class Main {
 
         switch (menuCadastro) {
             case 0: //CadastrarProduto
-                cadastroProduto();
+                menuCadastroProduto();
                 break;
             case 1: //RemoverProduto
                 removerProduto();
@@ -114,18 +114,35 @@ public class Main {
                 break;
         }
     }
+    private static void menuCadastroProduto(){
+        String[] opcoesMenuCadastro = {"Bebida", "Ingrediente", "Voltar"};
+        int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha o tipo de produto que deseja cadastrar:",
+                "Cadastro Produto",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
 
-    private static void cadastroProduto() {
+        switch (menuCadastro) {
+            case 0: //CadastrarProdutoBebida
+                cadastroProdutoBebida();
+                break;
+            case 1: //RemoverProdutoIngrediente
+                cadastroProdutoIngrediente();
+                break;
+            case 2: //Voltar
+                chamaMenuEstoque();
+                break;
+        }
 
-        ProdutoEnum[] opcoesTipoProduto = {ProdutoEnum.BEBIBA, ProdutoEnum.INGREDIENTE};
+    }
+    private static void cadastroProdutoIngrediente() {
 
-        Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o id do item",
-                "Cadastro Produto", JOptionPane.DEFAULT_OPTION));
-        String nomeProduto = JOptionPane.showInputDialog(null, "Digite o nome do item",
-                "Cadastro Produto", JOptionPane.DEFAULT_OPTION);
-        int ProdutoSelecionado = JOptionPane.showOptionDialog(null, "Escolha o tipo de produto:", "Cadastro Produto",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesTipoProduto, opcoesTipoProduto[0]);
-        Produto produto1 = new Produto(id, nomeProduto, opcoesTipoProduto[ProdutoSelecionado]);
+        ProdutoEnum[] opcoesTipoPagamento = {ProdutoEnum.BEBIBA, ProdutoEnum.INGREDIENTE};
+
+        Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o id:",
+                "Cadastro Produto Ingrediente", JOptionPane.DEFAULT_OPTION));
+        String nomeProduto = JOptionPane.showInputDialog(null, "Informe o nome:",
+                "Cadastro Produto Ingrediente", JOptionPane.DEFAULT_OPTION);
+
+        Produto produto1 = new Produto(id, nomeProduto, opcoesTipoPagamento[1]);
 
 
         String[] opcoesMenuCadastroProduto = {"Novo Cadastro", "Cancelar", "Finalizar Cadastro"};
@@ -136,7 +153,41 @@ public class Main {
         switch (menuCadastroProduto) {
             case 0: //NovoCadastro
                 ProdutoDAO.salvarListaProdutos(produto1);
-                cadastroProduto();
+                menuCadastroProduto();
+                break;
+            case 1: //Cancelar
+                chamaMenuPrincipal();
+                break;
+            case 2: //Finalizar Cadastro
+                ProdutoDAO.salvarListaProdutos(produto1);
+                chamaMenuPrincipal();
+                break;
+        }
+    }
+
+    private static void cadastroProdutoBebida() {
+
+        ProdutoEnum[] opcoesTipoProduto = {ProdutoEnum.BEBIBA, ProdutoEnum.INGREDIENTE};
+
+        Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o id:",
+                "Cadastro Produto Bebida", JOptionPane.DEFAULT_OPTION));
+        String nomeProduto = JOptionPane.showInputDialog(null, "Informe o nome:",
+                "Cadastro Produto Bebida", JOptionPane.DEFAULT_OPTION);
+
+        BigDecimal valorCustoBebida = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null,"Infome o valor de custo:",
+                "Cadastrar Produto Bebida", JOptionPane.DEFAULT_OPTION)));
+
+        Produto produto1 = new Produto(id,nomeProduto,opcoesTipoPagamento[0],valorCustoBebida);
+
+        String[] opcoesMenuCadastroProduto = {"Novo Cadastro", "Cancelar", "Finalizar Cadastro"};
+        int menuCadastroProduto = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Cadastrar Produto",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroProduto, opcoesMenuCadastroProduto[0]);
+
+        switch (menuCadastroProduto) {
+            case 0: //NovoCadastro
+                ProdutoDAO.salvarListaProdutos(produto1);
+                menuCadastroProduto();
                 break;
             case 1: //Cancelar
                 chamaMenuPrincipal();
@@ -156,7 +207,7 @@ public class Main {
                 "Remover Produto", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutos, initialSelectionProduto);
         List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionProduto);
         ProdutoDAO.removerProduto(produtos.get(0));
-        chamaMenuEstoque();
+        chamaMenuPrincipal();
     }
 
     private static void chamaMenuCadastroCompra() {
