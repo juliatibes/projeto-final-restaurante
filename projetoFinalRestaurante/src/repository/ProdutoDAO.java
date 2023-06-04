@@ -4,6 +4,7 @@ import model.ProdutoEnum;
 import model.UnidadeMedidaEnum;
 
 import javax.swing.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class ProdutoDAO {
         if (ProdutoDAO.listaProdutos.isEmpty()) {
             listaProdutos.add(new Produto(1, "Massa caseira zézé", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(2, "Bacon", ProdutoEnum.INGREDIENTE));
-            listaProdutos.add(new Produto(3, "Coca-cola 2L", ProdutoEnum.BEBIBA));
+            listaProdutos.add(new Produto(3, "Coca-cola 2L", ProdutoEnum.BEBIBA, BigDecimal.valueOf(50.00)));
             listaProdutos.add(new Produto(4, "Cebolinha Verde", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(5, "ovo", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(6, "Creme de leite", ProdutoEnum.INGREDIENTE));
