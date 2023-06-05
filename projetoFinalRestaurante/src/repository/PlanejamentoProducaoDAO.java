@@ -37,7 +37,6 @@ public class PlanejamentoProducaoDAO {
     public static boolean salvarPlanejamento(PlanejamentoProducao receita)
     {
         return listaPlaneja.add(receita);
-
     }
     public static List<PlanejamentoProducao> planeja() { return listaPlaneja;}
 

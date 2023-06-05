@@ -13,16 +13,16 @@ public class VendaDAO {
 
     public static void inputVendas() {
         if (VendaDAO.listaVenda.isEmpty()) {
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(1), FormaPagamentoEnum.PIX));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(1), FormaPagamentoEnum.CREDITO));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(2), FormaPagamentoEnum.CREDITO));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(2), FormaPagamentoEnum.DINHEIRO));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(3), FormaPagamentoEnum.DEBITO));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(3), FormaPagamentoEnum.PIX));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(1),2, FormaPagamentoEnum.PIX));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(1), 1, FormaPagamentoEnum.CREDITO));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(2), 1,  FormaPagamentoEnum.CREDITO));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(2), 1, FormaPagamentoEnum.DINHEIRO));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(3), 1, FormaPagamentoEnum.DEBITO));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(3), 1, FormaPagamentoEnum.PIX));
         }
     }
 
-    public static void salvarNovaVenda(Venda venda) {
+    public static void salvarListaVenda(Venda venda) {
         listaVenda.add(venda);
     }
 
