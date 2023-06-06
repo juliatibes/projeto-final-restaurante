@@ -25,6 +25,22 @@ public class ReceitaDAO {
             receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(4), 2.0, UnidadeMedidaEnum.UNIDADE));
             receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(5), 100.0, UnidadeMedidaEnum.MILILITRO));
             listaReceita.add(receita1);
+
+            Receita receita2 = new Receita(11, "TesteEntrada", ReceitaClasseEnum.ENTRADA, BigDecimal.valueOf(15.00));
+            receita2.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA));
+            listaReceita.add(receita2);
+
+            Receita receita3 = new Receita(12, "TesteRisoto", ReceitaClasseEnum.RISOTO, BigDecimal.valueOf(15.00));
+            receita3.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA));
+            listaReceita.add(receita3);
+
+            Receita receita4 = new Receita(13, "TesteCarne", ReceitaClasseEnum.CARNE, BigDecimal.valueOf(50.00));
+            receita4.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA));
+            listaReceita.add(receita4);
+
+            Receita receita5 = new Receita(14, "TesteSobremesa", ReceitaClasseEnum.SOBREMESA, BigDecimal.valueOf(15.00));
+            receita5.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA));
+            listaReceita.add(receita5);
         }
 
     }
