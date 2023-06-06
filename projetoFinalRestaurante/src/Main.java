@@ -8,8 +8,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-import static repository.PlanejamentoProducaoDAO.planeja;
-
 
 public class Main {
 
@@ -41,7 +39,7 @@ public class Main {
                 chamaMenuCadastroReceitas();
                 break;
             case 4:// Cardapio
-                // chamaMenuCardapio();
+                 chamaMenuCardapio();
                 break;
             case 5:// Vendas
                 chamaMenuVenda();
@@ -135,7 +133,7 @@ public class Main {
     }
     private static void cadastroProdutoIngrediente() {
 
-        ProdutoEnum[] opcoesTipoPagamento = {ProdutoEnum.BEBIBA, ProdutoEnum.INGREDIENTE};
+        ProdutoEnum[] opcoesTipoPagamento = {ProdutoEnum.BEBIDA, ProdutoEnum.INGREDIENTE};
 
         Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o id:",
                 "Cadastro Produto Ingrediente", JOptionPane.DEFAULT_OPTION));
@@ -167,7 +165,7 @@ public class Main {
 
     private static void cadastroProdutoBebida() {
 
-        ProdutoEnum[] opcoesTipoProduto = {ProdutoEnum.BEBIBA, ProdutoEnum.INGREDIENTE};
+        ProdutoEnum[] opcoesTipoProduto = {ProdutoEnum.BEBIDA, ProdutoEnum.INGREDIENTE};
 
         Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o id:",
                 "Cadastro Produto Bebida", JOptionPane.DEFAULT_OPTION));
@@ -177,7 +175,7 @@ public class Main {
         BigDecimal valorCustoBebida = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null,"Infome o valor de custo:",
                 "Cadastrar Produto Bebida", JOptionPane.DEFAULT_OPTION)));
 
-        Produto produto1 = new Produto(id,nomeProduto,opcoesTipoPagamento[0],valorCustoBebida);
+        Produto produto1 = new Produto(id,nomeProduto,opcoesTipoProduto[0],valorCustoBebida);
 
         String[] opcoesMenuCadastroProduto = {"Novo Cadastro", "Cancelar", "Finalizar Cadastro"};
         int menuCadastroProduto = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
@@ -579,6 +577,72 @@ public class Main {
                 break;
         }
     }
-}
 
-//teste
+    private static void chamaMenuCardapio() {
+        String[] opcoesMenuCardapio = {"Bebidas","Entradas" , "Massas", "Risotos", "Carnes", "Sobremesas", "Prato do dia", "Voltar"};
+        int opcaoMenuCardapio = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Menu de Cardápio",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCardapio, opcoesMenuCardapio[0]);
+
+      try{  switch (opcaoMenuCardapio) {
+            case 0: // Bebidas
+                Object[] selectionValuesProdutoBebida = CardapioDAO.findprodutosInArrayProdutoBebida();
+                String initialSelectionProdutoBebida = (String) selectionValuesProdutoBebida[0];
+                Object selectionProdutoBebida = JOptionPane.showInputDialog(null, "Selecione a bebida",
+                        "Cardápio Bebida", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutoBebida, initialSelectionProdutoBebida);
+                List<Produto> produtoBebida = CardapioDAO.buscarPorNomeBebida((String) selectionProdutoBebida);
+                break;
+            case 1: // Entrada
+                Object[] selectionValuesReceitaEntrada = CardapioDAO.findreceitaInArrayReceitaEntrada();
+                String initialSelectionReceitaEntrada = (String) selectionValuesReceitaEntrada[0];
+                Object selectionReceitaEntrada = JOptionPane.showInputDialog(null, "Selecione a entrada",
+                        "Cardápio Entrada", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaEntrada, initialSelectionReceitaEntrada);
+                List<Receita> receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaEntrada);
+                break;
+            case 2: // Massas
+                Object[] selectionValuesReceitaMassa = CardapioDAO.findreceitaInArrayReceitaMassa();
+                String initialSelectionReceitaMassa = (String) selectionValuesReceitaMassa[0];
+                Object selectionReceitaMassa = JOptionPane.showInputDialog(null, "Selecione a massa",
+                        "Cardapio Massa", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaMassa, initialSelectionReceitaMassa);
+                receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaMassa);
+                break;
+            case 3: // Risotos
+                Object[] selectionValuesReceitaRisoto = CardapioDAO.findreceitaInArrayReceitaRisoto();
+                String initialSelectionReceitaRisoto = (String) selectionValuesReceitaRisoto[0];
+                Object selectionReceitaRisoto = JOptionPane.showInputDialog(null, "Selecione o risoto",
+                        "Cardapio Risoto", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaRisoto, initialSelectionReceitaRisoto);
+                receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaRisoto);
+                break;
+            case 4: // Carnes
+                Object[] selectionValuesReceitaCarne = CardapioDAO.findreceitaInArrayReceitaCarne();
+                String initialSelectionReceitaCarne = (String) selectionValuesReceitaCarne[0];
+                Object selectionReceitaCarne = JOptionPane.showInputDialog(null, "Selecione a carne",
+                        "Cardapio Carne", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaCarne, initialSelectionReceitaCarne);
+                receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaCarne);
+                break;
+            case 5: // Sobremesas
+                Object[] selectionValuesReceitaSobremesa = CardapioDAO.findreceitaInArrayReceitaSobremesa();
+                String initialSelectionReceitaSobremesa = (String) selectionValuesReceitaSobremesa[0];
+                Object selectionReceitaSobremesa = JOptionPane.showInputDialog(null, "Selecione a sobremesa",
+                        "Cardapio Sobremesa", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaSobremesa, initialSelectionReceitaSobremesa);
+                receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaSobremesa);
+                break;
+
+            case 6: // Prato do dia
+
+                break;
+            case 7: // Voltar
+                chamaMenuPrincipal();
+                break;
+        }}
+      catch (NullPointerException nullPointerException){
+          chamaMenuCardapio(); // APENAS PARA TESTAR O CARDÁPIO.
+      }
+    }
+    public static void chamaMenuCadastroVenda() {
+        Double quantidadeVenda = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe a quantidade",
+                "Cadastrar Venda", JOptionPane.DEFAULT_OPTION));
+
+
+    }
+}

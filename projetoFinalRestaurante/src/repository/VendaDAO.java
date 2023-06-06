@@ -13,12 +13,12 @@ public class VendaDAO {
 
     public static void inputVendas() {
         if (VendaDAO.listaVenda.isEmpty()) {
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(1),2, FormaPagamentoEnum.PIX));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(1), 1, FormaPagamentoEnum.CREDITO));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(2), 1,  FormaPagamentoEnum.CREDITO));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(2), 1, FormaPagamentoEnum.DINHEIRO));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(3), 1, FormaPagamentoEnum.DEBITO));
-            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(3), 1, FormaPagamentoEnum.PIX));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0),2, FormaPagamentoEnum.PIX));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1, FormaPagamentoEnum.CREDITO));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1,  FormaPagamentoEnum.CREDITO));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1, FormaPagamentoEnum.DINHEIRO));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1, FormaPagamentoEnum.DEBITO));
+            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1, FormaPagamentoEnum.PIX));
         }
     }
 
