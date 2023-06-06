@@ -115,6 +115,26 @@ public class CardapioDAO {
         return receitaNomesSobremesa.toArray();
     }
 
+    public static Object[] findreceitaInArrayReceitaCarinho(List<VendaPedido> vendalista, VendaPedido vendaPedidoSobremesa) {
+        List<VendaPedido> vendaCarinho = vendalista;
+        List<String> vendaCarinhoNomes = new ArrayList<>();
+
+        vendaCarinhoNomes.add("QUANTIDADE                   DESCRIÇÃO");
+        for (VendaPedido vendaPedido : vendaCarinho) {
+            if (vendaPedido.getReceita() != null) {
+                vendaCarinhoNomes.add("          "+vendaPedido.getQuantidade()+"" +
+                        "                           "+vendaPedido.getReceita().getNome());
+            }
+            if (vendaPedido.getProdutoBebida() != null) {
+                vendaCarinhoNomes.add("          "+vendaPedido.getQuantidade()+
+                        "                           "+vendaPedido.getProdutoBebida().getNome());
+            }
+        }
+        vendaCarinhoNomes.add("          "+vendaPedidoSobremesa.getQuantidade()+
+                "                           "+ vendaPedidoSobremesa.getReceita().getNome());
+        return vendaCarinhoNomes.toArray();
+    }
+
 
 
 

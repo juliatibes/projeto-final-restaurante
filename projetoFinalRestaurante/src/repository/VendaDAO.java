@@ -4,6 +4,7 @@ import model.Compra;
 import model.FormaPagamentoEnum;
 import model.Venda;
 import model.VendaPedido;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ public class VendaDAO {
     public static List<Venda> buscarTodos() {
         return listaVenda;
     }
+
 
 
 }

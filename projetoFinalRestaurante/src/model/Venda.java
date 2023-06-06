@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,25 @@ public class Venda {
 
     public void setNumeroComanda(Integer numeroComanda) {
         this.numeroComanda = numeroComanda;
+    }
+
+    public BigDecimal calculaValorListaVenda(Venda venda){
+
+        BigDecimal valorVendaReceitaTotal = BigDecimal.ZERO;
+        BigDecimal valorVendaBebidaTotal = BigDecimal.ZERO;
+
+        for (int x = 0;x < venda.getListaVendaPedido().size();x++){
+
+            if (venda.getListaVendaPedido().get(x).getReceita()!=null){
+                valorVendaReceitaTotal = valorVendaReceitaTotal.add(venda.getListaVendaPedido().get(x).getReceita().getValorVenda()
+                        .multiply(BigDecimal.valueOf( venda.getListaVendaPedido().get(x).getQuantidade())));
+            }
+            if (venda.getListaVendaPedido().get(x).getProdutoBebida()!=null){
+                valorVendaBebidaTotal = valorVendaBebidaTotal.add(venda.getListaVendaPedido().get(x).getProdutoBebida().getValorVendaProduto()
+                        .multiply(BigDecimal.valueOf( venda.getListaVendaPedido().get(x).getQuantidade())));
+            }
+        }
+        return valorVendaBebidaTotal.add(valorVendaReceitaTotal);
     }
 
     public void setId(Integer id) {

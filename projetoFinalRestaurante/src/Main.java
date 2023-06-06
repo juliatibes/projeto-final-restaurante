@@ -786,25 +786,29 @@ public class Main {
 
                             VendaPedido vendaPedidoSobremesa = new VendaPedido(receita.get(0),quantidadeVendaSobremesa);
 
-                                    String[] opcoesMenuVendaSobremesa = {"Adicionar Novo Item", "Cancelar Venda", "Finalizar Venda"};
+                            Integer contadorVendaCarinho = 0;
+
+                                  do{  String[] opcoesMenuVendaSobremesa = {"Adicionar Novo Item", "Cancelar Venda", "Finalizar Venda","Carinho de Venda"};
                                     int menuCadastroVenda = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                                             "Venda",
                                             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuVendaSobremesa, opcoesMenuVendaSobremesa[0]);
 
                                     switch (menuCadastroVenda) {
                                         case 0: //ContinuarPedindo
+                                            contadorVendaCarinho = 4;
                                             venda.adicionarVendaPedido(vendaPedidoSobremesa);
 
                                             break;
                                         case 1: //CancelarPedido
                                             contadorVenda = 2;
+                                            contadorVendaCarinho = 2;
                                             chamaMenuPrincipal();
                                             break;
                                         case 2: //FinalizaPedido
                                             venda.adicionarVendaPedido(vendaPedidoSobremesa);
 
-                                            int tipoPagamentoSelecionadoSobremesa = JOptionPane.showOptionDialog(null, "Escolha a forma de pagamento",
-                                                    "Venda",
+                                            int tipoPagamentoSelecionadoSobremesa = JOptionPane.showOptionDialog(null,
+                                                    " Escolha a forma de pagamento: \n Valor total: R$"+venda.calculaValorListaVenda(venda), "Venda",
                                                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesTipoPagamento, opcoesTipoPagamento[0]);
                                             venda.setFormaPagamento(opcoesTipoPagamento[tipoPagamentoSelecionadoSobremesa]);
                                             VendaDAO.salvarListaVenda(venda);
@@ -812,10 +816,19 @@ public class Main {
                                             JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
                                                     "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                             contadorVenda = 1;
+                                            contadorVendaCarinho = 1;
                                             chamaMenuPrincipal();
 
                                             break;
-                                    }
+                                        case 3: //Carinho de venda
+
+                                            Object[] selectionValuesReceitaCarinho = CardapioDAO.findreceitaInArrayReceitaCarinho(venda.getListaVendaPedido(),vendaPedidoSobremesa);
+                                             JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
+                                                    "Carinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+
+
+                                            break;
+                                    }} while (contadorVendaCarinho<=0);
                             break;
                         case 6: // Prato do dia
                             contadorVenda = 1;
