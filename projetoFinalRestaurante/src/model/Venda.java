@@ -9,17 +9,22 @@ public class Venda {
     private static final AtomicInteger count = new AtomicInteger(0);
     private Integer id;
     private LocalDate dataVenda;
-    private Receita receita;
-    private Integer quantidade;
+    private Integer numeroComanda;
     private FormaPagamentoEnum formaPagamento;
+    private List<VendaPedido> listaVendaPedido = new ArrayList<>();
 
-    public Venda(Receita receita, Integer quantidade, FormaPagamentoEnum formaPagamento) {
+    public Venda(Integer numeroComanda, FormaPagamentoEnum formaPagamento) {
         this.id = count.incrementAndGet();
         this.dataVenda = LocalDate.now();
-        this.receita = receita;
-        this.quantidade = quantidade;
+        this.numeroComanda = numeroComanda;
         this.formaPagamento = formaPagamento;
     }
+
+    public void adicionarVendaPedido (VendaPedido vendaPedido){
+        listaVendaPedido.add(vendaPedido);
+    }
+
+
 
     public Integer getId() {
         return id;
@@ -37,22 +42,6 @@ public class Venda {
 //        this.dataVenda = dataVenda;
 //    }
 
-    public Receita getReceita() {
-        return receita;
-    }
-
-    public void setReceita(Receita receita) {
-        this.receita = receita;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public FormaPagamentoEnum getFormaPagamento() {
         return formaPagamento;
     }
@@ -61,14 +50,38 @@ public class Venda {
         this.formaPagamento = formaPagamento;
     }
 
+    public Integer getNumeroComanda() {
+        return numeroComanda;
+    }
+
+    public void setNumeroComanda(Integer numeroComanda) {
+        this.numeroComanda = numeroComanda;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setDataVenda(LocalDate dataVenda) {
+        this.dataVenda = dataVenda;
+    }
+
+    public List<VendaPedido> getListaVendaPedido() {
+        return listaVendaPedido;
+    }
+
+    public void setListaVendaPedido(List<VendaPedido> listaVendaPedido) {
+        this.listaVendaPedido = listaVendaPedido;
+    }
+
     @Override
     public String toString() {
         return "Venda{" +
                 "id=" + id +
                 ", dataVenda=" + dataVenda +
-                ", receita=" + receita +
-                ", quantidade=" + quantidade +
+                ", numeroComanda=" + numeroComanda +
                 ", formaPagamento=" + formaPagamento +
+                ", listaVendaPedido=" + listaVendaPedido +
                 '}';
     }
 }
