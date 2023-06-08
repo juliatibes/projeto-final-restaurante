@@ -1,9 +1,8 @@
 package repository;
 
-import model.Produto;
-import model.ProdutoEstoque;
-import model.UnidadeMedidaEnum;
+import model.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,5 +26,24 @@ public class EstoqueDAO {
 
         listaProdutosEstoque.add(new ProdutoEstoque(produto, quantidade + quantidadeAtual, unidadeMedidaEnum));
         System.out.println(listaProdutosEstoque);
+    }
+
+    public static Integer verificaDisponibilidade (Receita receita,Integer quantidade){
+
+        Double quantidadeCalculada = 0.00;
+        for (int x = 0; x < receita.getListaIngredientes().size(); x++) {
+
+          quantidadeCalculada = receita.getListaIngredientes().get(x).getQuantidade()* quantidade;
+
+          for (int y = 0; y < listaProdutosEstoque.size();y++){
+              if (listaProdutosEstoque.get(x).getProduto().equals(receita.getListaIngredientes().get(x).getProduto())){
+                  if (listaProdutosEstoque.get(x).getQuantidade() < quantidadeCalculada){
+                  return JOptionPane.showConfirmDialog(null, "Nao tem estoque suficiente! ",
+                          "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                  }
+              }
+          }
+        }
+        return null;
     }
 }
