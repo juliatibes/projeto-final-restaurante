@@ -574,15 +574,15 @@ public class Main {
 
         do {   String[] opcoesMenuCardapioVenda = {"Bebidas","Entradas" , "Massas", "Risotos", "Carnes", "Sobremesas", "Prato do dia", "Voltar"};
                 int opcaoMenuCardapioVenda = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu de Cardápio",
+                "Venda",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCardapioVenda, opcoesMenuCardapioVenda[0]);
                     switch (opcaoMenuCardapioVenda) {
                         case 0: // Bebidas
-                            Object[] selectionValuesProdutoBebida = CardapioDAO.findprodutosInArrayProdutoBebida();
+                            Object[] selectionValuesProdutoBebida = VendaDAO.findprodutosInArrayProdutoBebida();
                             String initialSelectionProdutoBebida = (String) selectionValuesProdutoBebida[0];
                             Object selectionProdutoBebida = JOptionPane.showInputDialog(null, "Selecione a bebida",
                                     "Cardápio Bebida", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutoBebida, initialSelectionProdutoBebida);
-                            List<Produto> produtoBebida = CardapioDAO.buscarPorNomeBebida((String) selectionProdutoBebida);
+                            List<Produto> produtoBebida = VendaDAO.buscarPorNomeBebida((String) selectionProdutoBebida);
 
                             Integer quantidadeVendaBebida = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
@@ -622,11 +622,11 @@ public class Main {
 
                             break;
                         case 1: // Entrada
-                            Object[] selectionValuesReceitaEntrada = CardapioDAO.findreceitaInArrayReceitaEntrada();
+                            Object[] selectionValuesReceitaEntrada = VendaDAO.findreceitaInArrayReceitaEntrada();
                             String initialSelectionReceitaEntrada = (String) selectionValuesReceitaEntrada[0];
                             Object selectionReceitaEntrada = JOptionPane.showInputDialog(null, "Selecione a entrada",
                                     "Cardápio Entrada", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaEntrada, initialSelectionReceitaEntrada);
-                            List<Receita> receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaEntrada);
+                            List<Receita> receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaEntrada);
 
                             Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
@@ -665,11 +665,11 @@ public class Main {
                             }
                             break;
                         case 2: // Massas
-                            Object[] selectionValuesReceitaMassa = CardapioDAO.findreceitaInArrayReceitaMassa();
+                            Object[] selectionValuesReceitaMassa = VendaDAO.findreceitaInArrayReceitaMassa();
                             String initialSelectionReceitaMassa = (String) selectionValuesReceitaMassa[0];
                             Object selectionReceitaMassa = JOptionPane.showInputDialog(null, "Selecione a massa",
                                     "Cardapio Massa", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaMassa, initialSelectionReceitaMassa);
-                            receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaMassa);
+                            receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaMassa);
 
                             Integer quantidadeVenda = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
@@ -708,11 +708,11 @@ public class Main {
                             }
                             break;
                         case 3: // Risotos
-                            Object[] selectionValuesReceitaRisoto = CardapioDAO.findreceitaInArrayReceitaRisoto();
+                            Object[] selectionValuesReceitaRisoto = VendaDAO.findreceitaInArrayReceitaRisoto();
                             String initialSelectionReceitaRisoto = (String) selectionValuesReceitaRisoto[0];
                             Object selectionReceitaRisoto = JOptionPane.showInputDialog(null, "Selecione o risoto",
                                     "Cardapio Risoto", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaRisoto, initialSelectionReceitaRisoto);
-                            receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaRisoto);
+                            receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaRisoto);
 
                             Integer quantidadeVendaRisoto = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
@@ -751,11 +751,11 @@ public class Main {
                             }
                             break;
                         case 4: // Carnes
-                            Object[] selectionValuesReceitaCarne = CardapioDAO.findreceitaInArrayReceitaCarne();
+                            Object[] selectionValuesReceitaCarne = VendaDAO.findreceitaInArrayReceitaCarne();
                             String initialSelectionReceitaCarne = (String) selectionValuesReceitaCarne[0];
                             Object selectionReceitaCarne = JOptionPane.showInputDialog(null, "Selecione a carne:",
                                     "Cardapio Carne", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaCarne, initialSelectionReceitaCarne);
-                            receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaCarne);
+                            receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaCarne);
 
                             Integer quantidadeVendaCarne = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
@@ -793,14 +793,16 @@ public class Main {
                             }
                             break;
                         case 5: // Sobremesas
-                            Object[] selectionValuesReceitaSobremesa = CardapioDAO.findreceitaInArrayReceitaSobremesa();
+                            Object[] selectionValuesReceitaSobremesa = VendaDAO.findreceitaInArrayReceitaSobremesa();
                             String initialSelectionReceitaSobremesa = (String) selectionValuesReceitaSobremesa[0];
                             Object selectionReceitaSobremesa = JOptionPane.showInputDialog(null, "Selecione a sobremesa",
                                     "Venda", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaSobremesa, initialSelectionReceitaSobremesa);
-                            receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaSobremesa);
+                            receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaSobremesa);
 
                             Integer quantidadeVendaSobremesa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
+
+                                EstoqueDAO.verificaDisponibilidade(receita.get(0),quantidadeVendaSobremesa);
 
                             VendaPedido vendaPedidoSobremesa = new VendaPedido(receita.get(0),quantidadeVendaSobremesa);
 
@@ -826,7 +828,7 @@ public class Main {
                                             venda.adicionarVendaPedido(vendaPedidoSobremesa);
 
                                             int tipoPagamentoSelecionadoSobremesa = JOptionPane.showOptionDialog(null,
-                                                    " Escolha a forma de pagamento: \n Valor total: R$"+venda.calculaValorListaVenda(venda), "Venda",
+                                                    "VALOR TOTAL: R$"+venda.calculaValorListaVenda(venda)+"\nEscolha a forma de pagamento:", "Venda",
                                                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesTipoPagamento, opcoesTipoPagamento[0]);
                                             venda.setFormaPagamento(opcoesTipoPagamento[tipoPagamentoSelecionadoSobremesa]);
                                             VendaDAO.salvarListaVenda(venda);
@@ -840,7 +842,8 @@ public class Main {
                                             break;
                                         case 3: //Carinho de venda
 
-                                            Object[] selectionValuesReceitaCarinho = CardapioDAO.findreceitaInArrayReceitaCarinho(venda.getListaVendaPedido(),vendaPedidoSobremesa);
+                                            Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
+                                                    (venda.getListaVendaPedido(),vendaPedidoSobremesa,venda.calculaValorListaVenda(venda));
                                              JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                     "Carinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
 
