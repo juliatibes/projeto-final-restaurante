@@ -96,11 +96,11 @@ public class Main {
     }
     private static  void selecionaPratoDoDia() {
 
-        Object[] selectionValuesReceita = CardapioDAO.findreceitaInArrayReceitaEntrada();
+        Object[] selectionValuesReceita = VendaDAO.findreceitaInArrayReceitaEntrada();
         String initialSelectionReceita = (String) selectionValuesReceita[0];
         Object selectionReceitaEntrada = JOptionPane.showInputDialog(null, "Selecione o prato do dia",
                 "Opções", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
-        List<Receita> receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaEntrada);
+        List<Receita> receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaEntrada);
         Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade desejada",
                 "Prato do dia", JOptionPane.DEFAULT_OPTION));
 
@@ -117,7 +117,7 @@ public class Main {
 
         switch (menuCadastro) {
             case 0: //CadastrarProduto
-                menuCadastroProduto();
+                menuCadastroProduto();///
                 break;
             case 1: //RemoverProduto
                 removerProduto();
