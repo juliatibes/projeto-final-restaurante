@@ -57,7 +57,7 @@ public class Main {
 //    }
 
     private static void chamaMenuPlanejamento() {
-        String[] opcoesMenuPlanejamento = {"Cadastrar planejamento", "Planejamento", "Voltar"};
+        String[] opcoesMenuPlanejamento = {"Cadastrar planejamento", "Planejamento", "Prato do dia", "Voltar"};
         int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Cadastrar",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
@@ -67,9 +67,11 @@ public class Main {
                 cadastroPlanejamento();
                 break;
             case 1: //Planejado
-                // planeja()
                 break;
-            case 2: //Voltar
+            case 2: // planeja
+                selecionaPratoDoDia();
+                break;
+            case 3: //Voltar
                 chamaMenuPrincipal();
                 break;
         }
@@ -88,6 +90,21 @@ public class Main {
             chamaMenuPlanejamento();
         }
 
+
+
+
+    }
+    private static  void selecionaPratoDoDia() {
+
+        Object[] selectionValuesReceita = CardapioDAO.findreceitaInArrayReceitaEntrada();
+        String initialSelectionReceita = (String) selectionValuesReceita[0];
+        Object selectionReceitaEntrada = JOptionPane.showInputDialog(null, "Selecione o prato do dia",
+                "Opções", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
+        List<Receita> receita = CardapioDAO.buscarPorNomeReceita((String) selectionReceitaEntrada);
+        Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade desejada",
+                "Prato do dia", JOptionPane.DEFAULT_OPTION));
+
+        VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada);
 
     }
 
