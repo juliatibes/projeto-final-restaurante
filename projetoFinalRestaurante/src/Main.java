@@ -105,6 +105,7 @@ public class Main {
                 "Prato do dia", JOptionPane.DEFAULT_OPTION));
 
         VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada);
+        //
 
     }
 
