@@ -9,6 +9,10 @@ import java.util.List;
 public class EstoqueDAO {
     static List<ProdutoEstoque> listaProdutosEstoque = new ArrayList<>();
 
+    public static List<ProdutoEstoque> buscaTodos() {
+            return listaProdutosEstoque;
+    }
+
     public static void salvarProdutoEstoque(Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedidaEnum) {
         Double quantidadeAtual = 0.00;
         ProdutoEstoque produtoEstoqueEncontrado = null;
@@ -28,22 +32,39 @@ public class EstoqueDAO {
         System.out.println(listaProdutosEstoque);
     }
 
-    public static Integer verificaDisponibilidade (Receita receita,Integer quantidade){
-
+    public static Integer verificaDisponibilidade (List<VendaPedido> listaReceitaCarinho){
         Double quantidadeCalculada = 0.00;
-        for (int x = 0; x < receita.getListaIngredientes().size(); x++) {
+        List<ProdutoEstoque> listaProdutosEstoqueVerificacao = new ArrayList<>();
 
-          quantidadeCalculada = receita.getListaIngredientes().get(x).getQuantidade()* quantidade;
-
-          for (int y = 0; y < listaProdutosEstoque.size();y++){
-              if (listaProdutosEstoque.get(x).getProduto().equals(receita.getListaIngredientes().get(x).getProduto())){
-                  if (listaProdutosEstoque.get(x).getQuantidade() < quantidadeCalculada){
-                  return JOptionPane.showConfirmDialog(null, "Nao tem estoque suficiente! ",
-                          "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
-                  }
-              }
-          }
+        for (ProdutoEstoque produtoEstoque : listaProdutosEstoque){
+             listaProdutosEstoqueVerificacao.add(produtoEstoque);
         }
-        return null;
+
+        for ( int z = 0; z < listaReceitaCarinho.size();z ++) {
+            for (int x = 0; x < listaReceitaCarinho.get(z).getReceita().getListaIngredientes().size(); x++) {
+
+                quantidadeCalculada = listaReceitaCarinho.get(z).getReceita().getListaIngredientes().get(x).getQuantidade() *
+                        listaReceitaCarinho.get(z).getQuantidade();
+
+                for (int y = 0; y < listaProdutosEstoqueVerificacao.size(); y++) {
+                    if (listaProdutosEstoqueVerificacao.get(y).getProduto().equals
+                            (listaReceitaCarinho.get(z).getReceita().getListaIngredientes().get(x).getProduto())){
+                        if (listaProdutosEstoqueVerificacao.get(y).getQuantidade() < quantidadeCalculada) {
+                            return 1;
+                        } else {
+                            List <ProdutoEstoque> guardaProdutoEstoque  = new ArrayList<>();
+                            guardaProdutoEstoque.add(listaProdutosEstoqueVerificacao.get(y));
+
+                            listaProdutosEstoqueVerificacao.remove(listaProdutosEstoqueVerificacao.get(y));
+
+                            listaProdutosEstoqueVerificacao.add(new ProdutoEstoque(guardaProdutoEstoque.get(0).getProduto(),
+                                                            guardaProdutoEstoque.get(0).getQuantidade() - quantidadeCalculada,
+                                                                            guardaProdutoEstoque.get(0).getUnidadeMedida()));
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
     }
 }

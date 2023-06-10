@@ -13,13 +13,7 @@ public class VendaDAO {
 
 //    public static void inputVendas() {
 //        if (VendaDAO.listaVenda.isEmpty()) {
-//            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0),2, FormaPagamentoEnum.PIX));
-//            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1, FormaPagamentoEnum.CREDITO));
-//            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1,  FormaPagamentoEnum.CREDITO));
-//            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1, FormaPagamentoEnum.DINHEIRO));
-//            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1, FormaPagamentoEnum.DEBITO));
-//            listaVenda.add(new Venda(ReceitaDAO.listaReceita.get(0), 1, FormaPagamentoEnum.PIX));
-//        }
+//
 //    }
 
     public static void salvarListaVenda(Venda venda) {
@@ -131,7 +125,7 @@ public class VendaDAO {
         return receitaNomesSobremesa.toArray();
     }
 
-    public static Object[] findreceitaInArrayReceitaCarinho(List<VendaPedido> vendalista, VendaPedido vendaPedidoSobremesa,BigDecimal valorCarinho) {
+    public static Object[] findreceitaInArrayReceitaCarinho(List<VendaPedido> vendalista, VendaPedido vendaPedidoEscolhida,BigDecimal valorCarinho) {
         List<VendaPedido> vendaCarinho = vendalista;
         List<String> vendaCarinhoNomes = new ArrayList<>();
 
@@ -146,10 +140,14 @@ public class VendaDAO {
                         "                           "+vendaPedido.getProdutoBebida().getNome());
             }
         }
-        vendaCarinhoNomes.add("          "+vendaPedidoSobremesa.getQuantidade()+
-                "                           "+ vendaPedidoSobremesa.getReceita().getNome());
-        vendaCarinhoNomes.add("\nVALOR TOTAL: R$"+ valorCarinho.add(BigDecimal.valueOf(vendaPedidoSobremesa.getQuantidade()).
-                multiply(vendaPedidoSobremesa.getReceita().getValorVenda())));
+        if (vendaPedidoEscolhida != null) {
+            vendaCarinhoNomes.add("          " + vendaPedidoEscolhida.getQuantidade() +
+                    "                           " + vendaPedidoEscolhida.getReceita().getNome());
+            vendaCarinhoNomes.add("\nVALOR TOTAL: R$" + valorCarinho.add(BigDecimal.valueOf(vendaPedidoEscolhida.getQuantidade()).
+                    multiply(vendaPedidoEscolhida.getReceita().getValorVenda())));
+        } else {
+            vendaCarinhoNomes.add("\nVALOR TOTAL: R$" + valorCarinho);
+        }
         return vendaCarinhoNomes.toArray();
     }
 
