@@ -40,14 +40,14 @@ public class RelatorioEstoque extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int linha, int coluna) {
-        ProdutoEstoque registroPessoa = (ProdutoEstoque) vetorDados.get(linha);
+        ProdutoEstoque registroEstoque = (ProdutoEstoque) vetorDados.get(linha);
         switch (coluna) {
             case INDEX_PRODUTO:
-                return registroPessoa.getProduto().getNome();
+                return registroEstoque.getProduto().getNome();
             case INDEX_QUANTIDADE:
-                return registroPessoa.getQuantidade();
+                return registroEstoque.getQuantidade();
             case INDEX_UNIDADEMEDIDA:
-                return registroPessoa.getUnidadeMedida();
+                return registroEstoque.getUnidadeMedida();
             default:
                 return new Object();
         }

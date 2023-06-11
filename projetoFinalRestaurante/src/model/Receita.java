@@ -32,8 +32,8 @@ public class Receita {
         return valorVenda;
     }
 
-    public BigDecimal calculaLucro(BigDecimal valorCusto, BigDecimal valorVenda){
-        lucroVenda = valorVenda.subtract(valorCusto);
+    public BigDecimal calculaLucro(){
+        lucroVenda = this.valorVenda.subtract(this.valorCusto);
         return lucroVenda;
     }
 

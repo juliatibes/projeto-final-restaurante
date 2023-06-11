@@ -513,7 +513,7 @@ public class Main {
     }
 
     public static void chamaMenuRelatorios() {
-        String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Vendas"};
+        String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Vendas", "Voltar"};
         int menuRelatorios = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Relatorios",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
@@ -532,6 +532,9 @@ public class Main {
                 break;
             case 3: //Vendas
                 JOptionPane.showMessageDialog(null, ReceitaDAO.buscaTodos());
+                chamaMenuPrincipal();
+                break;
+            case 4: //Voltar
                 chamaMenuPrincipal();
                 break;
         }

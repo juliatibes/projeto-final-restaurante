@@ -39,16 +39,16 @@ public class RelatorioReceita extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int linha, int coluna) {
-        Receita registroPessoa = (Receita) vetorDados.get(linha);
+        Receita registroReceita = (Receita) vetorDados.get(linha);
         switch (coluna) {
             case INDEX_NOME:
-                return registroPessoa.getNome();
+                return registroReceita.getNome();
             case INDEX_VALORCUSTO:
-                return registroPessoa.getValorCusto();
+                return registroReceita.getValorCusto();
             case INDEX_VALORVENDA:
-                return registroPessoa.getValorVenda();
+                return registroReceita.getValorVenda();
             case INDEX_LUCRO:
-                return registroPessoa.getLucroVenda();
+                return registroReceita.calculaLucro();
             default:
                 return new Object();
         }
