@@ -528,8 +528,7 @@ public class Main {
                 ChamaRelatorioEstoque();
                 break;
             case 2: //Receitas
-                JOptionPane.showMessageDialog(null, ProdutoDAO.buscaTodos());
-                chamaMenuPrincipal();
+                ChamaRelatorioReceitas();
                 break;
             case 3: //Vendas
                 JOptionPane.showMessageDialog(null, ReceitaDAO.buscaTodos());
@@ -541,6 +540,11 @@ public class Main {
     private static void ChamaRelatorioEstoque() {
         List<ProdutoEstoque> produtos = EstoqueDAO.buscaTodos();
         RelatorioEstoqueForm.emitirRelatorio(produtos);
+    }
+
+    private static void ChamaRelatorioReceitas() {
+        List<Receita> receitas = ReceitaDAO.buscaTodos();
+        RelatorioReceitaForm.emitirRelatorio(receitas);
     }
 
     private static void chamaMenuVenda() {

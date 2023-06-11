@@ -12,6 +12,7 @@ public class Receita {
     private ReceitaClasseEnum receitaClasse;
     private BigDecimal valorCusto;
     private BigDecimal valorVenda;
+    private BigDecimal lucroVenda;
 
 
     public Receita(Integer id, String nome, ReceitaClasseEnum receitaClasse,BigDecimal valorCusto) {
@@ -29,6 +30,11 @@ public class Receita {
     public BigDecimal calculaValorVenda(BigDecimal valorCusto){
        valorVenda = valorCusto.add(valorCusto.multiply(BigDecimal.valueOf(100).divide(BigDecimal.valueOf(100))));
         return valorVenda;
+    }
+
+    public BigDecimal calculaLucro(BigDecimal valorCusto, BigDecimal valorVenda){
+        lucroVenda = valorVenda.subtract(valorCusto);
+        return lucroVenda;
     }
 
     public Integer getId() {
@@ -78,6 +84,10 @@ public class Receita {
     public void setValorVenda(BigDecimal valorVenda) {
         this.valorVenda = valorVenda;
     }
+
+    public BigDecimal getLucroVenda() { return lucroVenda; }
+
+    public void setLucroVenda(BigDecimal lucroVenda) { this.lucroVenda = lucroVenda;}
 
     @Override
     public String toString() {
