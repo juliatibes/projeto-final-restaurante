@@ -18,6 +18,7 @@ public class Main {
         CompraDAO.inputCompras();
         ReceitaDAO.inputReceita();
         PlanejamentoProducaoDAO.inputPlanejamento();
+        EstoqueDAO.inputEstoque();
         //VendaDAO.inputVendas();
         chamaMenuPrincipal();
     }
@@ -506,7 +507,7 @@ public class Main {
     }
 
     public static void chamaMenuRelatorios() {
-        String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Vendas"};
+        String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Vendas", "Voltar"};
         int menuRelatorios = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Relatorios",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
@@ -528,6 +529,8 @@ public class Main {
                 JOptionPane.showMessageDialog(null, ReceitaDAO.buscaTodos());
                 chamaMenuPrincipal();
                 break;
+            default: //Voltar
+                chamaMenuPrincipal();
         }
     }
 
@@ -544,7 +547,7 @@ public class Main {
 
         Integer id = VendaDAO.aiID();
 
-        Integer numeroComanda = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o numerod a comanda:",
+        Integer numeroComanda = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o número da comanda:",
                 "Venda", JOptionPane.DEFAULT_OPTION));
 
         Venda venda = new Venda(id, numeroComanda,null);
@@ -607,7 +610,7 @@ public class Main {
                                     Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                             (venda.getListaVendaPedido(),vendaPedidoBebida,venda.calculaValorListaVenda(venda));
                                     JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
-                                            "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                            "Carrinho de Compras", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
 
                                     break;
                                     }
@@ -661,7 +664,7 @@ public class Main {
                                     venda.setFormaPagamento(opcoesTipoPagamento[tipoPagamentoSelecionadoEntrada]);
                                     VendaDAO.salvarListaVenda(venda);
 
-                                    JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
+                                    JOptionPane.showConfirmDialog(null, "Venda concluída com sucesso!",
                                             "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                     contadorVenda = 1;
                                     contadorVendaCarrinho = 1;
@@ -669,7 +672,7 @@ public class Main {
 
                                     break;
 
-                                case 3: //Carinho de venda
+                                case 3: //Carrinho de venda
 
                                     Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                             (venda.getListaVendaPedido(),vendaPedidoEntrada,venda.calculaValorListaVenda(venda));
@@ -685,7 +688,7 @@ public class Main {
                             Object[] selectionValuesReceitaMassa = VendaDAO.findreceitaInArrayReceitaMassa();
                             String initialSelectionReceitaMassa = (String) selectionValuesReceitaMassa[0];
                             Object selectionReceitaMassa = JOptionPane.showInputDialog(null, "Selecione a massa",
-                                    "Cardapio Massa", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaMassa, initialSelectionReceitaMassa);
+                                    "Cardápio Massa", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaMassa, initialSelectionReceitaMassa);
                             receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaMassa);
 
                             Integer quantidadeVendaMassa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
