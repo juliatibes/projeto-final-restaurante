@@ -13,17 +13,13 @@ public class ProdutoDAO {
 
     static List<Produto> listaProdutos = new ArrayList<>();
 
-    public ProdutoDAO() {
-        inputProdutos();
-    }
-
     public static void inputProdutos() {
         if (ProdutoDAO.listaProdutos.isEmpty()) {
             listaProdutos.add(new Produto(1, "Massa caseira zézé", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(2, "Bacon", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(3, "Coca-cola 2L", ProdutoEnum.BEBIDA, BigDecimal.valueOf(50.00)));
-            listaProdutos.add(new Produto(4, "Cebolinha Verde", ProdutoEnum.INGREDIENTE));
-            listaProdutos.add(new Produto(5, "ovo", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(4, "Cebolinha verde", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(5, "Ovo", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(6, "Creme de leite", ProdutoEnum.INGREDIENTE));
         }
     }
@@ -74,6 +70,9 @@ public class ProdutoDAO {
         return produtosNomes.toArray();
     }
 
-
+    public static Integer aiID() {
+        Integer id = listaProdutos.size() + 1;
+        return id;
+    }
 }
 
