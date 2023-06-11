@@ -2,6 +2,7 @@ package repository;
 
 import model.Produto;
 import model.ProdutoEnum;
+import model.ProdutoEstoque;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -11,7 +12,6 @@ import java.util.List;
 public class ProdutoDAO {
 
     static List<Produto> listaProdutos = new ArrayList<>();
-
 
     public ProdutoDAO() {
         inputProdutos();

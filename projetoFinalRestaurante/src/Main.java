@@ -513,7 +513,7 @@ public class Main {
     }
 
     public static void chamaMenuRelatorios() {
-        String[] opcoesMenuRelatorio = {"Compras", "Vendas", "ProdutoTeste", "ReceitaTeste"};
+        String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Vendas"};
         int menuRelatorios = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Relatorios",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
@@ -524,19 +524,23 @@ public class Main {
                 JOptionPane.showMessageDialog(null, CompraDAO.buscarTodos());
                 chamaMenuPrincipal();
                 break;
-            case 1: //Vendas
-                JOptionPane.showMessageDialog(null, VendaDAO.buscarTodos());
-                chamaMenuPrincipal();
+            case 1: //Estoque
+                ChamaRelatorioEstoque();
                 break;
-            case 2: //ProdutoTeste
+            case 2: //Receitas
                 JOptionPane.showMessageDialog(null, ProdutoDAO.buscaTodos());
                 chamaMenuPrincipal();
                 break;
-            case 3: //ReceitaTeste
+            case 3: //Vendas
                 JOptionPane.showMessageDialog(null, ReceitaDAO.buscaTodos());
                 chamaMenuPrincipal();
                 break;
         }
+    }
+
+    private static void ChamaRelatorioEstoque() {
+        List<ProdutoEstoque> produtos = EstoqueDAO.buscaTodos();
+        RelatorioEstoqueForm.emitirRelatorio(produtos);
     }
 
     private static void chamaMenuVenda() {
