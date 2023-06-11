@@ -16,7 +16,7 @@ public class RelatorioEstoqueForm extends JPanel {
     private static final long serialVersionUID = 1L;
 
     public static final String[] nomeColunas =
-            {"Produto", "Quantidade", "Unidade de Medida",""};
+            {"Produto", "Quantidade", "Unidade de Medida", ""};
 
     protected JTable table;
     protected JScrollPane scroller;
@@ -44,7 +44,7 @@ public class RelatorioEstoqueForm extends JPanel {
 
     }
 
-    public static void emitirRelatorio(List<ProdutoEstoque> produtos ) {
+    public static void emitirRelatorio(List<ProdutoEstoque> produtos) {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             JFrame frame = new JFrame("Relatorio de itens em Estoque");
@@ -56,7 +56,7 @@ public class RelatorioEstoqueForm extends JPanel {
                 }
             });
             Vector<ProdutoEstoque> vetorDados = new Vector<ProdutoEstoque>();
-            for (ProdutoEstoque produto : produtos ) {
+            for (ProdutoEstoque produto : produtos) {
                 vetorDados.add(produto);
             }
 
@@ -69,5 +69,5 @@ public class RelatorioEstoqueForm extends JPanel {
         }
     }
 
-
 }
+
