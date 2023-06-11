@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Venda {
-    private static final AtomicInteger count = new AtomicInteger(0);
     private Integer id;
     private LocalDate dataVenda;
     private Integer numeroComanda;
@@ -15,7 +14,7 @@ public class Venda {
     private List<VendaPedido> listaVendaPedido = new ArrayList<>();
 
     public Venda(Integer numeroComanda, FormaPagamentoEnum formaPagamento) {
-        this.id = count.incrementAndGet();
+        this.id = id;
         this.dataVenda = LocalDate.now();
         this.numeroComanda = numeroComanda;
         this.formaPagamento = formaPagamento;
@@ -31,9 +30,9 @@ public class Venda {
         return id;
     }
 
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public LocalDate getDataVenda() {
         return dataVenda;
@@ -76,10 +75,6 @@ public class Venda {
             }
         }
         return valorVendaBebidaTotal.add(valorVendaReceitaTotal);
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public void setDataVenda(LocalDate dataVenda) {
