@@ -170,5 +170,10 @@ public class ReceitaDAO {
         return posicaoIngredienteFinal;
     }
 
+    public static Integer aiID() {
+        Integer id = listaReceita.size() + 1;
+        return id;
+    }
+
 }
 

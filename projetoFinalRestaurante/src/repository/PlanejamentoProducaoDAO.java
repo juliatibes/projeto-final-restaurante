@@ -10,30 +10,18 @@ import java.util.List;
 
 public class PlanejamentoProducaoDAO {
 
-    private Integer id;
-    private LocalDate diaPlanejado;
-    private Receita receita;
-    private Double quantidadePlanejada;
-    private UnidadeMedidaEnum unidadeMedida;
+    static List<PlanejamentoProducao> listaPlaneja = new ArrayList<PlanejamentoProducao>();
 
-    public PlanejamentoProducaoDAO(Integer id, LocalDate diaPlanejado, Receita receita,
-                                   Double quantidadePlanejada, UnidadeMedidaEnum unidadeMedida) {
-        this.id = id;
-        this.diaPlanejado = diaPlanejado;
-        this.receita = receita;
-        this.quantidadePlanejada = quantidadePlanejada;
-        this.unidadeMedida = unidadeMedida;
+    public PlanejamentoProducaoDAO() {
     }
 
 
-    public static void inputirdados(){
+    public static void inputPlanejamento(){
         if (PlanejamentoProducaoDAO.listaPlaneja.isEmpty()) {
             listaPlaneja.add(new PlanejamentoProducao(1, ReceitaDAO.listaReceita.get(0), 1000.00, UnidadeMedidaEnum.GRAMA, LocalDate.now()));
         }
     }
 
-
-    static List<PlanejamentoProducao> listaPlaneja = new ArrayList<PlanejamentoProducao>();
     public static boolean salvarPlanejamento(PlanejamentoProducao receita)
     {
         return listaPlaneja.add(receita);

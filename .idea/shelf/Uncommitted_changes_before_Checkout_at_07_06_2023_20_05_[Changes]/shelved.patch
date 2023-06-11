@@ -1,0 +1,175 @@
+Index: projetoFinalRestaurante/src/model/Estoque.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model;\r\n\r\nimport repository.CompraDAO;\r\n\r\nimport java.math.BigDecimal;\r\n\r\npublic class Estoque {\r\n    private Integer id;\r\n    private Produto Produto;\r\n    private Double quantidade;\r\n    private UnidadeMedidaEnum unidadeMedida;\r\n    private BigDecimal valorCusto;\r\n    private StatusEnum status;\r\n\r\n    public Estoque(Integer id, model.Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedida, BigDecimal valorCusto, StatusEnum status) {\r\n        this.id = id;\r\n        Produto = produto;\r\n        this.quantidade = quantidade;\r\n        this.unidadeMedida = unidadeMedida;\r\n        this.valorCusto = valorCusto;\r\n        this.status = status;\r\n    }\r\n\r\n    public Integer getId() {\r\n        return id;\r\n    }\r\n\r\n    public void setId(Integer id) {\r\n        this.id = id;\r\n    }\r\n\r\n    public model.Produto getProduto() {\r\n        return Produto;\r\n    }\r\n\r\n    public void setProduto(model.Produto produto) {\r\n        Produto = produto;\r\n    }\r\n\r\n    public Double getQuantidade() {\r\n        return quantidade;\r\n    }\r\n\r\n    public void setQuantidade(Double quantidade) {\r\n        this.quantidade = quantidade;\r\n    }\r\n\r\n    public UnidadeMedidaEnum getUnidadeMedida() {\r\n        return unidadeMedida;\r\n    }\r\n\r\n    public void setUnidadeMedida(UnidadeMedidaEnum unidadeMedida) {\r\n        this.unidadeMedida = unidadeMedida;\r\n    }\r\n\r\n    public BigDecimal getValorCusto() {\r\n        return valorCusto;\r\n    }\r\n\r\n    public void setValorCusto(BigDecimal valorCusto) {\r\n        this.valorCusto = valorCusto;\r\n    }\r\n\r\n    public StatusEnum getStatus() {\r\n        return status;\r\n    }\r\n\r\n    public void setStatus(StatusEnum status) {\r\n        this.status = status;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Estoque{\" +\r\n                \"id=\" + id +\r\n                \", Produto=\" + Produto +\r\n                \", quantidade=\" + quantidade +\r\n                \", unidadeMedida=\" + unidadeMedida +\r\n                \", valorCusto=\" + valorCusto +\r\n                \", status=\" + status +\r\n                '}';\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/projetoFinalRestaurante/src/model/Estoque.java b/projetoFinalRestaurante/src/model/Estoque.java
+--- a/projetoFinalRestaurante/src/model/Estoque.java	
++++ b/projetoFinalRestaurante/src/model/Estoque.java	
+@@ -1,83 +1,83 @@
+-package model;
+-
+-import repository.CompraDAO;
+-
+-import java.math.BigDecimal;
+-
+-public class Estoque {
+-    private Integer id;
+-    private Produto Produto;
+-    private Double quantidade;
+-    private UnidadeMedidaEnum unidadeMedida;
+-    private BigDecimal valorCusto;
+-    private StatusEnum status;
+-
+-    public Estoque(Integer id, model.Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedida, BigDecimal valorCusto, StatusEnum status) {
+-        this.id = id;
+-        Produto = produto;
+-        this.quantidade = quantidade;
+-        this.unidadeMedida = unidadeMedida;
+-        this.valorCusto = valorCusto;
+-        this.status = status;
+-    }
+-
+-    public Integer getId() {
+-        return id;
+-    }
+-
+-    public void setId(Integer id) {
+-        this.id = id;
+-    }
+-
+-    public model.Produto getProduto() {
+-        return Produto;
+-    }
+-
+-    public void setProduto(model.Produto produto) {
+-        Produto = produto;
+-    }
+-
+-    public Double getQuantidade() {
+-        return quantidade;
+-    }
+-
+-    public void setQuantidade(Double quantidade) {
+-        this.quantidade = quantidade;
+-    }
+-
+-    public UnidadeMedidaEnum getUnidadeMedida() {
+-        return unidadeMedida;
+-    }
+-
+-    public void setUnidadeMedida(UnidadeMedidaEnum unidadeMedida) {
+-        this.unidadeMedida = unidadeMedida;
+-    }
+-
+-    public BigDecimal getValorCusto() {
+-        return valorCusto;
+-    }
+-
+-    public void setValorCusto(BigDecimal valorCusto) {
+-        this.valorCusto = valorCusto;
+-    }
+-
+-    public StatusEnum getStatus() {
+-        return status;
+-    }
+-
+-    public void setStatus(StatusEnum status) {
+-        this.status = status;
+-    }
+-
+-    @Override
+-    public String toString() {
+-        return "Estoque{" +
+-                "id=" + id +
+-                ", Produto=" + Produto +
+-                ", quantidade=" + quantidade +
+-                ", unidadeMedida=" + unidadeMedida +
+-                ", valorCusto=" + valorCusto +
+-                ", status=" + status +
+-                '}';
+-    }
+-}
++//package model;
++//
++//import repository.CompraDAO;
++//
++//import java.math.BigDecimal;
++//
++//public class Estoque {
++//    private Integer id;
++//    private Produto Produto;
++//    private Double quantidade;
++//    private UnidadeMedidaEnum unidadeMedida;
++//    private BigDecimal valorCusto;
++//    private StatusEnum status;
++//
++//    public Estoque(Integer id, model.Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedida, BigDecimal valorCusto, StatusEnum status) {
++//        this.id = id;
++//        Produto = produto;
++//        this.quantidade = quantidade;
++//        this.unidadeMedida = unidadeMedida;
++//        this.valorCusto = valorCusto;
++//        this.status = status;
++//    }
++//
++//    public Integer getId() {
++//        return id;
++//    }
++//
++//    public void setId(Integer id) {
++//        this.id = id;
++//    }
++//
++//    public model.Produto getProduto() {
++//        return Produto;
++//    }
++//
++//    public void setProduto(model.Produto produto) {
++//        Produto = produto;
++//    }
++//
++//    public Double getQuantidade() {
++//        return quantidade;
++//    }
++//
++//    public void setQuantidade(Double quantidade) {
++//        this.quantidade = quantidade;
++//    }
++//
++//    public UnidadeMedidaEnum getUnidadeMedida() {
++//        return unidadeMedida;
++//    }
++//
++//    public void setUnidadeMedida(UnidadeMedidaEnum unidadeMedida) {
++//        this.unidadeMedida = unidadeMedida;
++//    }
++//
++//    public BigDecimal getValorCusto() {
++//        return valorCusto;
++//    }
++//
++//    public void setValorCusto(BigDecimal valorCusto) {
++//        this.valorCusto = valorCusto;
++//    }
++//
++//    public StatusEnum getStatus() {
++//        return status;
++//    }
++//
++//    public void setStatus(StatusEnum status) {
++//        this.status = status;
++//    }
++//
++//    @Override
++//    public String toString() {
++//        return "Estoque{" +
++//                "id=" + id +
++//                ", Produto=" + Produto +
++//                ", quantidade=" + quantidade +
++//                ", unidadeMedida=" + unidadeMedida +
++//                ", valorCusto=" + valorCusto +
++//                ", status=" + status +
++//                '}';
++//    }
++//}
