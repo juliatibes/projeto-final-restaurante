@@ -24,6 +24,11 @@ public class VendaDAO {
         return listaVenda;
     }
 
+    public static Integer aiID() {
+        Integer id = listaVenda.size() + 1;
+        return id;
+    }
+
     public static Object[] findprodutosInArrayProdutoBebida() {
         List<Produto> produtosBebida = ProdutoDAO.buscaTodos();
         List<String> produtosNomesBebida = new ArrayList<>();

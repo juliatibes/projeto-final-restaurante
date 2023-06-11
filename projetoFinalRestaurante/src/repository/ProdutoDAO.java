@@ -74,6 +74,9 @@ public class ProdutoDAO {
         return produtosNomes.toArray();
     }
 
-
+    public static Integer aiID() {
+        Integer id = listaProdutos.size() + 1;
+        return id;
+    }
 }
 

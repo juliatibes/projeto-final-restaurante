@@ -13,7 +13,7 @@ public class Venda {
     private FormaPagamentoEnum formaPagamento;
     private List<VendaPedido> listaVendaPedido = new ArrayList<>();
 
-    public Venda(Integer numeroComanda, FormaPagamentoEnum formaPagamento) {
+    public Venda(Integer id, Integer numeroComanda, FormaPagamentoEnum formaPagamento) {
         this.id = id;
         this.dataVenda = LocalDate.now();
         this.numeroComanda = numeroComanda;
@@ -24,8 +24,6 @@ public class Venda {
         listaVendaPedido.add(vendaPedido);
     }
 
-
-
     public Integer getId() {
         return id;
     }
@@ -34,9 +32,9 @@ public class Venda {
         this.id = id;
     }
 
-    public LocalDate getDataVenda() {
-        return dataVenda;
-    }
+//    public LocalDate getDataVenda() {
+//        return dataVenda;
+//    }
 
 //    public void setDataVenda(LocalDate dataVenda) {
 //        this.dataVenda = dataVenda;
