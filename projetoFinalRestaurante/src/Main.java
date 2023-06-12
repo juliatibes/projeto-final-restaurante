@@ -515,8 +515,7 @@ public class Main {
         switch (menuRelatorios) {
 
             case 0: //Compras
-                JOptionPane.showMessageDialog(null, CompraDAO.buscarTodos());
-                chamaMenuPrincipal();
+                ChamaRelatorioCompra();
                 break;
             case 1: //Estoque
                 ChamaRelatorioEstoque();
@@ -534,6 +533,11 @@ public class Main {
         }
     }
 
+    private static void ChamaRelatorioCompra() {
+        List<Compra> compras = CompraDAO.buscarTodos();
+        RelatorioCompraForm.EmitirRelatorio(compras);
+    }
+
     private static void ChamaRelatorioEstoque() {
         List<ProdutoEstoque> produtos = EstoqueDAO.buscaTodos();
         RelatorioEstoqueForm.emitirRelatorio(produtos);
@@ -543,6 +547,7 @@ public class Main {
         List<Receita> receitas = ReceitaDAO.buscaTodos();
         RelatorioReceitaForm.emitirRelatorio(receitas);
     }
+
 
     private static void chamaMenuVenda() {
 
