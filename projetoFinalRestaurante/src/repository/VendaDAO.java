@@ -146,11 +146,20 @@ public class VendaDAO {
             }
         }
         if (vendaPedidoEscolhida != null) {
-            vendaCarinhoNomes.add("          " + vendaPedidoEscolhida.getQuantidade() +
-                    "                           " + vendaPedidoEscolhida.getReceita().getNome());
-            vendaCarinhoNomes.add("\nVALOR TOTAL: R$" + valorCarinho.add(BigDecimal.valueOf(vendaPedidoEscolhida.getQuantidade()).
-                    multiply(vendaPedidoEscolhida.getReceita().getValorVenda())));
-        } else {
+            if (vendaPedidoEscolhida.getReceita() != null) {
+                vendaCarinhoNomes.add("          " + vendaPedidoEscolhida.getQuantidade() +
+                        "                           " + vendaPedidoEscolhida.getReceita().getNome());
+                vendaCarinhoNomes.add("\nVALOR TOTAL: R$" + valorCarinho.add(BigDecimal.valueOf(vendaPedidoEscolhida.getQuantidade()).
+                        multiply(vendaPedidoEscolhida.getReceita().getValorVenda())));
+            }
+            if (vendaPedidoEscolhida.getProdutoBebida() != null){
+                vendaCarinhoNomes.add("          " + vendaPedidoEscolhida.getQuantidade() +
+                        "                           " + vendaPedidoEscolhida.getProdutoBebida().getNome());
+                vendaCarinhoNomes.add("\nVALOR TOTAL: R$" + valorCarinho.add(BigDecimal.valueOf(vendaPedidoEscolhida.getQuantidade()).
+                        multiply(vendaPedidoEscolhida.getProdutoBebida().getValorVendaProduto())));
+            }
+        }
+        else {
             vendaCarinhoNomes.add("\nVALOR TOTAL: R$" + valorCarinho);
         }
         return vendaCarinhoNomes.toArray();
