@@ -37,7 +37,6 @@ public class EstoqueDAO {
         }
 
         listaProdutosEstoque.add(new ProdutoEstoque(produto, quantidade + quantidadeAtual, unidadeMedidaEnum));
-        System.out.println(listaProdutosEstoque);
     }
 
     public static Integer verificaDisponibilidade (List<VendaPedido> listaItensCarinho){
@@ -50,15 +49,16 @@ public class EstoqueDAO {
         }
 
 
-
         for ( int z = 0; z < listaItensCarinho.size();z ++) {
-            if (listaItensCarinho.get(z).equals(listaItensCarinho.get(z).getProdutoBebida())) {
+            List<ProdutoEstoque> guardaProdutoEstoque = new ArrayList<>();
+
+            if (listaItensCarinho.get(z).getProdutoBebida() != null) {
                 for (int y = 0; y < listaProdutosEstoqueVerificacao.size(); y++) {
+
                     if (listaProdutosEstoqueVerificacao.get(y).getProduto().equals(listaItensCarinho.get(z).getProdutoBebida())) {
                         if (listaProdutosEstoqueVerificacao.get(y).getQuantidade() < listaItensCarinho.get(z).getQuantidade()) {
                             return 1;
                         } else {
-                            List<ProdutoEstoque> guardaProdutoEstoque = new ArrayList<>();
                             guardaProdutoEstoque.add(listaProdutosEstoqueVerificacao.get(y));
 
                             listaProdutosEstoqueVerificacao.remove(listaProdutosEstoqueVerificacao.get(y));
@@ -66,14 +66,14 @@ public class EstoqueDAO {
                             listaProdutosEstoqueVerificacao.add(new ProdutoEstoque(guardaProdutoEstoque.get(0).getProduto(),
                                     guardaProdutoEstoque.get(0).getQuantidade() - listaItensCarinho.get(z).getQuantidade(),
                                     guardaProdutoEstoque.get(0).getUnidadeMedida()));
+                            guardaProdutoEstoque.clear();
+                            y = listaProdutosEstoqueVerificacao.size() -1;
                         }
                     }
                 }
             }
-        }
 
-        for ( int z = 0; z < listaItensCarinho.size();z ++) {
-          if (listaItensCarinho.get(z).equals(listaItensCarinho.get(z).getReceita())) {
+            if (listaItensCarinho.get(z).getReceita() != null) {
               for (int x = 0; x < listaItensCarinho.get(z).getReceita().getListaIngredientes().size(); x++) {
 
                   quantidadeCalculadaReceita = listaItensCarinho.get(z).getReceita().getListaIngredientes().get(x).getQuantidade() *
@@ -86,14 +86,14 @@ public class EstoqueDAO {
                           if (listaProdutosEstoqueVerificacao.get(y).getQuantidade() < quantidadeCalculadaReceita) {
                               return 1;
                           } else {
-                              List<ProdutoEstoque> guardaProdutoEstoque = new ArrayList<>();
                               guardaProdutoEstoque.add(listaProdutosEstoqueVerificacao.get(y));
 
                               listaProdutosEstoqueVerificacao.remove(listaProdutosEstoqueVerificacao.get(y));
-
                               listaProdutosEstoqueVerificacao.add(new ProdutoEstoque(guardaProdutoEstoque.get(0).getProduto(),
                                       guardaProdutoEstoque.get(0).getQuantidade() - quantidadeCalculadaReceita,
                                       guardaProdutoEstoque.get(0).getUnidadeMedida()));
+                              guardaProdutoEstoque.clear();
+                              y = listaProdutosEstoqueVerificacao.size() -1;
                           }
                       }
                   }
@@ -101,5 +101,42 @@ public class EstoqueDAO {
           }
         }
         return 0;
+    }
+
+    public static Integer baixaVendaEstoque (Venda venda){
+        Double quantidadeCalculadaReceita = 0.00;
+
+        for (int x = 0 ; x < venda.getListaVendaPedido().size() ; x ++) {
+
+            if (venda.getListaVendaPedido().get(x).getProdutoBebida() != null) {
+                for (int y = 0; y < listaProdutosEstoque.size(); y++) {
+                    if (listaProdutosEstoque.get(y).getProduto().equals(venda.getListaVendaPedido().get(x).getProdutoBebida())){
+                        listaProdutosEstoque.get(y).setQuantidade
+                                (listaProdutosEstoque.get(y).getQuantidade() - venda.getListaVendaPedido().get(x).getQuantidade());
+
+                    }
+                }
+            }
+
+            if (venda.getListaVendaPedido().get(x).getReceita() != null) {
+                for (int z = 0; z < venda.getListaVendaPedido().get(x).getReceita().getListaIngredientes().size(); z++) {
+
+                    quantidadeCalculadaReceita = venda.getListaVendaPedido().get(x).getReceita().getListaIngredientes().get(z).getQuantidade() *
+                            venda.getListaVendaPedido().get(x).getQuantidade();
+
+                    for (int y = 0; y < listaProdutosEstoque.size(); y++) {
+                        if (listaProdutosEstoque.get(y).getProduto().equals
+                                (venda.getListaVendaPedido().get(x).getReceita().getListaIngredientes().get(z).getProduto())) {
+
+                            listaProdutosEstoque.get(y).setQuantidade
+                                    (listaProdutosEstoque.get(y).getQuantidade() - quantidadeCalculadaReceita);
+                        }
+                    }
+                }
+            }
+        }
+
+        return JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
+                "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
     }
 }
