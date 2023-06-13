@@ -524,7 +524,7 @@ public class Main {
                 ChamaRelatorioReceitas();
                 break;
             case 3: //Vendas
-                JOptionPane.showMessageDialog(null, ReceitaDAO.buscaTodos());
+                JOptionPane.showMessageDialog(null, VendaDAO.buscarTodos());
                 chamaMenuPrincipal();
                 break;
             case 4: //Voltar
@@ -563,15 +563,19 @@ public class Main {
         Venda venda = new Venda(id, numeroComanda,null);
 
         List<VendaPedido> listaReceitaCarinho = new ArrayList<>();
-        Integer contadorVendaCarrinho = 0;
+        Boolean excluirLastItemReceitaCarinho = false;
 
-        do {   String[] opcoesMenuCardapioVenda = {"Bebidas","Entradas" , "Massas", "Risotos", "Carnes", "Sobremesas", "Prato do dia", "Voltar"};
+        do {    Integer contadorVendaCarrinho = 0;
+                String[] opcoesMenuCardapioVenda = {"Bebidas","Entradas" , "Massas", "Risotos", "Carnes", "Sobremesas", "Prato do dia", "Voltar"};
                 int opcaoMenuCardapioVenda = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Venda",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCardapioVenda, opcoesMenuCardapioVenda[0]);
 
                     switch (opcaoMenuCardapioVenda) {
                         case 0: // Bebidas
+
+                            boolean quantidadeEstoqueBebida = true;
+
                               Object[] selectionValuesProdutoBebida = VendaDAO.findprodutosInArrayProdutoBebida();
                             String initialSelectionProdutoBebida = (String) selectionValuesProdutoBebida[0];
                             Object selectionProdutoBebida = JOptionPane.showInputDialog(null, "Selecione a bebida",
@@ -581,11 +585,17 @@ public class Main {
                             Integer quantidadeVendaBebida = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            if (excluirLastItemReceitaCarinho == true){
+                                listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                excluirLastItemReceitaCarinho = false;
+                            }
+
                           listaReceitaCarinho.add(new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida));
 
                           if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                               JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
                                       "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                              quantidadeEstoqueBebida = false;
                           }
 
                             VendaPedido vendaPedidoBebida = new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida);
@@ -598,10 +608,10 @@ public class Main {
                             switch (menuCadastroBebida) {
                                 case 0: //ContinuarPedindo
                                     contadorVendaCarrinho = 4;
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueBebida == true){
                                         venda.adicionarVendaPedido(vendaPedidoBebida);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                        excluirLastItemReceitaCarinho = true;
                                     }
 
                                     break;
@@ -611,10 +621,8 @@ public class Main {
                                     chamaMenuPrincipal();
                                     break;
                                 case 2: //FinalizaPedido
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueBebida == true){
                                         venda.adicionarVendaPedido(vendaPedidoBebida);
-                                    } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                     }
 
                                     int tipoPagamentoSelecionadoBebida = JOptionPane.showOptionDialog(null,
@@ -623,8 +631,8 @@ public class Main {
                                     venda.setFormaPagamento(opcoesTipoPagamento[tipoPagamentoSelecionadoBebida]);
                                     VendaDAO.salvarListaVenda(venda);
 
-                                    JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
-                                            "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                    EstoqueDAO.baixaVendaEstoque(venda);
+
                                     contadorVenda = 1;
                                     contadorVendaCarrinho = 1;
                                     chamaMenuPrincipal();
@@ -632,13 +640,12 @@ public class Main {
                                     break;
                                 case 3: //Carrinho de venda
 
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueBebida == true){
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),vendaPedidoBebida,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                 "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),null,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
@@ -647,9 +654,11 @@ public class Main {
 
                                     break;
                                     }
-                                } while (contadorVendaCarrinho<=0);
+                            } while (contadorVendaCarrinho<=0);
                         break;
                         case 1: // Entrada
+                            boolean quantidadeEstoqueEntrada = true;
+
                             Object[] selectionValuesReceitaEntrada = VendaDAO.findreceitaInArrayReceitaEntrada();
                             String initialSelectionReceitaEntrada = (String) selectionValuesReceitaEntrada[0];
                             Object selectionReceitaEntrada = JOptionPane.showInputDialog(null, "Selecione a entrada",
@@ -659,11 +668,17 @@ public class Main {
                             Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            if (excluirLastItemReceitaCarinho == true){
+                                listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                excluirLastItemReceitaCarinho = false;
+                            }
+
                             listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaEntrada));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                quantidadeEstoqueEntrada = false;
                             }
 
                             VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada);
@@ -677,10 +692,10 @@ public class Main {
                             switch (menuCadastroEntrada) {
                                 case 0: //ContinuarPedindo
                                     contadorVendaCarrinho = 4;
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueEntrada == true){
                                         venda.adicionarVendaPedido(vendaPedidoEntrada);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                        excluirLastItemReceitaCarinho = true;
                                     }
 
                                     break;
@@ -690,10 +705,8 @@ public class Main {
                                     chamaMenuPrincipal();
                                     break;
                                 case 2: //FinalizaPedido
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueEntrada == true){
                                         venda.adicionarVendaPedido(vendaPedidoEntrada);
-                                    } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                     }
 
                                     int tipoPagamentoSelecionadoEntrada = JOptionPane.showOptionDialog(null,
@@ -702,8 +715,8 @@ public class Main {
                                     venda.setFormaPagamento(opcoesTipoPagamento[tipoPagamentoSelecionadoEntrada]);
                                     VendaDAO.salvarListaVenda(venda);
 
-                                    JOptionPane.showConfirmDialog(null, "Venda concluída com sucesso!",
-                                            "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                    EstoqueDAO.baixaVendaEstoque(venda);
+
                                     contadorVenda = 1;
                                     contadorVendaCarrinho = 1;
                                     chamaMenuPrincipal();
@@ -712,13 +725,12 @@ public class Main {
 
                                 case 3: //Carrinho de venda
 
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueEntrada == true){
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),vendaPedidoEntrada,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                 "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),null,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
@@ -731,6 +743,8 @@ public class Main {
                             break;
 
                         case 2: // Massas
+                            boolean quantidadeEstoqueMassa = true;
+
                             Object[] selectionValuesReceitaMassa = VendaDAO.findreceitaInArrayReceitaMassa();
                             String initialSelectionReceitaMassa = (String) selectionValuesReceitaMassa[0];
                             Object selectionReceitaMassa = JOptionPane.showInputDialog(null, "Selecione a massa",
@@ -740,14 +754,18 @@ public class Main {
                             Integer quantidadeVendaMassa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            if (excluirLastItemReceitaCarinho == true){
+                                listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                excluirLastItemReceitaCarinho = false;
+                            }
+
                             listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaMassa));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1) {
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                quantidadeEstoqueMassa = false;
                             }
-
-
 
                             VendaPedido vendaPedidoMassa = new VendaPedido(receita.get(0),quantidadeVendaMassa);
 
@@ -761,10 +779,10 @@ public class Main {
                             switch (menuCadastroMassa) {
                                 case 0: //ContinuarPedindo
                                     contadorVendaCarrinho = 4;
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueMassa == true){
                                         venda.adicionarVendaPedido(vendaPedidoMassa);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                        excluirLastItemReceitaCarinho = true;
                                     }
 
                                     break;
@@ -774,10 +792,8 @@ public class Main {
                                     chamaMenuPrincipal();
                                     break;
                                 case 2: //FinalizaPedido
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueMassa == true){
                                         venda.adicionarVendaPedido(vendaPedidoMassa);
-                                    } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                     }
 
                                     int tipoPagamentoSelecionado = JOptionPane.showOptionDialog(null,
@@ -786,8 +802,8 @@ public class Main {
                                     venda.setFormaPagamento(opcoesTipoPagamento[tipoPagamentoSelecionado]);
                                     VendaDAO.salvarListaVenda(venda);
 
-                                    JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
-                                            "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                    EstoqueDAO.baixaVendaEstoque(venda);
+
                                     contadorVenda = 1;
                                     contadorVendaCarrinho = 1;
                                     chamaMenuPrincipal();
@@ -796,25 +812,25 @@ public class Main {
 
                                 case 3: //Carinho de venda
 
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueMassa == true){
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),vendaPedidoMassa,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                 "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),null,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                 "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                     }
-
                                     break;
                                     }
                                 } while (contadorVendaCarrinho<=0);
                             break;
+                            case 3: // Risotos
 
-                        case 3: // Risotos
+                            boolean quantidadeEstoqueRisoto = true;
+
                             Object[] selectionValuesReceitaRisoto = VendaDAO.findreceitaInArrayReceitaRisoto();
                             String initialSelectionReceitaRisoto = (String) selectionValuesReceitaRisoto[0];
                             Object selectionReceitaRisoto = JOptionPane.showInputDialog(null, "Selecione o risoto",
@@ -824,11 +840,17 @@ public class Main {
                             Integer quantidadeVendaRisoto = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                                if (excluirLastItemReceitaCarinho == true){
+                                    listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                    excluirLastItemReceitaCarinho = false;
+                                }
+
                             listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaRisoto));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                quantidadeEstoqueRisoto = false;
                             }
 
                             VendaPedido vendaPedidoRisoto = new VendaPedido(receita.get(0),quantidadeVendaRisoto);
@@ -843,10 +865,10 @@ public class Main {
                             switch (menuCadastroRisoto) {
                                 case 0: //ContinuarPedindo
                                     contadorVendaCarrinho = 4;
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueRisoto == true){
                                         venda.adicionarVendaPedido(vendaPedidoRisoto);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                        excluirLastItemReceitaCarinho = true;
                                     }
 
                                     break;
@@ -856,10 +878,8 @@ public class Main {
                                     chamaMenuPrincipal();
                                     break;
                                 case 2: //FinalizaPedido
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueRisoto == true){
                                         venda.adicionarVendaPedido(vendaPedidoRisoto);
-                                    } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                     }
 
                                     int tipoPagamentoSelecionadoRisotos = JOptionPane.showOptionDialog(null,
@@ -868,8 +888,8 @@ public class Main {
                                     venda.setFormaPagamento(opcoesTipoPagamento[tipoPagamentoSelecionadoRisotos]);
                                     VendaDAO.salvarListaVenda(venda);
 
-                                    JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
-                                            "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                    EstoqueDAO.baixaVendaEstoque(venda);
+
                                     contadorVenda = 1;
                                     contadorVendaCarrinho = 1;
                                     chamaMenuPrincipal();
@@ -877,25 +897,25 @@ public class Main {
                                     break;
                                 case 3: //Carrinho de venda
 
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueRisoto == true){
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),vendaPedidoRisoto,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                 "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),null,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                 "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                     }
-
                                     break;
                                     }
                                 } while (contadorVendaCarrinho<=0);
                             break;
 
                         case 4: // Carnes
+                            boolean quantidadeEstoqueCarne = true;
+
                             Object[] selectionValuesReceitaCarne = VendaDAO.findreceitaInArrayReceitaCarne();
                             String initialSelectionReceitaCarne = (String) selectionValuesReceitaCarne[0];
                             Object selectionReceitaCarne = JOptionPane.showInputDialog(null, "Selecione a carne:",
@@ -905,11 +925,17 @@ public class Main {
                             Integer quantidadeVendaCarne = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            if (excluirLastItemReceitaCarinho == true){
+                                listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                excluirLastItemReceitaCarinho = false;
+                            }
+
                             listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaCarne));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                quantidadeEstoqueCarne = false;
                             }
 
                             VendaPedido vendaPedidoCarne = new VendaPedido(receita.get(0),quantidadeVendaCarne);
@@ -924,10 +950,10 @@ public class Main {
                             switch (menuCadastroCarne) {
                                 case 0: //ContinuarPedindo
                                     contadorVendaCarrinho = 4;
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueCarne == true){
                                         venda.adicionarVendaPedido(vendaPedidoCarne);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                        excluirLastItemReceitaCarinho = true;
                                     }
 
                                     break;
@@ -937,10 +963,8 @@ public class Main {
                                     chamaMenuPrincipal();
                                     break;
                                 case 2: //FinalizaPedido
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueCarne == true){
                                         venda.adicionarVendaPedido(vendaPedidoCarne);
-                                    } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                     }
 
                                     int tipoPagamentoSelecionadoCarnes = JOptionPane.showOptionDialog(null,
@@ -949,8 +973,8 @@ public class Main {
                                     venda.setFormaPagamento(opcoesTipoPagamento[tipoPagamentoSelecionadoCarnes]);
                                     VendaDAO.salvarListaVenda(venda);
 
-                                    JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
-                                            "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                    EstoqueDAO.baixaVendaEstoque(venda);
+
                                     contadorVenda = 1;
                                     contadorVendaCarrinho = 1;
                                     chamaMenuPrincipal();
@@ -958,13 +982,12 @@ public class Main {
                                     break;
                                 case 3: //Carinho de venda
 
-                                    if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                    if (quantidadeEstoqueCarne == true){
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),vendaPedidoCarne,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                 "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                     } else {
-                                        listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                         Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                 (venda.getListaVendaPedido(),null,venda.calculaValorListaVenda(venda));
                                         JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
@@ -977,6 +1000,7 @@ public class Main {
                             break;
                         case 5: // Sobremesas
 
+                                boolean quantidadeEstoqueSobremesa = true;
 
                                 Object[] selectionValuesReceitaSobremesa = VendaDAO.findreceitaInArrayReceitaSobremesa();
                                 String initialSelectionReceitaSobremesa = (String) selectionValuesReceitaSobremesa[0];
@@ -987,11 +1011,17 @@ public class Main {
                                 Integer quantidadeVendaSobremesa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                         "Venda", JOptionPane.DEFAULT_OPTION));
 
+                                if (excluirLastItemReceitaCarinho == true){
+                                    listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                    excluirLastItemReceitaCarinho = false;
+                                }
+
                             listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaSobremesa));
 
                                 if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                     JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
                                             "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                    quantidadeEstoqueSobremesa = false;
                                 }
 
                             VendaPedido vendaPedidoSobremesa = new VendaPedido(receita.get(0),quantidadeVendaSobremesa);
@@ -1008,14 +1038,11 @@ public class Main {
                                         case 0: //ContinuarPedindo
                                             contadorVendaCarrinho = 4;
 
-                                            if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                            if (quantidadeEstoqueSobremesa == true){
                                             venda.adicionarVendaPedido(vendaPedidoSobremesa);
                                             } else {
-                                                listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
+                                                excluirLastItemReceitaCarinho = true;
                                             }
-
-                                            // esse esta certo , colocar em todos os outros e fazer a att do metodo de verificação
-                                            // para bebida tambem.
 
                                             break;
                                         case 1: //CancelarPedido
@@ -1024,10 +1051,8 @@ public class Main {
                                             chamaMenuPrincipal();
                                             break;
                                         case 2: //FinalizaPedido
-                                            if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                            if (quantidadeEstoqueSobremesa == true){
                                                 venda.adicionarVendaPedido(vendaPedidoSobremesa);
-                                            } else {
-                                                listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                             }
 
                                             int tipoPagamentoSelecionadoSobremesa = JOptionPane.showOptionDialog(null,
@@ -1036,28 +1061,25 @@ public class Main {
                                             venda.setFormaPagamento(opcoesTipoPagamento[tipoPagamentoSelecionadoSobremesa]);
                                             VendaDAO.salvarListaVenda(venda);
 
-                                            JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
-                                                    "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                                            EstoqueDAO.baixaVendaEstoque(venda);
+
                                             contadorVenda = 1;
                                             contadorVendaCarrinho = 1;
                                             chamaMenuPrincipal();
 
                                             break;
                                         case 3: //Carrinho de venda
-
-                                            if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho) == 0){
+                                            if (quantidadeEstoqueSobremesa == true){
                                                 Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                         (venda.getListaVendaPedido(),vendaPedidoSobremesa,venda.calculaValorListaVenda(venda));
                                                 JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                         "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                             } else {
-                                                listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                                 Object[] selectionValuesReceitaCarinho = VendaDAO.findreceitaInArrayReceitaCarinho
                                                         (venda.getListaVendaPedido(),null,venda.calculaValorListaVenda(venda));
                                                 JOptionPane.showConfirmDialog(null, selectionValuesReceitaCarinho,
                                                         "Carrinho de Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                                             }
-
                                             break;
                                     }
                                   } while (contadorVendaCarrinho<=0);
@@ -1071,6 +1093,7 @@ public class Main {
                             chamaMenuPrincipal();
                             break;
                             }
-                        } while (contadorVenda<=0);
+        } while (contadorVenda<=0);
+
     }
 }

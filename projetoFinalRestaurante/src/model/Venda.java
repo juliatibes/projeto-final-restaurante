@@ -51,13 +51,13 @@ public class Venda {
         this.id = id;
     }
 
-//    public LocalDate getDataVenda() {
-//        return dataVenda;
-//    }
+    public LocalDate getDataVenda() {
+        return dataVenda;
+    }
 
-//    public void setDataVenda(LocalDate dataVenda) {
-//        this.dataVenda = dataVenda;
-//    }
+    public void setDataVenda(LocalDate dataVenda) {
+        this.dataVenda = dataVenda;
+    }
 
     public FormaPagamentoEnum getFormaPagamento() {
         return formaPagamento;
@@ -73,10 +73,6 @@ public class Venda {
 
     public void setNumeroComanda(Integer numeroComanda) {
         this.numeroComanda = numeroComanda;
-    }
-
-    public void setDataVenda(LocalDate dataVenda) {
-        this.dataVenda = dataVenda;
     }
 
     public List<VendaPedido> getListaVendaPedido() {
