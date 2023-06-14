@@ -5,15 +5,18 @@ public class VendaPedido {
     private Receita receita;
     private Produto produtoBebida;
     private Integer quantidade;
+    private String observacao;
 
-    public VendaPedido(Receita receita, Integer quantidade) {
+    public VendaPedido(Receita receita, Integer quantidade, String observacao) {
         this.receita = receita;
         this.quantidade = quantidade;
+        this.observacao = observacao;
     }
 
-    public VendaPedido(Produto produtoBebida, Integer quantidade) {
+    public VendaPedido(Produto produtoBebida, Integer quantidade, String observacao) {
         this.produtoBebida = produtoBebida;
         this.quantidade = quantidade;
+        this.observacao = observacao;
     }
 
     public Receita getReceita() {
@@ -40,12 +43,21 @@ public class VendaPedido {
         this.quantidade = quantidade;
     }
 
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
     @Override
     public String toString() {
         return "VendaPedido{" +
                 "receita=" + receita +
                 ", produtoBebida=" + produtoBebida +
                 ", quantidade=" + quantidade +
+                ", observacao='" + observacao + '\'' +
                 '}';
     }
 }

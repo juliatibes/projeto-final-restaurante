@@ -18,7 +18,6 @@ public class Main {
         CompraDAO.inputCompras();
         ReceitaDAO.inputReceita();
         PlanejamentoProducaoDAO.inputPlanejamento();
-        EstoqueDAO.inputEstoque();
         //VendaDAO.inputVendas();
         chamaMenuPrincipal();
     }
@@ -49,15 +48,6 @@ public class Main {
                 break;
         }
     }
-
-//    private static void cadastroDeCliente() {
-//        String nome = JOptionPane.showInputDialog(null, "Digite o nome do cliente");
-//        String cpf = JOptionPane.showInputDialog(null, "Digite o cpf do cliente");
-//        String email = JOptionPane.showInputDialog(null, "Digite o email do cliente");
-//        ClienteExemplo cliente = new ClienteExemplo(nome, cpf, email);
-//        ClienteDAOExemplo.salvar(cliente);
-//        chamaMenuPrincipal();
-//    }
 
     private static void chamaMenuPlanejamento() {
         String[] opcoesMenuPlanejamento = {"Cadastrar planejamento", "Planejamento", "Prato do dia", "Voltar"};
@@ -102,7 +92,7 @@ public class Main {
         Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade desejada",
                 "Prato do dia", JOptionPane.DEFAULT_OPTION));
 
-        VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada);
+        VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada,null);
         //
     }
 
@@ -399,31 +389,25 @@ public class Main {
                 "Editar Receita", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
         Integer receitas = ReceitaDAO.buscaPosicaoReceita((String) selectionProduto);
 
-        String[] opcoesEditarReceita = {"ID", "Nome", "Classe", "Valor de custo", "Ingredientes"};
+        String[] opcoesEditarReceita = {"Nome", "Classe", "Valor de custo", "Ingredientes"};
         int menuEditarReceita = JOptionPane.showOptionDialog(null, "Escolha a opção que você deseja editar do(a) " +
                         ReceitaDAO.buscaTodos().get(receitas).getNome() + ":", "Editar Receita",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesEditarReceita, opcoesEditarReceita[0]);
 
         switch (menuEditarReceita) {
-            case 0: //editarReceitaID
-                Integer id = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o NOVO ID da(o) " +
-                        ReceitaDAO.buscaTodos().get(receitas).getNome() + ":", "Editar Receita", JOptionPane.DEFAULT_OPTION));
-                ReceitaDAO.editarReceitaId(receitas, id);
-                chamaMenuPrincipal();
-                break;
-            case 1: //editarReceitaNome
+            case 0: //editarReceitaNome
                 String nome = JOptionPane.showInputDialog(null, "Informe o NOVO NOME para substituir "
                         + ReceitaDAO.buscaTodos().get(receitas).getNome() + ":", "Editar Receita", JOptionPane.DEFAULT_OPTION);
                 ReceitaDAO.editarReceitaNome(receitas, nome);
                 chamaMenuPrincipal();
                 break;
-            case 2: //editarReceitaClasse
+            case 1: //editarReceitaClasse
                 int receitaClasseSelecionado = JOptionPane.showOptionDialog(null, "Escolha a NOVA CLASSE do(a) " +
                                 ReceitaDAO.buscaTodos().get(receitas).getNome() + ":", "Editar Receita",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesReceitaClasse, opcoesReceitaClasse[0]);
                 ReceitaDAO.editarReceitaClasse(receitas, opcoesReceitaClasse[receitaClasseSelecionado]);
                 chamaMenuPrincipal();
-            case 3: //editarReceitaValorCusto
+            case 2: //editarReceitaValorCusto
                 BigDecimal valorCusto = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null,
                         "Informe o NOVO VALOR DE CUSTO do(a) " + ReceitaDAO.buscaTodos().get(receitas).getNome() + ":",
                         "Editar Receita", JOptionPane.DEFAULT_OPTION)));
@@ -431,7 +415,7 @@ public class Main {
                 chamaMenuPrincipal();
                 break;
 
-            case 4: // editarReceitaIngredientes
+            case 3: // editarReceitaIngredientes
                 Integer contadorWhile = 0;
 
                 UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.KILO, UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.LITRO,
@@ -439,7 +423,7 @@ public class Main {
 
                 Object[] selectionValuesReceitaIngrediente = ReceitaDAO.findReceitasIngredientesInArray(((String) selectionProduto));
                 String initialSelectionReceitaIngrediente = (String) selectionValuesReceita[0];
-                Object selectionReceitaIngrediente = JOptionPane.showInputDialog(null, "Selecione o ingrediente da "
+                Object selectionReceitaIngrediente = JOptionPane.showInputDialog(null, "Selecione o ingrediente do(a) "
                                 + ReceitaDAO.buscaTodos().get(receitas).getNome() + " que você deseja editar:",
                         "Editar Receita Ingredientes", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaIngrediente,
                         initialSelectionReceitaIngrediente);
@@ -450,7 +434,7 @@ public class Main {
 
                 do {
                     String[] opcoesEditarReceitaIngrediente = {"Ingrediente", "Quantidade", "Unidade de medida"};
-                    int menuEditarReceitaIngrediente = JOptionPane.showOptionDialog(null, "Escolha a opção que você deseja editar do(a) "
+                    int menuEditarReceitaIngrediente = JOptionPane.showOptionDialog(null, "Escolha a opção que você deseja editar do ingrediente do(a) "
                                     + nomeIngredienteEditarReceitaIngrediente + ":", "Editar Receita Ingrediente",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
                             opcoesEditarReceitaIngrediente, opcoesEditarReceitaIngrediente[0]);
@@ -585,12 +569,16 @@ public class Main {
                             Integer quantidadeVendaBebida = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoBebida = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
+
                             if (excluirLastItemReceitaCarinho == true){
                                 listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                 excluirLastItemReceitaCarinho = false;
                             }
 
-                          listaReceitaCarinho.add(new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida));
+                          listaReceitaCarinho.add(new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida,observacaoBebida));
 
                           if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                               JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -598,7 +586,7 @@ public class Main {
                               quantidadeEstoqueBebida = false;
                           }
 
-                            VendaPedido vendaPedidoBebida = new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida);
+                            VendaPedido vendaPedidoBebida = new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida,observacaoBebida);
 
                             do { String[] opcoesMenuVendaBebida = {"Adicionar Novo Item", "Cancelar Venda", "Finalizar Venda","Carrinho Venda"};
                             int menuCadastroBebida = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
@@ -668,12 +656,15 @@ public class Main {
                             Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoEntrada = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
                             if (excluirLastItemReceitaCarinho == true){
                                 listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                 excluirLastItemReceitaCarinho = false;
                             }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaEntrada));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaEntrada,observacaoEntrada));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -681,7 +672,7 @@ public class Main {
                                 quantidadeEstoqueEntrada = false;
                             }
 
-                            VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada);
+                            VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada,observacaoEntrada);
 
                             contadorVendaCarrinho = 0;
                             do { String[] opcoesMenuVendaEntrada = {"Adicionar Novo Item", "Cancelar Venda", "Finalizar Venda","Carrinho Venda"};
@@ -754,12 +745,15 @@ public class Main {
                             Integer quantidadeVendaMassa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoMassa = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
                             if (excluirLastItemReceitaCarinho == true){
                                 listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                 excluirLastItemReceitaCarinho = false;
                             }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaMassa));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaMassa,observacaoMassa));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1) {
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -767,7 +761,7 @@ public class Main {
                                 quantidadeEstoqueMassa = false;
                             }
 
-                            VendaPedido vendaPedidoMassa = new VendaPedido(receita.get(0),quantidadeVendaMassa);
+                            VendaPedido vendaPedidoMassa = new VendaPedido(receita.get(0),quantidadeVendaMassa,observacaoMassa);
 
                             contadorVendaCarrinho = 0;
 
@@ -840,12 +834,15 @@ public class Main {
                             Integer quantidadeVendaRisoto = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoRisoto = JOptionPane.showInputDialog(null, "Observação:",
+                                        "Venda", JOptionPane.DEFAULT_OPTION);
+
                                 if (excluirLastItemReceitaCarinho == true){
                                     listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                     excluirLastItemReceitaCarinho = false;
                                 }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaRisoto));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaRisoto,observacaoRisoto));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -853,7 +850,7 @@ public class Main {
                                 quantidadeEstoqueRisoto = false;
                             }
 
-                            VendaPedido vendaPedidoRisoto = new VendaPedido(receita.get(0),quantidadeVendaRisoto);
+                            VendaPedido vendaPedidoRisoto = new VendaPedido(receita.get(0),quantidadeVendaRisoto,observacaoRisoto);
 
                             contadorVendaCarrinho = 0;
 
@@ -925,12 +922,15 @@ public class Main {
                             Integer quantidadeVendaCarne = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoCarne = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
                             if (excluirLastItemReceitaCarinho == true){
                                 listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                 excluirLastItemReceitaCarinho = false;
                             }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaCarne));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaCarne,observacaoCarne));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -938,7 +938,7 @@ public class Main {
                                 quantidadeEstoqueCarne = false;
                             }
 
-                            VendaPedido vendaPedidoCarne = new VendaPedido(receita.get(0),quantidadeVendaCarne);
+                            VendaPedido vendaPedidoCarne = new VendaPedido(receita.get(0),quantidadeVendaCarne,observacaoCarne);
 
                             contadorVendaCarrinho = 0;
 
@@ -1011,12 +1011,15 @@ public class Main {
                                 Integer quantidadeVendaSobremesa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                         "Venda", JOptionPane.DEFAULT_OPTION));
 
+                                String observacaoSobremesa = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
                                 if (excluirLastItemReceitaCarinho == true){
                                     listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                     excluirLastItemReceitaCarinho = false;
                                 }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaSobremesa));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaSobremesa,observacaoSobremesa));
 
                                 if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                     JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -1024,7 +1027,7 @@ public class Main {
                                     quantidadeEstoqueSobremesa = false;
                                 }
 
-                            VendaPedido vendaPedidoSobremesa = new VendaPedido(receita.get(0),quantidadeVendaSobremesa);
+                            VendaPedido vendaPedidoSobremesa = new VendaPedido(receita.get(0),quantidadeVendaSobremesa,observacaoSobremesa);
 
                             contadorVendaCarrinho = 0;
 
