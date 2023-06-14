@@ -18,41 +18,64 @@ public class ReceitaDAO {
 
     public static void inputReceita() {
         if (ReceitaDAO.listaReceita.isEmpty()) {
-            Receita receita1 = new Receita(10, "Massa Carbonara", ReceitaClasseEnum.MASSA, BigDecimal.valueOf(25.00));
-            receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA));
-            receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(1), 50.0, UnidadeMedidaEnum.GRAMA));
-            receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(3), 30.0, UnidadeMedidaEnum.GRAMA));
-            receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(4), 2.0, UnidadeMedidaEnum.UNIDADE));
-            receita1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(5), 100.0, UnidadeMedidaEnum.MILILITRO));
-            listaReceita.add(receita1);
+            Receita massa1 = new Receita(1, "Massa Carbonara", ReceitaClasseEnum.MASSA, BigDecimal.valueOf(21.0));
+            massa1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA)); // massa
+            massa1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(1), 50.0, UnidadeMedidaEnum.GRAMA)); // bacon
+            massa1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(3), 30.0, UnidadeMedidaEnum.GRAMA)); // cebolinha verde
+            massa1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(4), 2.0, UnidadeMedidaEnum.UNIDADE)); // ovo
+            massa1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(5), 100.0, UnidadeMedidaEnum.MILILITRO)); // creme de leite
+            listaReceita.add(massa1);
 
-            Receita receita2 = new Receita(11, "TesteEntrada", ReceitaClasseEnum.ENTRADA, BigDecimal.valueOf(15.00));
-            receita2.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA));
-            listaReceita.add(receita2);
+            Receita massa2 = new Receita(7, "Gnocchi Quatro Queijos", ReceitaClasseEnum.MASSA, BigDecimal.valueOf(24));
+            massa2.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(14), 200.0, UnidadeMedidaEnum.GRAMA)); // gnhochi
+            massa2.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(15), 50.0, UnidadeMedidaEnum.GRAMA)); //mussarela
+            massa2.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(16), 50.0, UnidadeMedidaEnum.GRAMA)); //parmesão
+            massa2.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(17), 50.0, UnidadeMedidaEnum.UNIDADE)); //provolone
+            massa2.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(18), 50.0, UnidadeMedidaEnum.UNIDADE)); //gorgonzola
+            massa2.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(5), 100.0, UnidadeMedidaEnum.MILILITRO)); // creme de leite
+            listaReceita.add(massa2);
 
-            Receita receita3 = new Receita(12, "TesteRisoto", ReceitaClasseEnum.RISOTO, BigDecimal.valueOf(15.00));
-            receita3.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA));
-            listaReceita.add(receita3);
 
-            Receita receita4 = new Receita(13, "TesteCarne", ReceitaClasseEnum.CARNE, BigDecimal.valueOf(50.00));
-            receita4.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA));
-            listaReceita.add(receita4);
 
-            Receita receita5 = new Receita(14, "TesteSobremesa", ReceitaClasseEnum.SOBREMESA, BigDecimal.valueOf(15.00));
-            receita5.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA));
-            listaReceita.add(receita5);
+            Receita entrada1 = new Receita(2, "Batata Frita", ReceitaClasseEnum.ENTRADA, BigDecimal.valueOf(10.00));
+            entrada1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(12), 200.0, UnidadeMedidaEnum.GRAMA)); // batata
+            listaReceita.add(entrada1);
+
+            Receita entrada2 = new Receita(6, "Camarão Empanado Frito", ReceitaClasseEnum.ENTRADA, BigDecimal.valueOf(17.00));
+            entrada2.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(13), 200.0, UnidadeMedidaEnum.GRAMA)); // camrao
+            listaReceita.add(entrada2);
+
+
+            Receita risoto1 = new Receita(3, "Risoto Pescatore", ReceitaClasseEnum.RISOTO, BigDecimal.valueOf(25.00));
+            risoto1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(19), 200.0, UnidadeMedidaEnum.GRAMA)); // arroz
+            risoto1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(20), 50.0, UnidadeMedidaEnum.GRAMA));  //Molho Tomate
+            risoto1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(21), 50.0, UnidadeMedidaEnum.GRAMA));  //Tomate
+            risoto1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(22), 50.0, UnidadeMedidaEnum.GRAMA));  //Lula
+            risoto1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(23), 20.0, UnidadeMedidaEnum.GRAMA));  //Marisco
+            risoto1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(24), 20.0, UnidadeMedidaEnum.GRAMA));  //Siri
+            risoto1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(13), 50.0, UnidadeMedidaEnum.GRAMA));  //camarao
+            listaReceita.add(risoto1);
+
+            Receita carne1 = new Receita(4, "Picanha e gorgonzola com massa na manteiga", ReceitaClasseEnum.CARNE, BigDecimal.valueOf(30.0));
+            carne1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(25), 250.0, UnidadeMedidaEnum.GRAMA)); // picanha
+            carne1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(5), 50.0, UnidadeMedidaEnum.GRAMA)); // creme de leite
+            carne1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(26), 20.0, UnidadeMedidaEnum.GRAMA)); // rucula
+            carne1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(18), 50.0, UnidadeMedidaEnum.GRAMA)); // gorgonzola
+            carne1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(0), 200.0, UnidadeMedidaEnum.GRAMA)); // massa
+            carne1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(27), 50.0, UnidadeMedidaEnum.GRAMA)); // manteiga
+            listaReceita.add(carne1);
+
+            Receita sobremesa1 = new Receita(5, "Piadina de Nutella", ReceitaClasseEnum.SOBREMESA, BigDecimal.valueOf(10.0));
+            sobremesa1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(28), 1.0, UnidadeMedidaEnum.GRAMA)); // piadina
+            sobremesa1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(29), 100.0, UnidadeMedidaEnum.GRAMA)); // nutella
+            sobremesa1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(30), 50.0, UnidadeMedidaEnum.GRAMA)); // sorvete creme
+            listaReceita.add(sobremesa1);
         }
 
     }
 
     public static void salvarNovaReceita(Receita receita) {
         listaReceita.add(receita);
-    }
-
-    public static Integer editarReceitaId(Integer posicaoReceita, Integer id) {
-        listaReceita.get(posicaoReceita).setId(id);
-        return JOptionPane.showConfirmDialog(null, "O ID da(o) " + listaReceita.get(posicaoReceita).getNome() + " foi editado com sucesso!",
-                "Editar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
     }
 
     public static Integer editarReceitaNome(Integer posicaoReceita, String nome) {

@@ -9,20 +9,22 @@ import java.util.List;
 public class EstoqueDAO {
     static List<ProdutoEstoque> listaProdutosEstoque = new ArrayList<>();
 
-    public static void inputEstoque() {
-        if (EstoqueDAO.listaProdutosEstoque.isEmpty()) {
-            listaProdutosEstoque.add(new ProdutoEstoque(ProdutoDAO.listaProdutos.get(0),500.0, UnidadeMedidaEnum.GRAMA));
-            listaProdutosEstoque.add(new ProdutoEstoque(ProdutoDAO.listaProdutos.get(1), 500.0, UnidadeMedidaEnum.GRAMA));
-            listaProdutosEstoque.add(new ProdutoEstoque(ProdutoDAO.listaProdutos.get(2), 5.0, UnidadeMedidaEnum.UNIDADE));
-            listaProdutosEstoque.add(new ProdutoEstoque(ProdutoDAO.listaProdutos.get(3), 200.0, UnidadeMedidaEnum.GRAMA));
-        }
-    }
-
     public static List<ProdutoEstoque> buscaTodos() {
             return listaProdutosEstoque;
     }
 
     public static void salvarProdutoEstoque(Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedidaEnum) {
+
+        if (unidadeMedidaEnum == UnidadeMedidaEnum.KILO || unidadeMedidaEnum == UnidadeMedidaEnum.LITRO){
+            quantidade = quantidade * 1000;
+            if (unidadeMedidaEnum == UnidadeMedidaEnum.KILO){
+                unidadeMedidaEnum = UnidadeMedidaEnum.GRAMA;
+            }
+            if (unidadeMedidaEnum == UnidadeMedidaEnum.LITRO){
+                unidadeMedidaEnum = UnidadeMedidaEnum.MILILITRO;
+            }
+        }
+
         Double quantidadeAtual = 0.00;
         ProdutoEstoque produtoEstoqueEncontrado = null;
         for (ProdutoEstoque produtoEstoque : listaProdutosEstoque) {
