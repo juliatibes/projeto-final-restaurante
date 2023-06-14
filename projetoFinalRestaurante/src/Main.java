@@ -92,7 +92,7 @@ public class Main {
         Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade desejada",
                 "Prato do dia", JOptionPane.DEFAULT_OPTION));
 
-        VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada);
+        VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada,null);
         //
     }
 
@@ -569,12 +569,16 @@ public class Main {
                             Integer quantidadeVendaBebida = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoBebida = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
+
                             if (excluirLastItemReceitaCarinho == true){
                                 listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                 excluirLastItemReceitaCarinho = false;
                             }
 
-                          listaReceitaCarinho.add(new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida));
+                          listaReceitaCarinho.add(new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida,observacaoBebida));
 
                           if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                               JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -582,7 +586,7 @@ public class Main {
                               quantidadeEstoqueBebida = false;
                           }
 
-                            VendaPedido vendaPedidoBebida = new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida);
+                            VendaPedido vendaPedidoBebida = new VendaPedido(produtoBebida.get(0),quantidadeVendaBebida,observacaoBebida);
 
                             do { String[] opcoesMenuVendaBebida = {"Adicionar Novo Item", "Cancelar Venda", "Finalizar Venda","Carrinho Venda"};
                             int menuCadastroBebida = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
@@ -652,12 +656,15 @@ public class Main {
                             Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoEntrada = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
                             if (excluirLastItemReceitaCarinho == true){
                                 listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                 excluirLastItemReceitaCarinho = false;
                             }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaEntrada));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaEntrada,observacaoEntrada));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -665,7 +672,7 @@ public class Main {
                                 quantidadeEstoqueEntrada = false;
                             }
 
-                            VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada);
+                            VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0),quantidadeVendaEntrada,observacaoEntrada);
 
                             contadorVendaCarrinho = 0;
                             do { String[] opcoesMenuVendaEntrada = {"Adicionar Novo Item", "Cancelar Venda", "Finalizar Venda","Carrinho Venda"};
@@ -738,12 +745,15 @@ public class Main {
                             Integer quantidadeVendaMassa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoMassa = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
                             if (excluirLastItemReceitaCarinho == true){
                                 listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                 excluirLastItemReceitaCarinho = false;
                             }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaMassa));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaMassa,observacaoMassa));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1) {
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -751,7 +761,7 @@ public class Main {
                                 quantidadeEstoqueMassa = false;
                             }
 
-                            VendaPedido vendaPedidoMassa = new VendaPedido(receita.get(0),quantidadeVendaMassa);
+                            VendaPedido vendaPedidoMassa = new VendaPedido(receita.get(0),quantidadeVendaMassa,observacaoMassa);
 
                             contadorVendaCarrinho = 0;
 
@@ -824,12 +834,15 @@ public class Main {
                             Integer quantidadeVendaRisoto = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoRisoto = JOptionPane.showInputDialog(null, "Observação:",
+                                        "Venda", JOptionPane.DEFAULT_OPTION);
+
                                 if (excluirLastItemReceitaCarinho == true){
                                     listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                     excluirLastItemReceitaCarinho = false;
                                 }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaRisoto));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaRisoto,observacaoRisoto));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -837,7 +850,7 @@ public class Main {
                                 quantidadeEstoqueRisoto = false;
                             }
 
-                            VendaPedido vendaPedidoRisoto = new VendaPedido(receita.get(0),quantidadeVendaRisoto);
+                            VendaPedido vendaPedidoRisoto = new VendaPedido(receita.get(0),quantidadeVendaRisoto,observacaoRisoto);
 
                             contadorVendaCarrinho = 0;
 
@@ -909,12 +922,15 @@ public class Main {
                             Integer quantidadeVendaCarne = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
+                            String observacaoCarne = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
                             if (excluirLastItemReceitaCarinho == true){
                                 listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                 excluirLastItemReceitaCarinho = false;
                             }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaCarne));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaCarne,observacaoCarne));
 
                             if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                 JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -922,7 +938,7 @@ public class Main {
                                 quantidadeEstoqueCarne = false;
                             }
 
-                            VendaPedido vendaPedidoCarne = new VendaPedido(receita.get(0),quantidadeVendaCarne);
+                            VendaPedido vendaPedidoCarne = new VendaPedido(receita.get(0),quantidadeVendaCarne,observacaoCarne);
 
                             contadorVendaCarrinho = 0;
 
@@ -995,12 +1011,15 @@ public class Main {
                                 Integer quantidadeVendaSobremesa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                         "Venda", JOptionPane.DEFAULT_OPTION));
 
+                                String observacaoSobremesa = JOptionPane.showInputDialog(null, "Observação:",
+                                    "Venda", JOptionPane.DEFAULT_OPTION);
+
                                 if (excluirLastItemReceitaCarinho == true){
                                     listaReceitaCarinho.remove(listaReceitaCarinho.size() - 1);
                                     excluirLastItemReceitaCarinho = false;
                                 }
 
-                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaSobremesa));
+                            listaReceitaCarinho.add(new VendaPedido(receita.get(0),quantidadeVendaSobremesa,observacaoSobremesa));
 
                                 if (EstoqueDAO.verificaDisponibilidade(listaReceitaCarinho)== 1){
                                     JOptionPane.showConfirmDialog(null, "Estoque Insuficiente! ",
@@ -1008,7 +1027,7 @@ public class Main {
                                     quantidadeEstoqueSobremesa = false;
                                 }
 
-                            VendaPedido vendaPedidoSobremesa = new VendaPedido(receita.get(0),quantidadeVendaSobremesa);
+                            VendaPedido vendaPedidoSobremesa = new VendaPedido(receita.get(0),quantidadeVendaSobremesa,observacaoSobremesa);
 
                             contadorVendaCarrinho = 0;
 

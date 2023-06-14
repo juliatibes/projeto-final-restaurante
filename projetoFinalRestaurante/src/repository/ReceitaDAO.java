@@ -56,7 +56,7 @@ public class ReceitaDAO {
             risoto1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(13), 50.0, UnidadeMedidaEnum.GRAMA));  //camarao
             listaReceita.add(risoto1);
 
-            Receita carne1 = new Receita(4, "Picanha e gorgonzola com massa na manteiga", ReceitaClasseEnum.CARNE, BigDecimal.valueOf(30.0));
+            Receita carne1 = new Receita(4, "Picanha gorgonzola e massa", ReceitaClasseEnum.CARNE, BigDecimal.valueOf(30.0));
             carne1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(25), 250.0, UnidadeMedidaEnum.GRAMA)); // picanha
             carne1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(5), 50.0, UnidadeMedidaEnum.GRAMA)); // creme de leite
             carne1.adicionarIngrediente(new ReceitaIngrediente(ProdutoDAO.listaProdutos.get(26), 20.0, UnidadeMedidaEnum.GRAMA)); // rucula
