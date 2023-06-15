@@ -85,11 +85,9 @@ public class CompraDAO implements InterfaceAutoIncrement {
         compra.setId(compraDAO.geraID());
         listaCompras.add(compra);
         EstoqueDAO.salvarProdutoEstoque(compra.getProduto(), compra.getQuantidade(), compra.getUnidadeMedida());
-        System.out.println(CompraDAO.buscarTodos());
     }
 
     public static List<Compra> buscarTodos() {
-        inputCompras();
         return listaCompras;
     }
 

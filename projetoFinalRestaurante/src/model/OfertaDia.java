@@ -5,12 +5,17 @@ import java.time.LocalDate;
 public abstract class OfertaDia {
 
     private Integer id;
-    private LocalDate dataVenda;
+    private LocalDate dataOferta;
     private Double desconto;
 
-    public OfertaDia(Integer id, LocalDate dataVenda, Double desconto) {
+    public OfertaDia(Integer id, Double desconto) {
         this.id = id;
-        this.dataVenda = dataVenda;
+        this.dataOferta = LocalDate.now();
+        this.desconto = desconto;
+    }
+
+    public OfertaDia(Double desconto) {
+        this.dataOferta = LocalDate.now();
         this.desconto = desconto;
     }
 
@@ -22,13 +27,28 @@ public abstract class OfertaDia {
         this.id = id;
     }
 
-    public LocalDate getDataVenda() {
-        return dataVenda;
+    public LocalDate getDataOferta() {
+        return dataOferta;
     }
 
-    public void setDataVenda(LocalDate dataVenda) {
-        this.dataVenda = dataVenda;
+    public void setDataOferta(LocalDate dataOferta) {
+        this.dataOferta = dataOferta;
     }
 
+    public Double getDesconto() {
+        return desconto;
+    }
 
+    public void setDesconto(Double desconto) {
+        this.desconto = desconto;
+    }
+
+    @Override
+    public String toString() {
+        return "OfertaDia{" +
+                "id=" + id +
+                ", dataVenda=" + dataOferta +
+                ", desconto=" + desconto +
+                '}';
+    }
 }
