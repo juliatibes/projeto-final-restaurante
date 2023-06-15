@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ReceitaDAO {
+public class ReceitaDAO implements InterfaceAutoIncrement{
 
     static List<Receita> listaReceita = new ArrayList<>();
 
@@ -75,6 +75,8 @@ public class ReceitaDAO {
     }
 
     public static void salvarNovaReceita(Receita receita) {
+        ReceitaDAO receitaDAO = new ReceitaDAO();
+        receita.setId(receitaDAO.geraID());
         listaReceita.add(receita);
     }
 
@@ -193,10 +195,15 @@ public class ReceitaDAO {
         return posicaoIngredienteFinal;
     }
 
-    public static Integer aiID() {
+//    public static Integer aiID() {
+//        Integer id = listaReceita.size() + 1;
+//        return id;
+//    }
+
+    @Override
+    public Integer geraID() {
         Integer id = listaReceita.size() + 1;
         return id;
     }
-
 }
 

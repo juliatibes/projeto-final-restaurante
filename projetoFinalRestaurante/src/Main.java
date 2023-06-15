@@ -135,14 +135,14 @@ public class Main {
     }
     private static void cadastroProdutoIngrediente() {
 
-        Integer id = ProdutoDAO.aiID();
+
 
         ProdutoEnum[] opcoesTipoPagamento = {ProdutoEnum.BEBIDA, ProdutoEnum.INGREDIENTE};
 
         String nomeProduto = JOptionPane.showInputDialog(null, "Informe o nome:",
                 "Cadastro Produto Ingrediente", JOptionPane.DEFAULT_OPTION);
 
-        Produto produto1 = new Produto(id, nomeProduto, opcoesTipoPagamento[1]);
+        Produto produto1 = new Produto(nomeProduto, opcoesTipoPagamento[1]);
 
 
         String[] opcoesMenuCadastroProduto = {"Novo Cadastro", "Cancelar", "Finalizar Cadastro"};
@@ -169,14 +169,14 @@ public class Main {
 
         ProdutoEnum[] opcoesTipoProduto = {ProdutoEnum.BEBIDA, ProdutoEnum.INGREDIENTE};
 
-        Integer id = ProdutoDAO.aiID();
+
         String nomeProduto = JOptionPane.showInputDialog(null, "Informe o nome:",
                 "Cadastro Produto Bebida", JOptionPane.DEFAULT_OPTION);
 
         BigDecimal valorCustoBebida = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null,"Infome o valor de custo:",
                 "Cadastrar Produto Bebida", JOptionPane.DEFAULT_OPTION)));
 
-        Produto produto1 = new Produto(id,nomeProduto,opcoesTipoProduto[0],valorCustoBebida);
+        Produto produto1 = new Produto(nomeProduto,opcoesTipoProduto[0],valorCustoBebida);
 
         String[] opcoesMenuCadastroProduto = {"Novo Cadastro", "Cancelar", "Finalizar Cadastro"};
         int menuCadastroProduto = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
@@ -238,7 +238,7 @@ public class Main {
             UnidadeMedidaEnum[] opcoesUnidadeMedida = {UnidadeMedidaEnum.KILO, UnidadeMedidaEnum.GRAMA, UnidadeMedidaEnum.LITRO,
                     UnidadeMedidaEnum.MILILITRO, UnidadeMedidaEnum.UNIDADE};
 
-            Integer id = CompraDAO.aiID();
+
 
             LocalDate dataCompra = LocalDate.now();
             String inputData = JOptionPane.showInputDialog(null, "Digite uma data (formato: dd/MM/yyyy):",
@@ -262,7 +262,7 @@ public class Main {
             int tipoUnidadeSelecionado = JOptionPane.showOptionDialog(null, "Informe a unidade de medida:",
                     "Cadastrar Compra",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUnidadeMedida, opcoesUnidadeMedida[0]);
-            Compra compra = new Compra(id, dataCompra, produtos.get(0), quantidade, opcoesUnidadeMedida[tipoUnidadeSelecionado]);
+            Compra compra = new Compra(dataCompra, produtos.get(0), quantidade, opcoesUnidadeMedida[tipoUnidadeSelecionado]);
             CompraDAO.salvarNovaCompra(compra);
             chamaMenuPrincipal();
         } catch (NullPointerException nullPointerException) {
@@ -301,7 +301,7 @@ public class Main {
         ReceitaClasseEnum[] opcoesReceitaClasse = {ReceitaClasseEnum.ENTRADA, ReceitaClasseEnum.MASSA, ReceitaClasseEnum.RISOTO,
                 ReceitaClasseEnum.CARNE, ReceitaClasseEnum.SOBREMESA};
 
-        Integer id = ReceitaDAO.aiID();
+
         String nome = JOptionPane.showInputDialog(null, "Informe o nome:",
                 "Cadastrar Receita", JOptionPane.DEFAULT_OPTION);
         int receitaClasseSelecionado = JOptionPane.showOptionDialog(null, "Escolha a classe da receita:",
@@ -310,7 +310,7 @@ public class Main {
         BigDecimal valorCusto = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Infome o valor de custo:",
                 "Cadastrar Receita", JOptionPane.DEFAULT_OPTION)));
 
-        Receita receita1 = new Receita(id, nome, opcoesReceitaClasse[receitaClasseSelecionado], valorCusto);
+        Receita receita1 = new Receita(nome, opcoesReceitaClasse[receitaClasseSelecionado], valorCusto);
 
         do {
             Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArrayIngrediente();

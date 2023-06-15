@@ -17,9 +17,19 @@ public class Produto {
         this.valorCustoProduto = produtoBebidaValorCusto;
         this.valorVendaProduto = calculaValorVenda(produtoBebidaValorCusto);
     }
+    public Produto(String nome, ProdutoEnum tipoProduto, BigDecimal produtoBebidaValorCusto) {
+        this.id = id;
+        this.nome = nome;
+        this.tipoProduto = tipoProduto;
+        this.valorCustoProduto = produtoBebidaValorCusto;
+        this.valorVendaProduto = calculaValorVenda(produtoBebidaValorCusto);
+    }
 
     public Produto (Integer id, String nome, ProdutoEnum tipoProduto){
         this(id,nome,tipoProduto,null);
+    }
+    public Produto (String nome, ProdutoEnum tipoProduto){
+        this(nome,tipoProduto,null);
     }
 
     public BigDecimal calculaValorVenda(BigDecimal valorCusto){

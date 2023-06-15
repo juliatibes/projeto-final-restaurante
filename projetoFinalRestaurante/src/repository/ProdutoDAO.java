@@ -1,5 +1,6 @@
 package repository;
 
+import model.InterfaceAutoIncrement;
 import model.Produto;
 import model.ProdutoEnum;
 import model.ProdutoEstoque;
@@ -9,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoDAO {
+public class ProdutoDAO implements InterfaceAutoIncrement {
 
     static List<Produto> listaProdutos = new ArrayList<>();
 
@@ -51,6 +52,8 @@ public class ProdutoDAO {
     }
 
     public static void salvarListaProdutos(Produto produto) {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produto.setId(produtoDAO.geraID());
         listaProdutos.add(produto);
     }
 
@@ -96,7 +99,14 @@ public class ProdutoDAO {
         return produtosNomes.toArray();
     }
 
-    public static Integer aiID() {
+//    public static Integer aiID() {
+//        Integer id = listaProdutos.size() + 1;
+//        return id;
+//    }
+
+
+    @Override
+    public Integer geraID() {
         Integer id = listaProdutos.size() + 1;
         return id;
     }
