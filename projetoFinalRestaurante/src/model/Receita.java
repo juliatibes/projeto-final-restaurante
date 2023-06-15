@@ -23,6 +23,13 @@ public class Receita  {
         this.valorVenda = calculaValorVenda(valorCusto);
     }
 
+    public Receita(String nome, ReceitaClasseEnum receitaClasse,BigDecimal valorCusto) {
+        this.nome = nome;
+        this.receitaClasse = receitaClasse;
+        this.valorCusto = valorCusto;
+        this.valorVenda = calculaValorVenda(valorCusto);
+    }
+
     public void adicionarIngrediente (ReceitaIngrediente ingrediente){
         listaIngredientes.add(ingrediente);
     }

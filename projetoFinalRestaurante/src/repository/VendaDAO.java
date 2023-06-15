@@ -134,27 +134,33 @@ public class VendaDAO {
         List<VendaPedido> vendaCarinho = vendalista;
         List<String> vendaCarinhoNomes = new ArrayList<>();
 
-        vendaCarinhoNomes.add("QUANTIDADE                   DESCRIÇÃO");
+        vendaCarinhoNomes.add("QUANTIDADE                      DESCRIÇÃO");
         for (VendaPedido vendaPedido : vendaCarinho) {
+
             if (vendaPedido.getReceita() != null) {
-                vendaCarinhoNomes.add("          "+vendaPedido.getQuantidade()+"" +
-                        "                           "+vendaPedido.getReceita().getNome());
+                vendaCarinhoNomes.add("          "+vendaPedido.getQuantidade()+
+                        "                           "+vendaPedido.getReceita().getNome()+
+                        " (" + vendaPedido.getObservacao() + ")");
             }
             if (vendaPedido.getProdutoBebida() != null) {
                 vendaCarinhoNomes.add("          "+vendaPedido.getQuantidade()+
-                        "                           "+vendaPedido.getProdutoBebida().getNome());
+                        "                           "+vendaPedido.getProdutoBebida().getNome()+
+                        " (" + vendaPedido.getObservacao() + ")");
             }
         }
         if (vendaPedidoEscolhida != null) {
+
             if (vendaPedidoEscolhida.getReceita() != null) {
-                vendaCarinhoNomes.add("          " + vendaPedidoEscolhida.getQuantidade() +
-                        "                           " + vendaPedidoEscolhida.getReceita().getNome());
+                vendaCarinhoNomes.add("          " + vendaPedidoEscolhida.getQuantidade()+
+                        "                           " + vendaPedidoEscolhida.getReceita().getNome()+
+                        " (" + vendaPedidoEscolhida.getObservacao() + ")");
                 vendaCarinhoNomes.add("\nVALOR TOTAL: R$" + valorCarinho.add(BigDecimal.valueOf(vendaPedidoEscolhida.getQuantidade()).
                         multiply(vendaPedidoEscolhida.getReceita().getValorVenda())));
             }
             if (vendaPedidoEscolhida.getProdutoBebida() != null){
                 vendaCarinhoNomes.add("          " + vendaPedidoEscolhida.getQuantidade() +
-                        "                           " + vendaPedidoEscolhida.getProdutoBebida().getNome());
+                        "                           "+ vendaPedidoEscolhida.getProdutoBebida().getNome()+
+                        " (" + vendaPedidoEscolhida.getObservacao() + ")");
                 vendaCarinhoNomes.add("\nVALOR TOTAL: R$" + valorCarinho.add(BigDecimal.valueOf(vendaPedidoEscolhida.getQuantidade()).
                         multiply(vendaPedidoEscolhida.getProdutoBebida().getValorVendaProduto())));
             }
@@ -165,4 +171,87 @@ public class VendaDAO {
         return vendaCarinhoNomes.toArray();
     }
 
+    // sao metodos pra relatorio
+
+    public static BigDecimal totalVendas() {
+        BigDecimal valorTotalVendaReceita = BigDecimal.ZERO;
+        BigDecimal valorTotalVendaBebida = BigDecimal.ZERO;
+
+
+        for (int posicaoVenda = 0; posicaoVenda < listaVenda.size(); posicaoVenda++) {
+
+            for (int posicaoVendaPedidoR = 0; posicaoVendaPedidoR < listaVenda.get(posicaoVenda).getListaVendaPedido().size();
+                 posicaoVendaPedidoR++) {
+
+                if(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida() != null) {
+
+                    valorTotalVendaBebida = valorTotalVendaBebida.add
+                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida().getValorVendaProduto());
+                }else{
+
+              valorTotalVendaReceita = valorTotalVendaReceita.add
+                   (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorVenda());
+                }
+            }
+
+        }
+
+
+        return valorTotalVendaReceita.add(valorTotalVendaBebida);
+    }
+
+
+    public static BigDecimal totalLucro() {
+        BigDecimal valorTotalLucroReceita = BigDecimal.ZERO;
+        BigDecimal valorTotalLucroBebida = BigDecimal.ZERO;
+
+
+        for (int posicaoVenda = 0; posicaoVenda < listaVenda.size(); posicaoVenda++) {
+
+            for (int posicaoVendaPedidoR = 0; posicaoVendaPedidoR < listaVenda.get(posicaoVenda).getListaVendaPedido().size();
+                 posicaoVendaPedidoR++) {
+
+                if(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida() != null) {
+
+                    valorTotalLucroBebida = valorTotalLucroBebida.add
+                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida().getValorCustoProduto());
+                }else{
+
+                    valorTotalLucroReceita = valorTotalLucroReceita.add
+                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorCusto());
+                }
+            }
+
+        }
+
+
+        return totalVendas().subtract(valorTotalLucroReceita.add(valorTotalLucroBebida));
+
+
+
+    }
+
+
+    public static Integer totalQuantidadeItens() {
+        Integer quantidadeItemTotal = 0;
+
+
+        for (int posicaoVenda = 0; posicaoVenda < listaVenda.size(); posicaoVenda++) {
+
+            for (int posicaoVendaPedidoR = 0; posicaoVendaPedidoR < listaVenda.get(posicaoVenda).getListaVendaPedido().size();
+                 posicaoVendaPedidoR++) {
+
+
+                quantidadeItemTotal = quantidadeItemTotal + listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getQuantidade();
+
+            }
+
+        }
+
+
+        return quantidadeItemTotal;
+
+
+
+    }
 }
