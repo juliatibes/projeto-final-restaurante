@@ -171,4 +171,87 @@ public class VendaDAO {
         return vendaCarinhoNomes.toArray();
     }
 
+    // sao metodos pra relatorio
+
+    public static BigDecimal totalVendas() {
+        BigDecimal valorTotalVendaReceita = BigDecimal.ZERO;
+        BigDecimal valorTotalVendaBebida = BigDecimal.ZERO;
+
+
+        for (int posicaoVenda = 0; posicaoVenda < listaVenda.size(); posicaoVenda++) {
+
+            for (int posicaoVendaPedidoR = 0; posicaoVendaPedidoR < listaVenda.get(posicaoVenda).getListaVendaPedido().size();
+                 posicaoVendaPedidoR++) {
+
+                if(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida() != null) {
+
+                    valorTotalVendaBebida = valorTotalVendaBebida.add
+                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida().getValorVendaProduto());
+                }else{
+
+              valorTotalVendaReceita = valorTotalVendaReceita.add
+                   (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorVenda());
+                }
+            }
+
+        }
+
+
+        return valorTotalVendaReceita.add(valorTotalVendaBebida);
+    }
+
+
+    public static BigDecimal totalLucro() {
+        BigDecimal valorTotalLucroReceita = BigDecimal.ZERO;
+        BigDecimal valorTotalLucroBebida = BigDecimal.ZERO;
+
+
+        for (int posicaoVenda = 0; posicaoVenda < listaVenda.size(); posicaoVenda++) {
+
+            for (int posicaoVendaPedidoR = 0; posicaoVendaPedidoR < listaVenda.get(posicaoVenda).getListaVendaPedido().size();
+                 posicaoVendaPedidoR++) {
+
+                if(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida() != null) {
+
+                    valorTotalLucroBebida = valorTotalLucroBebida.add
+                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida().getValorCustoProduto());
+                }else{
+
+                    valorTotalLucroReceita = valorTotalLucroReceita.add
+                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorCusto());
+                }
+            }
+
+        }
+
+
+        return totalVendas().subtract(valorTotalLucroReceita.add(valorTotalLucroBebida));
+
+
+
+    }
+
+
+    public static Integer totalQuantidadeItens() {
+        Integer quantidadeItemTotal = 0;
+
+
+        for (int posicaoVenda = 0; posicaoVenda < listaVenda.size(); posicaoVenda++) {
+
+            for (int posicaoVendaPedidoR = 0; posicaoVendaPedidoR < listaVenda.get(posicaoVenda).getListaVendaPedido().size();
+                 posicaoVendaPedidoR++) {
+
+
+                quantidadeItemTotal = quantidadeItemTotal + listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getQuantidade();
+
+            }
+
+        }
+
+
+        return quantidadeItemTotal;
+
+
+
+    }
 }
