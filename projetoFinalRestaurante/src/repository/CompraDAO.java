@@ -1,16 +1,13 @@
 package repository;
 
-import model.Compra;
-import model.Produto;
-import model.ProdutoEnum;
-import model.UnidadeMedidaEnum;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CompraDAO {
+public class CompraDAO implements InterfaceAutoIncrement {
 
     static List<Compra> listaCompras = new ArrayList<>();
 
@@ -84,9 +81,11 @@ public class CompraDAO {
     }
 
     public static void salvarNovaCompra(Compra compra) {
+        CompraDAO compraDAO = new CompraDAO();
+        compra.setId(compraDAO.geraID());
         listaCompras.add(compra);
         EstoqueDAO.salvarProdutoEstoque(compra.getProduto(), compra.getQuantidade(), compra.getUnidadeMedida());
-        System.out.println(EstoqueDAO.buscaTodos());
+        System.out.println(CompraDAO.buscarTodos());
     }
 
     public static List<Compra> buscarTodos() {
@@ -94,11 +93,16 @@ public class CompraDAO {
         return listaCompras;
     }
 
-    public static Integer aiID() {
+//    public static Integer aiID() {
+//        Integer id = listaCompras.size() + 1;
+//        return id;
+//    }
+//
+
+    @Override
+    public Integer geraID() {
         Integer id = listaCompras.size() + 1;
         return id;
     }
-
-
 }
 
