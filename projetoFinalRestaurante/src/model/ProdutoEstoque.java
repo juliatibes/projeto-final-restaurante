@@ -41,6 +41,7 @@ public class ProdutoEstoque {
         return "ProdutoEstoque{" +
                 "produto=" + produto +
                 ", quantidade=" + quantidade +
+                ", unidadeMedida=" + unidadeMedida +
                 '}';
     }
 }

@@ -20,6 +20,13 @@ public class Compra {
         this.unidadeMedida = unidadeMedida;
     }
 
+    public Compra(LocalDate dataCompra, Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedida) {
+        this.dataCompra = dataCompra;
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.unidadeMedida = unidadeMedida;
+    }
+
     public Integer getId() {
         return id;
     }
