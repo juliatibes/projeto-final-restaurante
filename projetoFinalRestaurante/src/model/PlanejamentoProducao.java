@@ -2,7 +2,7 @@ package model;
 
 import model.Receita;
 import model.UnidadeMedidaEnum;
-import repository.OfertaDoDiaDAO;
+
 
 import java.time.LocalDate;
 
