@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Receita {
+public class Receita  {
 
     private Integer id;
     private String nome;

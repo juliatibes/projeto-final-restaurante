@@ -205,5 +205,15 @@ public class ReceitaDAO implements InterfaceAutoIncrement{
         Integer id = listaReceita.size() + 1;
         return id;
     }
+
+    public static List<Receita> buscarPorNome(String nome) {
+        List<Receita> receitasFiltradas = new ArrayList<>();
+        for (Receita receita : listaReceita) {
+            if (receita.getNome().contains(nome)) {
+                receitasFiltradas.add(receita);
+            }
+        }
+        return receitasFiltradas;
+    }
 }
 

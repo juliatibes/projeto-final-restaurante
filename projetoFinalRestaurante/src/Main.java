@@ -1123,4 +1123,36 @@ public class Main {
         } while (contadorVenda <= 0);
 
     }
+    public static void ReceitaDoDia(
+
+    ){
+    Object[] selectionValuesReceita = ReceitaDAO.findreceitasInArray();
+    String initialSelectionReceita = (String) selectionValuesReceita[0];
+    Object selectionOfertaReceita = JOptionPane.showInputDialog(null, "Selecione uma receita para oferta do dia:",
+            " Oferta do dia", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
+   List<Receita> receitas = ReceitaDAO.buscarPorNome((String) selectionOfertaReceita);
+        Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto",
+                "Desconto", JOptionPane.DEFAULT_OPTION));
+
+        ReceitaOfertaDia receitaOfertaDia = new ReceitaOfertaDia(1, LocalDate.now(),desconto,receitas.get(0));
+
+        OfertaDoDiaDAO.salvarOfertaReceita(receitaOfertaDia);
+
+}
+    public static void BebidaDoDia(
+
+    ){
+        Object[] selectionValuesProduto = ProdutoDAO.findprodutosInArray();
+        String initialSelectionProduto= (String) selectionValuesProduto[0];
+        Object selectionOfertaProduto = JOptionPane.showInputDialog(null, "Selecione uma bebida para oferta do dia:",
+                " Oferta do dia", JOptionPane.DEFAULT_OPTION, null, selectionValuesProduto, initialSelectionProduto);
+        List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionOfertaProduto);
+        Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto",
+                "Desconto", JOptionPane.DEFAULT_OPTION));
+
+        BebidaOfertaDia bebidaOfertaDia = new BebidaOfertaDia(1, LocalDate.now(),desconto,produtos.get(0));
+
+        OfertaDoDiaDAO.salvarOfertaReceita(bebidaOfertaDia);
+
+    }
 }
