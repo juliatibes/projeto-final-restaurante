@@ -18,8 +18,6 @@ public class Main {
         ProdutoDAO.inputProdutos();
         CompraDAO.inputCompras();
         ReceitaDAO.inputReceita();
-        PlanejamentoProducaoDAO.inputPlanejamento();
-        //VendaDAO.inputVendas();
         chamaMenuPrincipal();
     }
 
@@ -51,57 +49,265 @@ public class Main {
     }
 
     private static void chamaMenuPlanejamento() {
-        String[] opcoesMenuPlanejamento = {"Cadastrar planejamento", "Planejamento", "Prato do dia", "Voltar"};
+        String[] opcoesMenuPlanejamento = {"Cadastrar planejamento", "Oferta do Dia", "Voltar"};
         int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Cadastrar",
+                "Menu Planejamento de Produção",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
 
         switch (menuPlanejamento) {
             case 0: //Cadastrar Planejamento
                 cadastroPlanejamento();
                 break;
-            case 1: //Planejado
+            case 1: //menuOfertadoDia
+                menuOfertaDia();
                 break;
-            case 2: // planeja
-                selecionaPratoDoDia();
-                break;
-            case 3: //Voltar
+            case 2: //Voltar
                 chamaMenuPrincipal();
                 break;
         }
     }
 
     private static void cadastroPlanejamento() {
-        LocalDate dataPlanejamento = LocalDate.now();
-        String inputData = JOptionPane.showInputDialog(null, "Digite uma data (formato: dd/MM/yyyy):",
-                "Cadastrar Planejamento", JOptionPane.DEFAULT_OPTION);
-        try {
-            dataPlanejamento = LocalDate.parse(inputData, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(null, "Formato inválido!",
-                    "Cadastrar Planejamento", JOptionPane.ERROR_MESSAGE);
-            chamaMenuPlanejamento();
+
+        String[] opcoesMenuPlanejamento = {"Receita", "Bebida", "Voltar"};
+        int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Menu Cadastro Planejamento",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
+
+        switch (menuPlanejamento) {
+            case 0: //Cadastrar Planejamento receita
+                cadastroPlanejamentoReceita();
+                break;
+            case 1: //Cadastrar Planejamento bebida
+                cadastroPlanejamentoBebida();
+                break;
+            case 2: //Voltar
+                chamaMenuPlanejamento();
+                break;
+        }
+
+    }
+
+    private static void cadastroPlanejamentoReceita() {
+
+        if (ReceitaOfertaDoDIaDAO.findreceitasInArrayReceitaOferta().length < 1){
+            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrado !!!",
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
+        }
+
+        Object[] selectionValuesReceita = ReceitaOfertaDoDIaDAO.findreceitasInArrayReceitaOferta();
+        String initialSelectionReceita = (String) selectionValuesReceita[0];
+        Object selectionReceitaEntrada = JOptionPane.showInputDialog(null, "Selecione a oferta do dia:",
+                "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
+        List<ReceitaOfertaDia> receitaOfertaPlanejada = ReceitaOfertaDoDIaDAO.buscarPorNomeReceitaOferta((String) selectionReceitaEntrada);
+
+        Integer quantidadePlanejada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade desejada planejada:",
+                "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION));
+
+        Object[] listaIngredientesFaltantes = EstoqueDAO.verificaEstoqueReceitaPlanejamento(receitaOfertaPlanejada.get(0).getReceita(), quantidadePlanejada);
+
+        if (listaIngredientesFaltantes.length > 2) {
+            JOptionPane.showConfirmDialog(null, "Estoque Insuficiente!",
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+
+            JOptionPane.showConfirmDialog(null, listaIngredientesFaltantes,
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+
+            chamaMenuPrincipal();
+        }else{
+
+            PlanejamentoProducao planejamentoProducaoReceita = new PlanejamentoProducao
+                    (receitaOfertaPlanejada.get(0).getReceita(), quantidadePlanejada);
+
+            PlanejamentoProducaoDAO.salvarPlanejamento(planejamentoProducaoReceita);
+
+            JOptionPane.showConfirmDialog(null, "Disponivel em estoque!\nPlanejamento cadastrado com sucesso!"
+                    ,
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+
+            chamaMenuPrincipal();
         }
     }
 
-    private static void selecionaPratoDoDia() {
 
-        Object[] selectionValuesReceita = VendaDAO.findreceitaInArrayReceitaEntrada();
+
+    private static void cadastroPlanejamentoBebida() {
+        if (BebidaOfertaDoDIaDAO.findreceitasInArrayBebidaOferta().length < 1){
+            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrado !!!",
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
+        }
+        Object[] selectionValuesBebida = BebidaOfertaDoDIaDAO.findreceitasInArrayBebidaOferta();
+        String initialSelectionReceita = (String) selectionValuesBebida[0];
+        Object selectionBebida = JOptionPane.showInputDialog(null, "Selecione a oferta do dia:",
+                "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, null, selectionValuesBebida, initialSelectionReceita);
+        List<BebidaOfertaDia> bebidaOfertaPlanejada = BebidaOfertaDoDIaDAO.buscarPorNomeBebidaOferta((String) selectionBebida);
+
+        Integer quantidadePlanejada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade desejada planejada:",
+                "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION));
+
+        Object[] listaBebidasFaltantes = EstoqueDAO.verificaEstoqueBebidaPlanejamento(bebidaOfertaPlanejada.get(0).getProduto(), quantidadePlanejada);
+
+        if (listaBebidasFaltantes.length > 2) {
+            JOptionPane.showConfirmDialog(null, "Estoque Insuficiente!",
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+
+            JOptionPane.showConfirmDialog(null, listaBebidasFaltantes,
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+
+            chamaMenuPrincipal();
+        }else{
+
+            PlanejamentoProducao planejamentoProducaoBebida =  new PlanejamentoProducao
+                    (bebidaOfertaPlanejada.get(0).getProduto(), quantidadePlanejada);
+
+            PlanejamentoProducaoDAO.salvarPlanejamento(planejamentoProducaoBebida);
+
+            JOptionPane.showConfirmDialog(null, "Disponivel em estoque!\nPlanejamento cadastrado com sucesso!",
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+
+            chamaMenuPrincipal();
+        }
+    }
+
+
+    private static void menuOfertaDia (){
+        String[] opcoesMenuOferta = {"Cadastrar Oferta", "Remover Oferta", "Voltar"};
+        int menuOfertaDoDia = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Menu Oferta do Dia",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuOferta, opcoesMenuOferta[0]);
+
+        switch (menuOfertaDoDia) {
+            case 0: //Cadastrar Oferta
+                menuCadastroOferta();
+                break;
+            case 1: //RemoverOferta
+                menuRemoverOfertaDia();
+                break;
+            case 2: //Voltar
+                chamaMenuPlanejamento();
+                break;
+        }
+
+    }
+
+    private static void menuCadastroOferta(){
+
+        String[] opcoesMenuPlanejamento = {"Receita", "Bebida", "Voltar"};
+        int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Menu Oferta do Dia",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
+
+        switch (menuPlanejamento) {
+            case 0: //Cadastrar Oferta receita
+                menuCadastroOfertaReceita();
+                break;
+            case 1: //Cadastrar Oferta bebida
+                menuCadastroOfertaBebida();
+                break;
+            case 2: //Voltar
+                menuOfertaDia();
+                break;
+        }
+
+    }
+
+    private static void menuCadastroOfertaReceita(){
+
+        Object[] selectionValuesReceita = ReceitaDAO.findreceitasInArray();
         String initialSelectionReceita = (String) selectionValuesReceita[0];
-        Object selectionReceitaEntrada = JOptionPane.showInputDialog(null, "Selecione o prato do dia",
-                "Opções", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
-        List<Receita> receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaEntrada);
-        Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade desejada",
-                "Prato do dia", JOptionPane.DEFAULT_OPTION));
+        Object selectionOfertaReceita = JOptionPane.showInputDialog(null, "Selecione uma receita para oferta do dia:",
+                "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
+        List<Receita> receitas = ReceitaDAO.buscarPorNome((String) selectionOfertaReceita);
+        Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto:",
+                "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION));
 
-        VendaPedido vendaPedidoEntrada = new VendaPedido(receita.get(0), quantidadeVendaEntrada, null);
-        //
+        ReceitaOfertaDia receitaOfertaDia = new ReceitaOfertaDia(desconto,receitas.get(0));
+        ReceitaOfertaDoDIaDAO.salvarOfertaReceita(receitaOfertaDia);
+
+        chamaMenuPrincipal();
+
+    }
+
+    private static void menuCadastroOfertaBebida(){
+        Object[] selectionValuesProdutoBebida = VendaDAO.findprodutosInArrayProdutoBebida();
+        String initialSelectionProdutoBebida= (String) selectionValuesProdutoBebida[0];
+        Object selectionOfertaProdutoBebida = JOptionPane.showInputDialog(null, "Selecione uma bebida para oferta do dia:",
+                "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutoBebida, initialSelectionProdutoBebida);
+        List<Produto> produtoBebida = ProdutoDAO.buscarPorNome((String) selectionOfertaProdutoBebida);
+        Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto:",
+                "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION));
+
+        BebidaOfertaDia bebidaOfertaDia = new BebidaOfertaDia(desconto,produtoBebida.get(0));
+        BebidaOfertaDoDIaDAO.salvarOfertaBebida(bebidaOfertaDia);
+        chamaMenuPrincipal();
+    }
+
+    private static void menuRemoverOfertaDia(){
+
+        String[] opcoesMenuPlanejamento = {"Receita", "Bebida", "Voltar"};
+        int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
+                "Menu Remover Oferta do Dia",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
+
+        switch (menuPlanejamento) {
+            case 0: //Remover Oferta receita
+                menuRemoverOfertaDiaReceita();
+                break;
+            case 1: //Remover Oferta bebida
+                menuRemoverOfertaDiaBebida();
+                break;
+            case 2: //Voltar
+                menuOfertaDia();
+                break;
+        }
+
+    }
+
+    private static void menuRemoverOfertaDiaReceita(){
+        if (ReceitaOfertaDoDIaDAO.findreceitasInArrayReceitaOferta().length < 1){
+            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrado !!!",
+                    "Remover oferta do dia", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
+        }
+
+        Object[] selectionValuesOfertaDiaReceita = ReceitaOfertaDoDIaDAO.findreceitasInArrayReceitaOferta();
+        String initialSelectionOfertaDiaReceita= (String) selectionValuesOfertaDiaReceita[0];
+        Object selectionOfertaDiaReceita = JOptionPane.showInputDialog(null,
+                "Selecione uma receita para remover da oferta do dia:", "Remover oferta do dia", JOptionPane.DEFAULT_OPTION,
+                null, selectionValuesOfertaDiaReceita, initialSelectionOfertaDiaReceita);
+        List<ReceitaOfertaDia> ofertaDiaReceita = ReceitaOfertaDoDIaDAO.buscarPorNomeReceitaOferta((String) selectionOfertaDiaReceita);
+
+        ReceitaOfertaDoDIaDAO.removerOfertaReceita(ofertaDiaReceita.get(0));
+
+        chamaMenuPrincipal();
+    }
+
+    private static void menuRemoverOfertaDiaBebida(){
+        if (BebidaOfertaDoDIaDAO.findreceitasInArrayBebidaOferta().length < 1){
+            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrado !!!",
+                    "Remover oferta do dia", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
+        }
+
+        Object[] selectionValuesOfertaDiaBebida = BebidaOfertaDoDIaDAO.findreceitasInArrayBebidaOferta();
+        String initialSelectionOfertaDiaBebida= (String) selectionValuesOfertaDiaBebida[0];
+        Object selectionOfertaDiaBebida = JOptionPane.showInputDialog(null,
+                "Selecione uma bebida para remover da oferta do dia:", "Remover oferta do dia", JOptionPane.DEFAULT_OPTION,
+                null, selectionValuesOfertaDiaBebida, initialSelectionOfertaDiaBebida);
+        List<BebidaOfertaDia> ofertaDiaBebida = BebidaOfertaDoDIaDAO.buscarPorNomeBebidaOferta((String) selectionOfertaDiaBebida);
+
+        BebidaOfertaDoDIaDAO.removerOfertaBebida(ofertaDiaBebida.get(0));
+
+        chamaMenuPrincipal();
+
     }
 
     private static void chamaMenuEstoque() {
         String[] opcoesMenuCadastro = {"Cadastrar Produto", "Remover Produto", "Voltar"};
         int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Estoque",
+                "Menu Estoque",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
 
         switch (menuCadastro) {
@@ -215,22 +421,16 @@ public class Main {
     }
 
     private static void chamaMenuCadastroCompra() {
-        String[] opcoesMenuCadastroCompra = {"Cadastrar Compra", "Remover Compra", "Editar Compra", "Voltar"};
+        String[] opcoesMenuCadastroCompra = {"Cadastrar Compra", "Voltar"};
         int menuCadastroCompra = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Cadastrar Compras",
+                "Menu Compra",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroCompra, opcoesMenuCadastroCompra[0]);
 
         switch (menuCadastroCompra) {
             case 0: //Adicionar Compra
                 cadastroCompra();
                 break;
-            case 1: //Remover Compra
-
-                break;
-            case 2: //Editar Compra
-
-                break;
-            case 3: //Voltar
+            case 1: //Voltar
                 chamaMenuPrincipal();
                 break;
         }
@@ -278,7 +478,7 @@ public class Main {
     public static void chamaMenuCadastroReceitas() {
         String[] opcoesMenuCadastro = {"Cadastrar Receita", "Remover Receita", "Editar Receita", "Voltar"};
         int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Receita",
+                "Menu Receita",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
 
         switch (menuCadastro) {
@@ -498,8 +698,8 @@ public class Main {
     public static void chamaMenuRelatorios() {
         String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Vendas", "Voltar"};
         int menuRelatorios = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Relatorios",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
+                "Menu Relatorios",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
 
         switch (menuRelatorios) {
 
@@ -568,7 +768,7 @@ public class Main {
 
         do {
             Integer contadorVendaCarrinho = 0;
-            String[] opcoesMenuCardapioVenda = {"Bebidas", "Entradas", "Massas", "Risotos", "Carnes", "Sobremesas", "Prato do dia", "Voltar"};
+            String[] opcoesMenuCardapioVenda = {"Bebidas", "Entradas", "Massas", "Risotos", "Carnes", "Sobremesas", "Ofertas do dia", "Voltar"};
             int opcaoMenuCardapioVenda = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                     "Venda",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCardapioVenda, opcoesMenuCardapioVenda[0]);
@@ -1112,8 +1312,16 @@ public class Main {
                     } while (contadorVendaCarrinho <= 0);
                     break;
 
-                case 6: // Prato do dia
-                    contadorVenda = 1;
+                case 6: // Oferta do dia
+                        if (VendaDAO.geraListaOfertaDoDia().length < 2){
+                        JOptionPane.showConfirmDialog(null, "Hoje não temos oferta do dia (0.0)",
+                                "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                        } else {
+                            Object[] listaOfertaDoDia = VendaDAO.geraListaOfertaDoDia();
+                            System.out.println(listaOfertaDoDia.length);
+                            JOptionPane.showConfirmDialog(null, listaOfertaDoDia,
+                                    "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                        }
                     break;
                 case 7: // Voltar
                     contadorVenda = 1;
@@ -1121,38 +1329,6 @@ public class Main {
                     break;
             }
         } while (contadorVenda <= 0);
-
-    }
-    public static void ReceitaDoDia(
-
-    ){
-    Object[] selectionValuesReceita = ReceitaDAO.findreceitasInArray();
-    String initialSelectionReceita = (String) selectionValuesReceita[0];
-    Object selectionOfertaReceita = JOptionPane.showInputDialog(null, "Selecione uma receita para oferta do dia:",
-            " Oferta do dia", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
-   List<Receita> receitas = ReceitaDAO.buscarPorNome((String) selectionOfertaReceita);
-        Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto",
-                "Desconto", JOptionPane.DEFAULT_OPTION));
-
-        ReceitaOfertaDia receitaOfertaDia = new ReceitaOfertaDia(1, LocalDate.now(),desconto,receitas.get(0));
-
-        OfertaDoDiaDAO.salvarOfertaReceita(receitaOfertaDia);
-
-}
-    public static void BebidaDoDia(
-
-    ){
-        Object[] selectionValuesProduto = ProdutoDAO.findprodutosInArray();
-        String initialSelectionProduto= (String) selectionValuesProduto[0];
-        Object selectionOfertaProduto = JOptionPane.showInputDialog(null, "Selecione uma bebida para oferta do dia:",
-                " Oferta do dia", JOptionPane.DEFAULT_OPTION, null, selectionValuesProduto, initialSelectionProduto);
-        List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionOfertaProduto);
-        Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto",
-                "Desconto", JOptionPane.DEFAULT_OPTION));
-
-        BebidaOfertaDia bebidaOfertaDia = new BebidaOfertaDia(1, LocalDate.now(),desconto,produtos.get(0));
-
-        OfertaDoDiaDAO.salvarOfertaReceita(bebidaOfertaDia);
 
     }
 }

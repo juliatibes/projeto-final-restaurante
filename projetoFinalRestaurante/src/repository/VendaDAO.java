@@ -171,12 +171,29 @@ public class VendaDAO {
         return vendaCarinhoNomes.toArray();
     }
 
+    public static Object[] geraListaOfertaDoDia(){
+        List<ReceitaOfertaDia> listaOfertaReceita = ReceitaOfertaDoDIaDAO.buscarTodos();
+        List<BebidaOfertaDia> listaOfertaBebida = BebidaOfertaDoDIaDAO.buscarTodos();
+        List<String> listaOfertaDoDia = new ArrayList<>();
+
+        listaOfertaDoDia.add("DESCONTO            DESCRIÇÃO");
+        if (listaOfertaReceita != null) {
+            for (ReceitaOfertaDia receitaOfertaDia : listaOfertaReceita) {
+                listaOfertaDoDia.add("    "+receitaOfertaDia.getDesconto() + "%                  " + receitaOfertaDia.getReceita().getNome());
+            }
+        }
+        if (listaOfertaBebida != null) {
+            for (BebidaOfertaDia bebidaOfertaDia : listaOfertaBebida) {
+                listaOfertaDoDia.add("    "+bebidaOfertaDia.getDesconto() + "%                  " + bebidaOfertaDia.getProduto().getNome());
+            }
+        }
+        return listaOfertaDoDia.toArray();
+    }
     // sao metodos pra relatorio
 
     public static BigDecimal totalVendas() {
         BigDecimal valorTotalVendaReceita = BigDecimal.ZERO;
         BigDecimal valorTotalVendaBebida = BigDecimal.ZERO;
-
 
         for (int posicaoVenda = 0; posicaoVenda < listaVenda.size(); posicaoVenda++) {
 
@@ -193,10 +210,7 @@ public class VendaDAO {
                    (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorVenda());
                 }
             }
-
         }
-
-
         return valorTotalVendaReceita.add(valorTotalVendaBebida);
     }
 
@@ -204,7 +218,6 @@ public class VendaDAO {
     public static BigDecimal totalLucro() {
         BigDecimal valorTotalLucroReceita = BigDecimal.ZERO;
         BigDecimal valorTotalLucroBebida = BigDecimal.ZERO;
-
 
         for (int posicaoVenda = 0; posicaoVenda < listaVenda.size(); posicaoVenda++) {
 
@@ -221,37 +234,24 @@ public class VendaDAO {
                             (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorCusto());
                 }
             }
-
         }
-
-
         return totalVendas().subtract(valorTotalLucroReceita.add(valorTotalLucroBebida));
-
-
-
     }
 
 
     public static Integer totalQuantidadeItens() {
         Integer quantidadeItemTotal = 0;
 
-
         for (int posicaoVenda = 0; posicaoVenda < listaVenda.size(); posicaoVenda++) {
 
             for (int posicaoVendaPedidoR = 0; posicaoVendaPedidoR < listaVenda.get(posicaoVenda).getListaVendaPedido().size();
                  posicaoVendaPedidoR++) {
 
-
-                quantidadeItemTotal = quantidadeItemTotal + listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getQuantidade();
-
+                quantidadeItemTotal = quantidadeItemTotal +
+                        listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getQuantidade();
             }
-
         }
-
-
         return quantidadeItemTotal;
-
-
 
     }
 }

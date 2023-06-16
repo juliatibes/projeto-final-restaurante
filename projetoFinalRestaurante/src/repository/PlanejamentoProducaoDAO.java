@@ -1,5 +1,6 @@
 package repository;
 
+import model.InterfaceAutoIncrement;
 import model.PlanejamentoProducao;
 import model.Receita;
 import model.UnidadeMedidaEnum;
@@ -8,29 +9,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlanejamentoProducaoDAO {
+public class PlanejamentoProducaoDAO implements InterfaceAutoIncrement {
 
-    static List<PlanejamentoProducao> listaPlaneja = new ArrayList<PlanejamentoProducao>();
+    static List<PlanejamentoProducao> listaPlaneja = new ArrayList<>();
 
-    public PlanejamentoProducaoDAO() {
+    public static void salvarPlanejamento(PlanejamentoProducao ofertaSelecionada) {
+        PlanejamentoProducaoDAO planejamentoProducaoDAO = new PlanejamentoProducaoDAO();
+        ofertaSelecionada.setId(planejamentoProducaoDAO.geraID());
+        listaPlaneja.add(ofertaSelecionada);
     }
 
-
-    public static void inputPlanejamento(){
-        if (PlanejamentoProducaoDAO.listaPlaneja.isEmpty()) {
-            listaPlaneja.add(new PlanejamentoProducao(1, ReceitaDAO.listaReceita.get(0), 1000.00, UnidadeMedidaEnum.GRAMA, LocalDate.now()));
-        }
-    }
-
-    public static boolean salvarPlanejamento(PlanejamentoProducao receita)
-    {
-        return listaPlaneja.add(receita);
-    }
-    public static List<PlanejamentoProducao> planeja() { return listaPlaneja;}
-
-    public static Integer aiID(){
+    @Override
+    public Integer geraID() {
         Integer id = listaPlaneja.size() + 1;
         return id;
     }
-
 }

@@ -3,6 +3,7 @@ package repository;
 import model.*;
 
 import javax.swing.*;
+import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,5 +141,74 @@ public class EstoqueDAO {
 
         return JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
                 "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+    }
+
+    public static Object[] verificaEstoqueReceitaPlanejamento (Receita receita, Integer quantidadePlanejada){
+        Integer contadorVerificacaoEstoque = 1;
+        Double qtdTotalIngrediente = 0.0;
+        List<String> listaIngredientesFaltanteNome = new ArrayList<>();
+        List<ReceitaIngrediente> listaIngredientesFaltante = new ArrayList<>();
+
+        for (int x = 0 ; x < receita.getListaIngredientes().size(); x ++){
+
+            qtdTotalIngrediente = receita.getListaIngredientes().get(x).getQuantidade() * quantidadePlanejada;
+
+            for (int y = 0; y < listaProdutosEstoque.size(); y ++){
+                if (listaProdutosEstoque.get(y).getProduto().equals(receita.getListaIngredientes().get(x).getProduto())){
+                    if (listaProdutosEstoque.get(y).getQuantidade() < qtdTotalIngrediente) {
+                        listaIngredientesFaltante.add(new ReceitaIngrediente(listaProdutosEstoque.get(y).getProduto(),
+                                qtdTotalIngrediente - listaProdutosEstoque.get(y).getQuantidade(), listaProdutosEstoque.get(y).getUnidadeMedida()));
+
+                        contadorVerificacaoEstoque = 1;
+                    }
+                }
+            }
+        }
+        listaIngredientesFaltanteNome.add("Lista de ingredientes que estão faltando:\n\n");
+        listaIngredientesFaltanteNome.add("UNIDADE MEDIDA             QUANTIDADE            INGREDIENTE ");
+
+        for (ReceitaIngrediente receitaIngrediente : listaIngredientesFaltante){
+            listaIngredientesFaltanteNome.add("        "+receitaIngrediente.getUnidadeMedida() +
+                    "                              " + receitaIngrediente.getQuantidade()+
+                    "                    " + receitaIngrediente.getProduto().getNome());
+        }
+
+        if (contadorVerificacaoEstoque == 1){
+            return listaIngredientesFaltanteNome.toArray();
+        } else
+            return null;
+    }
+
+    public static Object[] verificaEstoqueBebidaPlanejamento (Produto produto, Integer quantidadePlanejada){
+        Integer contadorVerificacaoEstoque = 1;
+
+        List<String> listaBebidaFaltanteNome = new ArrayList<>();
+        List<ProdutoEstoque> listaBebidaFaltante = new ArrayList<>();
+
+
+            for (int y = 0; y < listaProdutosEstoque.size(); y ++){
+                if (listaProdutosEstoque.get(y).getProduto().equals(produto)){
+                    if (listaProdutosEstoque.get(y).getQuantidade() < quantidadePlanejada) {
+                        listaBebidaFaltante.add(new ProdutoEstoque(listaProdutosEstoque.get(y).getProduto(),
+                                quantidadePlanejada - listaProdutosEstoque.get(y).getQuantidade(), listaProdutosEstoque.get(y).getUnidadeMedida()));
+
+                        contadorVerificacaoEstoque = 1;
+                    }
+                }
+            }
+
+        listaBebidaFaltanteNome.add("Lista de produtos que estão faltando:\n\n");
+        listaBebidaFaltanteNome.add("UNIDADE MEDIDA             QUANTIDADE            INGREDIENTE ");
+
+        for (ProdutoEstoque produtoEstoque : listaBebidaFaltante){
+            listaBebidaFaltanteNome.add("        "+produtoEstoque.getUnidadeMedida() +
+                    "                              " + produtoEstoque.getQuantidade()+
+                    "                    " + produtoEstoque.getProduto().getNome());
+        }
+
+        if (contadorVerificacaoEstoque == 1){
+            return listaBebidaFaltanteNome.toArray();
+        } else
+            return null;
     }
 }

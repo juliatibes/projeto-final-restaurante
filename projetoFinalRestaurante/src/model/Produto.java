@@ -18,7 +18,6 @@ public class Produto {
         this.valorVendaProduto = calculaValorVenda(produtoBebidaValorCusto);
     }
     public Produto(String nome, ProdutoEnum tipoProduto, BigDecimal produtoBebidaValorCusto) {
-        this.id = id;
         this.nome = nome;
         this.tipoProduto = tipoProduto;
         this.valorCustoProduto = produtoBebidaValorCusto;

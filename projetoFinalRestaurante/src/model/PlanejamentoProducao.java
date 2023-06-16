@@ -3,24 +3,40 @@ package model;
 import model.Receita;
 import model.UnidadeMedidaEnum;
 
+
 import java.time.LocalDate;
 
 public class PlanejamentoProducao {
     private Integer id;
     private LocalDate diaPlanejado;
-    private Receita receita;
-    private Double quantidadePlanejada;
-    private UnidadeMedidaEnum unidadeMedida;
+    private Receita receitaOfertaDia;
+    private Produto bebidaOfertaDia;
+    private Integer quantidadePlanejada;
 
-
-
-    public PlanejamentoProducao(Integer id, Receita receita, Double quantidadePlanejada,
-                                UnidadeMedidaEnum unidadeMedida, LocalDate diaPlanejado) {
+    public PlanejamentoProducao(Integer id, Produto bebidaOfertaDia, Integer quantidadePlanejada) {
         this.id = id;
-        this.receita = receita;
+        this.diaPlanejado = LocalDate.now();
+        this.bebidaOfertaDia = bebidaOfertaDia;
         this.quantidadePlanejada = quantidadePlanejada;
-        this.unidadeMedida = unidadeMedida;
-        this.diaPlanejado = diaPlanejado;
+    }
+
+    public PlanejamentoProducao(Produto bebidaOfertaDia, Integer quantidadePlanejada) {
+        this.diaPlanejado = LocalDate.now();
+        this.bebidaOfertaDia = bebidaOfertaDia;
+        this.quantidadePlanejada = quantidadePlanejada;
+    }
+
+    public PlanejamentoProducao(Integer id, Receita receitaOfertaDia, Integer quantidadePlanejada) {
+        this.id = id;
+        this.diaPlanejado = LocalDate.now();
+        this.receitaOfertaDia = receitaOfertaDia;
+        this.quantidadePlanejada = quantidadePlanejada;
+    }
+
+    public PlanejamentoProducao(Receita receitaOfertaDia, Integer quantidadePlanejada) {
+        this.diaPlanejado = LocalDate.now();
+        this.receitaOfertaDia = receitaOfertaDia;
+        this.quantidadePlanejada = quantidadePlanejada;
     }
 
     public Integer getId() {
@@ -31,30 +47,6 @@ public class PlanejamentoProducao {
         this.id = id;
     }
 
-    public Receita getReceita() {
-        return receita;
-    }
-
-    public void setReceita(Receita receita) {
-        this.receita = receita;
-    }
-
-    public Double getQuantidadePlanejada() {
-        return quantidadePlanejada;
-    }
-
-    public void setQuantidadePlanejada(Double quantidadePlanejada) {
-        this.quantidadePlanejada = quantidadePlanejada;
-    }
-
-    public UnidadeMedidaEnum getUnidadeMedida() {
-        return unidadeMedida;
-    }
-
-    public void setUnidadeMedida(UnidadeMedidaEnum unidadeMedida) {
-        this.unidadeMedida = unidadeMedida;
-    }
-
     public LocalDate getDiaPlanejado() {
         return diaPlanejado;
     }
@@ -63,14 +55,41 @@ public class PlanejamentoProducao {
         this.diaPlanejado = diaPlanejado;
     }
 
+    public Receita getReceitaOfertaDia() {
+        return receitaOfertaDia;
+    }
+
+    public void setReceitaOfertaDia(Receita receitaOfertaDia) {
+        this.receitaOfertaDia = receitaOfertaDia;
+    }
+
+    public Produto getBebidaOfertaDia() {
+        return bebidaOfertaDia;
+    }
+
+    public void setBebidaOfertaDia(Produto bebidaOfertaDia) {
+        this.bebidaOfertaDia = bebidaOfertaDia;
+    }
+
+    public Integer getQuantidadePlanejada() {
+        return quantidadePlanejada;
+    }
+
+    public void setQuantidadePlanejada(Integer quantidadePlanejada) {
+        this.quantidadePlanejada = quantidadePlanejada;
+    }
+
     @Override
     public String toString() {
         return "PlanejamentoProducao{" +
                 "id=" + id +
                 ", diaPlanejado=" + diaPlanejado +
-                ", receita=" + receita +
+                ", receitaOfertaDia=" + receitaOfertaDia +
+                ", bebidaOfertaDia=" + bebidaOfertaDia +
                 ", quantidadePlanejada=" + quantidadePlanejada +
-                ", unidadeMedida=" + unidadeMedida +
                 '}';
     }
 }
+
+
+
