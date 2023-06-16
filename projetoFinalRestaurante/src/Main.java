@@ -307,7 +307,7 @@ public class Main {
     private static void chamaMenuEstoque() {
         String[] opcoesMenuCadastro = {"Cadastrar Produto", "Remover Produto", "Voltar"};
         int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Estoque",
+                "Menu Estoque",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
 
         switch (menuCadastro) {
@@ -421,22 +421,16 @@ public class Main {
     }
 
     private static void chamaMenuCadastroCompra() {
-        String[] opcoesMenuCadastroCompra = {"Cadastrar Compra", "Remover Compra", "Editar Compra", "Voltar"};
+        String[] opcoesMenuCadastroCompra = {"Cadastrar Compra", "Voltar"};
         int menuCadastroCompra = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Cadastrar Compras",
+                "Menu Compra",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroCompra, opcoesMenuCadastroCompra[0]);
 
         switch (menuCadastroCompra) {
             case 0: //Adicionar Compra
                 cadastroCompra();
                 break;
-            case 1: //Remover Compra
-
-                break;
-            case 2: //Editar Compra
-
-                break;
-            case 3: //Voltar
+            case 1: //Voltar
                 chamaMenuPrincipal();
                 break;
         }
@@ -484,7 +478,7 @@ public class Main {
     public static void chamaMenuCadastroReceitas() {
         String[] opcoesMenuCadastro = {"Cadastrar Receita", "Remover Receita", "Editar Receita", "Voltar"};
         int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Receita",
+                "Menu Receita",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
 
         switch (menuCadastro) {
@@ -704,8 +698,8 @@ public class Main {
     public static void chamaMenuRelatorios() {
         String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Vendas", "Voltar"};
         int menuRelatorios = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Relatorios",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
+                "Menu Relatorios",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
 
         switch (menuRelatorios) {
 
@@ -774,7 +768,7 @@ public class Main {
 
         do {
             Integer contadorVendaCarrinho = 0;
-            String[] opcoesMenuCardapioVenda = {"Bebidas", "Entradas", "Massas", "Risotos", "Carnes", "Sobremesas", "Prato do dia", "Voltar"};
+            String[] opcoesMenuCardapioVenda = {"Bebidas", "Entradas", "Massas", "Risotos", "Carnes", "Sobremesas", "Ofertas do dia", "Voltar"};
             int opcaoMenuCardapioVenda = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                     "Venda",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCardapioVenda, opcoesMenuCardapioVenda[0]);
@@ -1318,8 +1312,16 @@ public class Main {
                     } while (contadorVendaCarrinho <= 0);
                     break;
 
-                case 6: // Prato do dia
-                    contadorVenda = 1;
+                case 6: // Oferta do dia
+                        if (VendaDAO.geraListaOfertaDoDia().length < 2){
+                        JOptionPane.showConfirmDialog(null, "Hoje não temos oferta do dia (0.0)",
+                                "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                        } else {
+                            Object[] listaOfertaDoDia = VendaDAO.geraListaOfertaDoDia();
+                            System.out.println(listaOfertaDoDia.length);
+                            JOptionPane.showConfirmDialog(null, listaOfertaDoDia,
+                                    "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
+                        }
                     break;
                 case 7: // Voltar
                     contadorVenda = 1;
