@@ -20,6 +20,12 @@ public class Venda {
         this.formaPagamento = formaPagamento;
     }
 
+    public Venda(Integer numeroComanda, FormaPagamentoEnum formaPagamento) {
+        this.dataVenda = LocalDate.now();
+        this.numeroComanda = numeroComanda;
+        this.formaPagamento = formaPagamento;
+    }
+
     public BigDecimal calculaValorListaVenda(Venda venda){
 
         BigDecimal valorVendaReceitaTotal = BigDecimal.ZERO;
