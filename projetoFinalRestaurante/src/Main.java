@@ -107,7 +107,7 @@ public class Main {
 
         Object[] listaIngredientesFaltantes = EstoqueDAO.verificaEstoqueReceitaPlanejamento(receitaOfertaPlanejada.get(0).getReceita(), quantidadePlanejada);
 
-        if (listaIngredientesFaltantes != null) {
+        if (listaIngredientesFaltantes.length > 2) {
             JOptionPane.showConfirmDialog(null, "Estoque Insuficiente!",
                     "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
 
@@ -121,6 +121,10 @@ public class Main {
                     (receitaOfertaPlanejada.get(0).getReceita(), quantidadePlanejada);
 
             PlanejamentoProducaoDAO.salvarPlanejamento(planejamentoProducaoReceita);
+
+            JOptionPane.showConfirmDialog(null, "Disponivel em estoque!\nPlanejamento cadastrado com sucesso!"
+                    ,
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
 
             chamaMenuPrincipal();
         }
@@ -145,7 +149,7 @@ public class Main {
 
         Object[] listaBebidasFaltantes = EstoqueDAO.verificaEstoqueBebidaPlanejamento(bebidaOfertaPlanejada.get(0).getProduto(), quantidadePlanejada);
 
-        if (listaBebidasFaltantes != null) {
+        if (listaBebidasFaltantes.length > 2) {
             JOptionPane.showConfirmDialog(null, "Estoque Insuficiente!",
                     "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
 
@@ -159,6 +163,9 @@ public class Main {
                     (bebidaOfertaPlanejada.get(0).getProduto(), quantidadePlanejada);
 
             PlanejamentoProducaoDAO.salvarPlanejamento(planejamentoProducaoBebida);
+
+            JOptionPane.showConfirmDialog(null, "Disponivel em estoque!\nPlanejamento cadastrado com sucesso!",
+                    "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
 
             chamaMenuPrincipal();
         }
