@@ -50,17 +50,17 @@ public class Main {
     }
 
     private static void chamaMenuPlanejamento() {
-        String[] opcoesMenuPlanejamento = {"Cadastrar planejamento", "Oferta do Dia", "Voltar"};
+        String[] opcoesMenuPlanejamento = {"Oferta do Dia", "Cadastrar planejamento", "Voltar"};
         int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Menu Planejamento de Produção",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
 
         switch (menuPlanejamento) {
-            case 0: //Cadastrar Planejamento
-                cadastroPlanejamento();
-                break;
-            case 1: //menuOfertadoDia
+            case 0: //menuOfertadoDia
                 menuOfertaDia();
+                break;
+            case 1: //Cadastrar Planejamento
+                cadastroPlanejamento();
                 break;
             case 2: //Voltar
                 chamaMenuPrincipal();
@@ -108,7 +108,7 @@ public class Main {
                 Integer quantidadePlanejada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade desejada planejada:",
                         "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION));
 
-                if (quantidadePlanejada.byteValue() <= 0) {
+                if (quantidadePlanejada <= 0) {
                     JOptionPane.showConfirmDialog(null, "Número Inválido!",
                             "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     chamaMenuPrincipal();
@@ -171,7 +171,7 @@ public class Main {
                 Integer quantidadePlanejada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade desejada planejada:",
                         "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION));
 
-                if (quantidadePlanejada.byteValue() <= 0) {
+                if (quantidadePlanejada <= 0) {
                     JOptionPane.showConfirmDialog(null, "Número Inválido!",
                             "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     chamaMenuPrincipal();
@@ -273,7 +273,7 @@ public class Main {
                 Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto:",
                         "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION));
 
-                if (desconto.byteValue() <= 0) {
+                if (desconto <= 0) {
                     JOptionPane.showConfirmDialog(null, "Número Inválido!",
                             "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     chamaMenuPrincipal();
@@ -315,7 +315,7 @@ public class Main {
                 Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto:",
                         "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION));
 
-                if (desconto.byteValue() <= 0) {
+                if (desconto <= 0) {
                     JOptionPane.showConfirmDialog(null, "Número Inválido!",
                             "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     chamaMenuPrincipal();
@@ -473,6 +473,8 @@ public class Main {
                     break;
                 case 2: //Finalizar Cadastro
                     ProdutoDAO.salvarListaProdutos(produto1);
+                    JOptionPane.showConfirmDialog(null, "Produto cadastrado com sucesso!",
+                            "Cadastrar Produto", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                     chamaMenuPrincipal();
                     break;
             }
@@ -501,7 +503,7 @@ public class Main {
                 BigDecimal valorCustoBebida = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Infome o valor de custo:",
                         "Cadastrar Produto Bebida", JOptionPane.DEFAULT_OPTION)));
 
-                if (valorCustoBebida.byteValue() <= 0) {
+                if (valorCustoBebida.byteValue() == 0 || valorCustoBebida.compareTo(BigDecimal.valueOf(0)) < 1) {
                     JOptionPane.showConfirmDialog(null, "Número Inválido!",
                             "Cadastrar Produto Bebida", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     chamaMenuPrincipal();
@@ -526,6 +528,8 @@ public class Main {
                         break;
                     case 2: //Finalizar Cadastro
                         ProdutoDAO.salvarListaProdutos(produto1);
+                        JOptionPane.showConfirmDialog(null, "Produto cadastrado com sucesso!",
+                                "Cadastrar Produto", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                         chamaMenuPrincipal();
                         break;
                 }
@@ -601,7 +605,7 @@ public class Main {
                 Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a quantidade",
                         "Cadastrar Compra", JOptionPane.DEFAULT_OPTION));
 
-                if (quantidade.byteValue() <= 0) {
+                if (quantidade <= 0) {
                     JOptionPane.showConfirmDialog(null, "Número Inválido!",
                             "Cadastrar Compra", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     chamaMenuPrincipal();
@@ -613,6 +617,8 @@ public class Main {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesUnidadeMedida, opcoesUnidadeMedida[0]);
                 Compra compra = new Compra(dataCompra, produtos.get(0), quantidade, opcoesUnidadeMedida[tipoUnidadeSelecionado]);
                 CompraDAO.salvarNovaCompra(compra);
+                JOptionPane.showConfirmDialog(null, "Compra cadastrada com sucesso!\nEstoque atualizado!",
+                        "Cadastrar Compra", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                 chamaMenuPrincipal();
 
 
@@ -678,7 +684,7 @@ public class Main {
                 BigDecimal valorCusto = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Infome o valor de custo:",
                         "Cadastrar Receita", JOptionPane.DEFAULT_OPTION)));
 
-                if (valorCusto.byteValue() <= 0) {
+                if (valorCusto.byteValue() == 0 || valorCusto.compareTo(BigDecimal.valueOf(0)) < 1) {
                     JOptionPane.showConfirmDialog(null, "Número Inválido!",
                             "Cadastrar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     chamaMenuPrincipal();
@@ -704,7 +710,7 @@ public class Main {
                     Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe a quantidade",
                             "Cadastrar Receita", JOptionPane.DEFAULT_OPTION));
 
-                    if (quantidade.byteValue() <= 0) {
+                    if (quantidade <= 0) {
                         JOptionPane.showConfirmDialog(null, "Número Inválido!",
                                 "Cadastrar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                         chamaMenuPrincipal();
@@ -749,6 +755,8 @@ public class Main {
                         break;
                     case 2: //Finalizar Cadastro
                         ReceitaDAO.salvarNovaReceita(receita1);
+                        JOptionPane.showConfirmDialog(null, "Receita cadastrada com sucesso!",
+                                "Cadastrar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                         chamaMenuPrincipal();
                         break;
 
@@ -835,7 +843,7 @@ public class Main {
                                 "Informe o NOVO VALOR DE CUSTO do(a) " + ReceitaDAO.buscaTodos().get(receitas).getNome() + ":",
                                 "Editar Receita", JOptionPane.DEFAULT_OPTION)));
 
-                        if (valorCusto.byteValue() <= 0) {
+                        if (valorCusto.byteValue() == 0 || valorCusto.compareTo(BigDecimal.valueOf(0)) < 1) {
                             JOptionPane.showConfirmDialog(null, "Número Inválido!",
                                     "Editar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                             chamaMenuPrincipal();
@@ -894,7 +902,7 @@ public class Main {
                                                     + nomeIngredienteEditarReceitaIngrediente + ":",
                                             "Editar Receita Ingrediente", JOptionPane.DEFAULT_OPTION));
 
-                                    if (novaQuantidade.byteValue() <= 0) {
+                                    if (novaQuantidade <= 0) {
                                         JOptionPane.showConfirmDialog(null, "Número Inválido!",
                                                 "Editar Receita Ingrediente", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                                         chamaMenuPrincipal();
@@ -1043,7 +1051,7 @@ public class Main {
                         "Venda", JOptionPane.DEFAULT_OPTION));
 
 
-                if (numeroComanda.byteValue() <= 0) {
+                if (numeroComanda <= 0) {
                     JOptionPane.showConfirmDialog(null, "Número Inválido!",
                             "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     chamaMenuPrincipal();
@@ -1085,7 +1093,7 @@ public class Main {
                             Integer quantidadeVendaBebida = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
-                            if (quantidadeVendaBebida.byteValue() <= 0) {
+                            if (quantidadeVendaBebida <= 0) {
                                 JOptionPane.showConfirmDialog(null, "Número Inválido!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                                 chamaMenuPrincipal();
@@ -1194,7 +1202,7 @@ public class Main {
                             Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
-                            if (quantidadeVendaEntrada.byteValue() <= 0) {
+                            if (quantidadeVendaEntrada <= 0) {
                                 JOptionPane.showConfirmDialog(null, "Número Inválido!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                                 chamaMenuPrincipal();
@@ -1305,7 +1313,7 @@ public class Main {
                             Integer quantidadeVendaMassa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
-                            if (quantidadeVendaMassa.byteValue() <= 0) {
+                            if (quantidadeVendaMassa <= 0) {
                                 JOptionPane.showConfirmDialog(null, "Número Inválido!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                                 chamaMenuPrincipal();
@@ -1415,7 +1423,7 @@ public class Main {
                             Integer quantidadeVendaRisoto = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
-                            if (quantidadeVendaRisoto.byteValue() <= 0) {
+                            if (quantidadeVendaRisoto <= 0) {
                                 JOptionPane.showConfirmDialog(null, "Número Inválido!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                                 chamaMenuPrincipal();
@@ -1525,7 +1533,7 @@ public class Main {
                             Integer quantidadeVendaCarne = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
-                            if (quantidadeVendaCarne.byteValue() <= 0) {
+                            if (quantidadeVendaCarne <= 0) {
                                 JOptionPane.showConfirmDialog(null, "Número Inválido!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                                 chamaMenuPrincipal();
@@ -1629,7 +1637,7 @@ public class Main {
                             Integer quantidadeVendaSobremesa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
-                            if (quantidadeVendaSobremesa.byteValue() <= 0) {
+                            if (quantidadeVendaSobremesa <= 0) {
                                 JOptionPane.showConfirmDialog(null, "Número Inválido!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                                 chamaMenuPrincipal();
