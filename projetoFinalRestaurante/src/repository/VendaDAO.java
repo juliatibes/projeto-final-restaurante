@@ -8,15 +8,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VendaDAO {
+public class VendaDAO implements InterfaceAutoIncrement{
     static List<Venda> listaVenda = new ArrayList<>();
 
-//    public static void inputVendas() {
-//        if (VendaDAO.listaVenda.isEmpty()) {
 //
-//    }
 
     public static void salvarListaVenda(Venda venda) {
+        VendaDAO vendaDAO = new VendaDAO();
+        venda.setId(vendaDAO.geraID());
         listaVenda.add(venda);
     }
 
@@ -24,7 +23,8 @@ public class VendaDAO {
         return listaVenda;
     }
 
-    public static Integer aiID() {
+    @Override
+    public Integer geraID() {
         Integer id = listaVenda.size() + 1;
         return id;
     }

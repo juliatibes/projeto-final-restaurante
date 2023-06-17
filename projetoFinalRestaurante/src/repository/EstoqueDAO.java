@@ -211,4 +211,13 @@ public class EstoqueDAO {
         } else
             return null;
     }
+
+    public static void removerProdutoEstoque (Produto produto){
+
+        for (int x = 0 ; x < listaProdutosEstoque.size() ; x ++){
+            if (listaProdutosEstoque.get(x).getProduto() == produto){
+                listaProdutosEstoque.remove(listaProdutosEstoque.get(x));
+            }
+        }
+    }
 }

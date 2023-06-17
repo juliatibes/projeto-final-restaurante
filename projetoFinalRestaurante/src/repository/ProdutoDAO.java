@@ -1,9 +1,6 @@
 package repository;
 
-import model.InterfaceAutoIncrement;
-import model.Produto;
-import model.ProdutoEnum;
-import model.ProdutoEstoque;
+import model.*;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -58,8 +55,23 @@ public class ProdutoDAO implements InterfaceAutoIncrement {
     }
 
     public static Integer removerProduto(Produto produto) {
+        
+        if (produto.getTipoProduto().equals(ProdutoEnum.INGREDIENTE)) {
+            for (int x = 0; x < ReceitaDAO.listaReceita.size(); x++) {
+                for (int y = 0; y < ReceitaDAO.listaReceita.get(x).getListaIngredientes().size(); y++){
+                    if (ReceitaDAO.listaReceita.get(x).getListaIngredientes().get(y).getProduto() == produto){
+                        return JOptionPane.showConfirmDialog(null,
+                            "Não é possivel remover um produto que existe em alguma receita !!!",
+                            "Remover Produto", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+                  }
+                }
+            }
+        }
+
+        EstoqueDAO.removerProdutoEstoque(produto);
         listaProdutos.remove(produto);
-        return JOptionPane.showConfirmDialog(null, "Produto excluido com sucesso!",
+
+        return JOptionPane.showConfirmDialog(null, "Produto excluido com sucesso!\nEstoque atualizado!",
                 "Remover Produto", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
     }
 
@@ -98,12 +110,6 @@ public class ProdutoDAO implements InterfaceAutoIncrement {
         }
         return produtosNomes.toArray();
     }
-
-//    public static Integer aiID() {
-//        Integer id = listaProdutos.size() + 1;
-//        return id;
-//    }
-
 
     @Override
     public Integer geraID() {
