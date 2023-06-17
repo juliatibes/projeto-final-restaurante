@@ -46,6 +46,8 @@ public class Main {
             case 5:// Relatorios
                 chamaMenuRelatorios();
                 break;
+            case 6://Sair
+                break;
         }
     }
 

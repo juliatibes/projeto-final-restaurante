@@ -104,7 +104,6 @@ public class ReceitaDAO implements InterfaceAutoIncrement{
     }
 
     public static Integer editarReceitaIngrediente(Integer posicaoReceita, Integer posicaoIngrediente, Produto produto) {
-        String nomeReceitaIngrediente = listaReceita.get(posicaoReceita).getListaIngredientes().get(posicaoIngrediente).getProduto().getNome();
         listaReceita.get(posicaoReceita).getListaIngredientes().get(posicaoIngrediente).setProduto(produto);
 
         return JOptionPane.showConfirmDialog(null, "O ingrediente foi editado com sucesso!",
