@@ -958,7 +958,7 @@ public class Main {
     }
 
     public static void chamaMenuRelatorios() {
-        String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Vendas", "Voltar"};
+        String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Bebidas", "Vendas", "Voltar"};
         int menuRelatorios = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Menu Relatorios",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
@@ -975,9 +975,12 @@ public class Main {
                 ChamaRelatorioReceitas();
                 break;
             case 3: //Vendas
+                ChamaRelatorioBebidas();
+                break;
+            case 4:
                 ChamaRelatorioVendas();
                 break;
-            case 4: //Voltar
+            case 5: //Voltar
                 chamaMenuPrincipal();
                 break;
         }
@@ -1017,6 +1020,18 @@ public class Main {
 
         List<Receita> receitas = ReceitaDAO.buscaTodos();
         RelatorioReceitaForm.emitirRelatorio(receitas);
+    }
+
+    private static void ChamaRelatorioBebidas() {
+
+        if (ProdutoDAO.buscaTodos().size() < 1) {
+            JOptionPane.showConfirmDialog(null, "Não foi cadastrada nenhuma bebida até o momento !!!",
+                    "Relatório Bebidas", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            return;
+        }
+
+        List<Produto> bebidas = ProdutoDAO.buscaTodos();
+        RelatorioBebidaForm.emitirRelatorio(bebidas);
     }
 
     private static void ChamaRelatorioVendas() {

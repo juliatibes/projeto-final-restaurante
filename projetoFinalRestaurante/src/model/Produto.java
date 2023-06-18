@@ -1,6 +1,10 @@
 package model;
 
+import repository.ProdutoDAO;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Produto {
@@ -15,13 +19,14 @@ public class Produto {
         this.nome = nome;
         this.tipoProduto = tipoProduto;
         this.valorCustoProduto = produtoBebidaValorCusto;
-        this.valorVendaProduto = calculaValorVenda(produtoBebidaValorCusto);
+        this.valorVendaProduto = calculaValorVenda(valorVendaProduto);
+
     }
     public Produto(String nome, ProdutoEnum tipoProduto, BigDecimal produtoBebidaValorCusto) {
         this.nome = nome;
         this.tipoProduto = tipoProduto;
         this.valorCustoProduto = produtoBebidaValorCusto;
-        this.valorVendaProduto = calculaValorVenda(produtoBebidaValorCusto);
+        this.valorVendaProduto = calculaValorVenda(valorVendaProduto);
     }
 
     public Produto (Integer id, String nome, ProdutoEnum tipoProduto){
@@ -86,6 +91,7 @@ public class Produto {
         Produto produto = (Produto) o;
         return Objects.equals(id, produto.id);
     }
+
 
     @Override
     public int hashCode() {
