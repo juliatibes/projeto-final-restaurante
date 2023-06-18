@@ -1,5 +1,5 @@
-import model.Venda;
-import relatorio.RelatorioVenda;
+import model.Produto;
+import relatorio.RelatorioBebida;
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
@@ -9,31 +9,31 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.Vector;
 
-public class RelatorioVendaForm extends JPanel {
+public class RelatorioBebidaForm extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
     public static final String[] nomeColunas =
-            {"Data", "Quantidade", "Valor (R$)", "Lucro (R$)", ""};
+            {"Nome", "Custo (R$)", "Valor de venda (R$)", "Lucro obtido (R$)", ""};
 
     protected JTable table;
     protected JScrollPane scroller;
-    protected RelatorioVenda tabela;
+    protected RelatorioBebida tabela;
 
-    public RelatorioVendaForm(Vector<Venda> vetorDados) {
+    public RelatorioBebidaForm(Vector<Produto> vetorDados) {
         iniciarComponentes(vetorDados);
     }
 
 
-    public void iniciarComponentes(Vector<Venda> vetorDados) {
-        tabela = new RelatorioVenda(nomeColunas, vetorDados);
+    public void iniciarComponentes(Vector<Produto> vetorDados) {
+        tabela = new RelatorioBebida(nomeColunas, vetorDados);
         table = new JTable();
         table.setModel(tabela);
         table.setSurrendersFocusOnKeystroke(true);
         scroller = new javax.swing.JScrollPane(table);
         table.setPreferredScrollableViewportSize(new java.awt.Dimension(500, 300));
 
-        TableColumn colunaEscondida = table.getColumnModel().getColumn(RelatorioVenda.INDEX_ESCONDIDO);
+        TableColumn colunaEscondida = table.getColumnModel().getColumn(RelatorioBebida.INDEX_ESCONDIDO);
         colunaEscondida.setMinWidth(2);
         colunaEscondida.setPreferredWidth(2);
         colunaEscondida.setMaxWidth(2);
@@ -41,10 +41,10 @@ public class RelatorioVendaForm extends JPanel {
         add(scroller, BorderLayout.CENTER);
     }
 
-    public static void EmitirRelatorio(List<Venda> vendas) {
+    public static void emitirRelatorio (List<Produto> produtos) {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-            JFrame frame = new JFrame("Relatorio de venda");
+            JFrame frame = new JFrame("Relatório de bebidas");
 
             frame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent evt) {
@@ -52,12 +52,12 @@ public class RelatorioVendaForm extends JPanel {
                     Main.chamaMenuRelatorios();
                 }
             });
-            Vector<Venda> vetorDados = new Vector<Venda>();
-            for (Venda venda : vendas) {
-                vetorDados.add(venda);
+            Vector<Produto> vetorDados = new Vector<Produto>();
+            for (Produto produto : produtos) {
+                vetorDados.add(produto);
             }
 
-            frame.getContentPane().add(new RelatorioVendaForm(vetorDados));
+            frame.getContentPane().add(new RelatorioBebidaForm(vetorDados));
             frame.pack();
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
@@ -65,5 +65,4 @@ public class RelatorioVendaForm extends JPanel {
             e.printStackTrace();
         }
     }
-
 }

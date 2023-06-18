@@ -111,6 +111,16 @@ public class ProdutoDAO implements InterfaceAutoIncrement {
         return produtosNomes.toArray();
     }
 
+    public static List<Produto> buscarBebidas() {
+        List<Produto> produtosBebidas = new ArrayList<>();
+        for (Produto produto : ProdutoDAO.listaProdutos) {
+            if (produto.getTipoProduto() == ProdutoEnum.BEBIDA) {
+                produtosBebidas.add(produto);
+            }
+        }
+        return produtosBebidas;
+    }
+
     @Override
     public Integer geraID() {
         Integer id = listaProdutos.size() + 1;

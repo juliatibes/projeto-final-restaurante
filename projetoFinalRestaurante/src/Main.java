@@ -958,9 +958,9 @@ public class Main {
     }
 
     public static void chamaMenuRelatorios() {
-        String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Vendas", "Voltar"};
+        String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Bebidas", "Vendas", "Voltar"};
         int menuRelatorios = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Relatorios",
+                "Menu Relatórios",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
 
         switch (menuRelatorios) {
@@ -974,10 +974,13 @@ public class Main {
             case 2: //Receitas
                 ChamaRelatorioReceitas();
                 break;
-            case 3: //Vendas
+            case 3: //Bebidas
+                ChamaRelatorioBebidas();
+                break;
+            case 4: //Vendas
                 ChamaRelatorioVendas();
                 break;
-            case 4: //Voltar
+            case 5: //Voltar
                 chamaMenuPrincipal();
                 break;
         }
@@ -988,6 +991,7 @@ public class Main {
         if (CompraDAO.buscarTodos().size() < 1) {
             JOptionPane.showConfirmDialog(null, "Não foi realizada nenhuma compra até o momento !!!",
                     "Relatório Compras", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
             return;
         }
 
@@ -1000,6 +1004,7 @@ public class Main {
         if (EstoqueDAO.buscaTodos().size() < 1) {
             JOptionPane.showConfirmDialog(null, "Não foi cadastrado nenhum produto no estoque até o momento !!!",
                     "Relatório Estoque", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
             return;
         }
 
@@ -1012,6 +1017,7 @@ public class Main {
         if (ReceitaDAO.buscaTodos().size() < 1) {
             JOptionPane.showConfirmDialog(null, "Não foi cadastrada nenhuma receita até o momento !!!",
                     "Relatório Receitas", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
             return;
         }
 
@@ -1019,11 +1025,25 @@ public class Main {
         RelatorioReceitaForm.emitirRelatorio(receitas);
     }
 
+    private static void ChamaRelatorioBebidas() {
+
+        if (ProdutoDAO.buscaTodos().size() < 1) {
+            JOptionPane.showConfirmDialog(null, "Não foi cadastrada nenhuma bebida até o momento !!!",
+                    "Relatório Bebidas", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
+            return;
+        }
+
+        List<Produto> bebidas = ProdutoDAO.buscarBebidas();
+        RelatorioBebidaForm.emitirRelatorio(bebidas);
+    }
+
     private static void ChamaRelatorioVendas() {
 
         if (VendaDAO.buscarTodos().size() < 1) {
             JOptionPane.showConfirmDialog(null, "Não foi realizada nenhuma venda até o momento !!!",
                     "Relatório Vendas", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
             return;
         }
 
