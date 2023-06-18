@@ -1,4 +1,4 @@
-import model.ProdutoEstoque;
+import model.Estoque;
 import relatorio.RelatorioEstoque;
 
 import javax.swing.*;
@@ -22,11 +22,11 @@ public class RelatorioEstoqueForm extends JPanel {
     protected JScrollPane scroller;
     protected RelatorioEstoque tabela;
 
-    public RelatorioEstoqueForm(Vector<ProdutoEstoque> vetorDados) {
+    public RelatorioEstoqueForm(Vector<Estoque> vetorDados) {
         iniciarComponentes(vetorDados);
     }
 
-    public void iniciarComponentes(Vector<ProdutoEstoque> vetorDados) {
+    public void iniciarComponentes(Vector<Estoque> vetorDados) {
         tabela = new RelatorioEstoque(nomeColunas, vetorDados);
         table = new JTable();
         table.setModel(tabela);
@@ -44,7 +44,7 @@ public class RelatorioEstoqueForm extends JPanel {
 
     }
 
-    public static void emitirRelatorio(List<ProdutoEstoque> produtos) {
+    public static void emitirRelatorio(List<Estoque> produtos) {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             JFrame frame = new JFrame("Relatorio de itens em Estoque");
@@ -55,8 +55,8 @@ public class RelatorioEstoqueForm extends JPanel {
                     Main.chamaMenuRelatorios();
                 }
             });
-            Vector<ProdutoEstoque> vetorDados = new Vector<ProdutoEstoque>();
-            for (ProdutoEstoque produto : produtos) {
+            Vector<Estoque> vetorDados = new Vector<Estoque>();
+            for (Estoque produto : produtos) {
                 vetorDados.add(produto);
             }
 

@@ -4,7 +4,6 @@ import repository.*;
 
 import javax.swing.*;
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -1008,7 +1007,7 @@ public class Main {
             return;
         }
 
-        List<ProdutoEstoque> produtos = EstoqueDAO.buscaTodos();
+        List<Estoque> produtos = EstoqueDAO.buscaTodos();
         RelatorioEstoqueForm.emitirRelatorio(produtos);
     }
 

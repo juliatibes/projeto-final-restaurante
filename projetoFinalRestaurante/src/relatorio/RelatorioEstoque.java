@@ -1,7 +1,7 @@
 package relatorio;
 
 
-import model.ProdutoEstoque;
+import model.Estoque;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;
@@ -17,9 +17,9 @@ public class RelatorioEstoque extends AbstractTableModel {
 
 
     protected String[] nomeColunas;
-    protected Vector<ProdutoEstoque> vetorDados;
+    protected Vector<Estoque> vetorDados;
 
-    public RelatorioEstoque(String[] columnNames, Vector<ProdutoEstoque> vetorDados) {
+    public RelatorioEstoque(String[] columnNames, Vector<Estoque> vetorDados) {
         this.nomeColunas = columnNames;
         this.vetorDados = vetorDados;
     }
@@ -40,7 +40,7 @@ public class RelatorioEstoque extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int linha, int coluna) {
-        ProdutoEstoque registroEstoque = (ProdutoEstoque) vetorDados.get(linha);
+        Estoque registroEstoque = (Estoque) vetorDados.get(linha);
         switch (coluna) {
             case INDEX_PRODUTO:
                 return registroEstoque.getProduto().getNome();
