@@ -194,11 +194,6 @@ public class ReceitaDAO implements InterfaceAutoIncrement{
         return posicaoIngredienteFinal;
     }
 
-//    public static Integer aiID() {
-//        Integer id = listaReceita.size() + 1;
-//        return id;
-//    }
-
     @Override
     public Integer geraID() {
         Integer id = listaReceita.size() + 1;

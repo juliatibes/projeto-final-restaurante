@@ -553,6 +553,8 @@ public class Main {
             return;
         }
 
+        try{
+
         Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArray();
         String initialSelectionProduto = (String) selectionValuesProdutos[0];
         Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o produto para remover:",
@@ -560,6 +562,10 @@ public class Main {
         List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionProduto);
         ProdutoDAO.removerProduto(produtos.get(0));
         chamaMenuPrincipal();
+
+            } catch (NullPointerException e) {
+            chamaMenuPrincipal();
+            }
     }
 
     private static void chamaMenuCadastroCompra() {
@@ -784,6 +790,8 @@ public class Main {
             return;
         }
 
+        try{
+
         Object[] selectionValuesReceita = ReceitaDAO.findreceitasInArray();
         String initialSelectionReceita = (String) selectionValuesReceita[0];
         Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione a receita para remover:",
@@ -791,6 +799,10 @@ public class Main {
         Integer receitas = ReceitaDAO.buscaPosicaoReceita((String) selectionProduto);
         ReceitaDAO.removerReceita(receitas);
         chamaMenuCadastroReceitas();
+
+            } catch (NullPointerException e) {
+            chamaMenuPrincipal();
+        }
     }
 
     private static void editarReceita() {
