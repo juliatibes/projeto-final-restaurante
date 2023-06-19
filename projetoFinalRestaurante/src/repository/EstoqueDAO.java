@@ -3,14 +3,13 @@ package repository;
 import model.*;
 
 import javax.swing.*;
-import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EstoqueDAO {
-    static List<ProdutoEstoque> listaProdutosEstoque = new ArrayList<>();
+    static List<Estoque> listaProdutosEstoque = new ArrayList<>();
 
-    public static List<ProdutoEstoque> buscaTodos() {
+    public static List<Estoque> buscaTodos() {
             return listaProdutosEstoque;
     }
 
@@ -27,33 +26,33 @@ public class EstoqueDAO {
         }
 
         Double quantidadeAtual = 0.00;
-        ProdutoEstoque produtoEstoqueEncontrado = null;
-        for (ProdutoEstoque produtoEstoque : listaProdutosEstoque) {
-            if (produtoEstoque.getProduto().getId() == produto.getId()) {
-                quantidadeAtual = produtoEstoque.getQuantidade();
-                produtoEstoqueEncontrado = produtoEstoque;
+        Estoque estoqueEncontrado = null;
+        for (Estoque estoque : listaProdutosEstoque) {
+            if (estoque.getProduto().getId() == produto.getId()) {
+                quantidadeAtual = estoque.getQuantidade();
+                estoqueEncontrado = estoque;
             }
         }
 
-        if (produtoEstoqueEncontrado != null) {
-            listaProdutosEstoque.remove(produtoEstoqueEncontrado);
+        if (estoqueEncontrado != null) {
+            listaProdutosEstoque.remove(estoqueEncontrado);
         }
 
-        listaProdutosEstoque.add(new ProdutoEstoque(produto, quantidade + quantidadeAtual, unidadeMedidaEnum));
+        listaProdutosEstoque.add(new Estoque(produto, quantidade + quantidadeAtual, unidadeMedidaEnum));
     }
 
     public static Integer verificaDisponibilidade (List<VendaPedido> listaItensCarinho){
         Double quantidadeCalculadaReceita = 0.00;
-        List<ProdutoEstoque> listaProdutosEstoqueVerificacao = new ArrayList<>();
+        List<Estoque> listaProdutosEstoqueVerificacao = new ArrayList<>();
 
 
-        for (ProdutoEstoque produtoEstoque : listaProdutosEstoque){
-             listaProdutosEstoqueVerificacao.add(produtoEstoque);
+        for (Estoque estoque : listaProdutosEstoque){
+             listaProdutosEstoqueVerificacao.add(estoque);
         }
 
 
         for ( int z = 0; z < listaItensCarinho.size();z ++) {
-            List<ProdutoEstoque> guardaProdutoEstoque = new ArrayList<>();
+            List<Estoque> guardaEstoque = new ArrayList<>();
 
             if (listaItensCarinho.get(z).getProdutoBebida() != null) {
                 for (int y = 0; y < listaProdutosEstoqueVerificacao.size(); y++) {
@@ -62,14 +61,14 @@ public class EstoqueDAO {
                         if (listaProdutosEstoqueVerificacao.get(y).getQuantidade() < listaItensCarinho.get(z).getQuantidade()) {
                             return 1;
                         } else {
-                            guardaProdutoEstoque.add(listaProdutosEstoqueVerificacao.get(y));
+                            guardaEstoque.add(listaProdutosEstoqueVerificacao.get(y));
 
                             listaProdutosEstoqueVerificacao.remove(listaProdutosEstoqueVerificacao.get(y));
 
-                            listaProdutosEstoqueVerificacao.add(new ProdutoEstoque(guardaProdutoEstoque.get(0).getProduto(),
-                                    guardaProdutoEstoque.get(0).getQuantidade() - listaItensCarinho.get(z).getQuantidade(),
-                                    guardaProdutoEstoque.get(0).getUnidadeMedida()));
-                            guardaProdutoEstoque.clear();
+                            listaProdutosEstoqueVerificacao.add(new Estoque(guardaEstoque.get(0).getProduto(),
+                                    guardaEstoque.get(0).getQuantidade() - listaItensCarinho.get(z).getQuantidade(),
+                                    guardaEstoque.get(0).getUnidadeMedida()));
+                            guardaEstoque.clear();
                             y = listaProdutosEstoqueVerificacao.size() -1;
                         }
                     }
@@ -89,13 +88,13 @@ public class EstoqueDAO {
                           if (listaProdutosEstoqueVerificacao.get(y).getQuantidade() < quantidadeCalculadaReceita) {
                               return 1;
                           } else {
-                              guardaProdutoEstoque.add(listaProdutosEstoqueVerificacao.get(y));
+                              guardaEstoque.add(listaProdutosEstoqueVerificacao.get(y));
 
                               listaProdutosEstoqueVerificacao.remove(listaProdutosEstoqueVerificacao.get(y));
-                              listaProdutosEstoqueVerificacao.add(new ProdutoEstoque(guardaProdutoEstoque.get(0).getProduto(),
-                                      guardaProdutoEstoque.get(0).getQuantidade() - quantidadeCalculadaReceita,
-                                      guardaProdutoEstoque.get(0).getUnidadeMedida()));
-                              guardaProdutoEstoque.clear();
+                              listaProdutosEstoqueVerificacao.add(new Estoque(guardaEstoque.get(0).getProduto(),
+                                      guardaEstoque.get(0).getQuantidade() - quantidadeCalculadaReceita,
+                                      guardaEstoque.get(0).getUnidadeMedida()));
+                              guardaEstoque.clear();
                               y = listaProdutosEstoqueVerificacao.size() -1;
                           }
                       }
@@ -183,13 +182,13 @@ public class EstoqueDAO {
         Integer contadorVerificacaoEstoque = 1;
 
         List<String> listaBebidaFaltanteNome = new ArrayList<>();
-        List<ProdutoEstoque> listaBebidaFaltante = new ArrayList<>();
+        List<Estoque> listaBebidaFaltante = new ArrayList<>();
 
 
             for (int y = 0; y < listaProdutosEstoque.size(); y ++){
                 if (listaProdutosEstoque.get(y).getProduto().equals(produto)){
                     if (listaProdutosEstoque.get(y).getQuantidade() < quantidadePlanejada) {
-                        listaBebidaFaltante.add(new ProdutoEstoque(listaProdutosEstoque.get(y).getProduto(),
+                        listaBebidaFaltante.add(new Estoque(listaProdutosEstoque.get(y).getProduto(),
                                 quantidadePlanejada - listaProdutosEstoque.get(y).getQuantidade(), listaProdutosEstoque.get(y).getUnidadeMedida()));
 
                         contadorVerificacaoEstoque = 1;
@@ -200,10 +199,10 @@ public class EstoqueDAO {
         listaBebidaFaltanteNome.add("Lista de produtos que estão faltando:\n\n");
         listaBebidaFaltanteNome.add("UNIDADE MEDIDA             QUANTIDADE            INGREDIENTE ");
 
-        for (ProdutoEstoque produtoEstoque : listaBebidaFaltante){
-            listaBebidaFaltanteNome.add("        "+produtoEstoque.getUnidadeMedida() +
-                    "                              " + produtoEstoque.getQuantidade()+
-                    "                    " + produtoEstoque.getProduto().getNome());
+        for (Estoque estoque : listaBebidaFaltante){
+            listaBebidaFaltanteNome.add("        "+ estoque.getUnidadeMedida() +
+                    "                              " + estoque.getQuantidade()+
+                    "                    " + estoque.getProduto().getNome());
         }
 
         if (contadorVerificacaoEstoque == 1){

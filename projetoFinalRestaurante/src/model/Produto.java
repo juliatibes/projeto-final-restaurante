@@ -13,6 +13,7 @@ public class Produto {
     private ProdutoEnum tipoProduto;
     private BigDecimal valorCustoProduto;
     private BigDecimal valorVendaProduto;
+    private BigDecimal lucroVendaProduto;
 
     public Produto(Integer id, String nome, ProdutoEnum tipoProduto, BigDecimal produtoBebidaValorCusto) {
         this.id = id;
@@ -40,8 +41,12 @@ public class Produto {
         if (valorCusto!=null) {
             valorVendaProduto = valorCusto.add(valorCusto.multiply(BigDecimal.valueOf(100).divide(BigDecimal.valueOf(100))));
         }
-            return valorVendaProduto;
+        return valorVendaProduto;
+    }
 
+    public BigDecimal calculaLucro(){
+        lucroVendaProduto = this.valorVendaProduto.subtract(this.valorCustoProduto);
+        return lucroVendaProduto;
     }
 
     public Integer getId() {
@@ -82,6 +87,14 @@ public class Produto {
 
     public void setValorVendaProduto(BigDecimal valorVendaProduto) {
         this.valorVendaProduto = valorVendaProduto;
+    }
+
+    public BigDecimal getLucroVendaProduto() {
+        return lucroVendaProduto;
+    }
+
+    public void setLucroVendaProduto(BigDecimal lucroVendaProduto) {
+        this.lucroVendaProduto = lucroVendaProduto;
     }
 
     @Override

@@ -14,7 +14,7 @@ public class RelatorioBebidaForm extends JPanel {
     private static final long serialVersionUID = 1L;
 
     public static final String[] nomeColunas =
-            {"Nome", "Custo", "Valor de venda", "Lucro obtido", ""};
+            {"Nome", "Custo (R$)", "Valor de venda (R$)", "Lucro obtido (R$)", ""};
 
     protected JTable table;
     protected JScrollPane scroller;
@@ -23,6 +23,7 @@ public class RelatorioBebidaForm extends JPanel {
     public RelatorioBebidaForm(Vector<Produto> vetorDados) {
         iniciarComponentes(vetorDados);
     }
+
 
     public void iniciarComponentes(Vector<Produto> vetorDados) {
         tabela = new RelatorioBebida(nomeColunas, vetorDados);
@@ -40,10 +41,10 @@ public class RelatorioBebidaForm extends JPanel {
         add(scroller, BorderLayout.CENTER);
     }
 
-    public static void emitirRelatorio (List< Produto > produtos) {
+    public static void emitirRelatorio (List<Produto> produtos) {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-            JFrame frame = new JFrame("Relatorio de bebidas");
+            JFrame frame = new JFrame("Relatório de bebidas");
 
             frame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent evt) {
@@ -64,5 +65,4 @@ public class RelatorioBebidaForm extends JPanel {
             e.printStackTrace();
         }
     }
-
 }

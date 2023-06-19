@@ -1,8 +1,7 @@
 package relatorio;
 
 import model.Produto;
-import model.ProdutoEnum;
-import repository.ProdutoDAO;
+import model.Receita;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;
@@ -41,16 +40,16 @@ public class RelatorioBebida extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int linha, int coluna) {
-        Produto registroBebidas = (Produto) vetorDados.get(linha);
+        Produto registroBebida = (Produto) vetorDados.get(linha);
         switch (coluna) {
             case INDEX_NOME:
-                return registroBebidas.getNome();
+                return registroBebida.getNome();
             case INDEX_VALORCUSTO:
-                return registroBebidas.getValorCustoProduto();
+                return registroBebida.getValorCustoProduto();
             case INDEX_VALORVENDA:
-                return registroBebidas.getValorVendaProduto();
+                return registroBebida.getValorVendaProduto();
             case INDEX_LUCRO:
-                return registroBebidas;
+                return registroBebida.calculaLucro();
             default:
                 return new Object();
         }
@@ -65,4 +64,6 @@ public class RelatorioBebida extends AbstractTableModel {
     public int getColumnCount() {
         return nomeColunas.length;
     }
+
+
 }

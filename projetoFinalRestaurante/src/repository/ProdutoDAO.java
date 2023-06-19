@@ -7,9 +7,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static repository.VendaDAO.listaVenda;
-import static repository.VendaDAO.totalVendas;
-
 public class ProdutoDAO implements InterfaceAutoIncrement {
 
     static List<Produto> listaProdutos = new ArrayList<>();
@@ -58,15 +55,15 @@ public class ProdutoDAO implements InterfaceAutoIncrement {
     }
 
     public static Integer removerProduto(Produto produto) {
-
+        
         if (produto.getTipoProduto().equals(ProdutoEnum.INGREDIENTE)) {
             for (int x = 0; x < ReceitaDAO.listaReceita.size(); x++) {
-                for (int y = 0; y < ReceitaDAO.listaReceita.get(x).getListaIngredientes().size(); y++) {
-                    if (ReceitaDAO.listaReceita.get(x).getListaIngredientes().get(y).getProduto() == produto) {
+                for (int y = 0; y < ReceitaDAO.listaReceita.get(x).getListaIngredientes().size(); y++){
+                    if (ReceitaDAO.listaReceita.get(x).getListaIngredientes().get(y).getProduto() == produto){
                         return JOptionPane.showConfirmDialog(null,
-                                "Não é possivel remover um produto que existe em alguma receita !!!",
-                                "Remover Produto", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
-                    }
+                            "Não é possivel remover um produto que existe em alguma receita !!!",
+                            "Remover Produto", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+                  }
                 }
             }
         }
@@ -114,40 +111,20 @@ public class ProdutoDAO implements InterfaceAutoIncrement {
         return produtosNomes.toArray();
     }
 
-    public static Object[] findprodutosInArrayBebidas() {
-        List<Produto> produtos = buscaTodos();
-        List<String> produtosNomes = new ArrayList<>();
-
-        for (Produto produto : produtos) {
+    public static List<Produto> buscarBebidas() {
+        List<Produto> produtosBebidas = new ArrayList<>();
+        for (Produto produto : ProdutoDAO.listaProdutos) {
             if (produto.getTipoProduto() == ProdutoEnum.BEBIDA) {
-                produtosNomes.add(produto.getNome());
+                produtosBebidas.add(produto);
             }
         }
-        return produtosNomes.toArray();
+        return produtosBebidas;
     }
-
-    public static BigDecimal calculaBebidaLucro() {
-        BigDecimal calculaLucro = BigDecimal.ZERO;
-
-        for (int posicaoBebida = 0; posicaoBebida < listaProdutos.size(); posicaoBebida++) {
-
-            if (listaProdutos.get(posicaoBebida).getTipoProduto().equals(ProdutoEnum.BEBIDA)) {
-
-                calculaLucro = listaProdutos.get(posicaoBebida).getValorVendaProduto().subtract(listaProdutos.get(posicaoBebida).getValorCustoProduto());
-            }
-        }
-        return calculaLucro;
-    }
-
 
     @Override
     public Integer geraID() {
         Integer id = listaProdutos.size() + 1;
         return id;
     }
-
-
-
-
 }
 

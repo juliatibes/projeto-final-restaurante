@@ -4,7 +4,6 @@ import repository.*;
 
 import javax.swing.*;
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -960,7 +959,7 @@ public class Main {
     public static void chamaMenuRelatorios() {
         String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Bebidas", "Vendas", "Voltar"};
         int menuRelatorios = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Relatorios",
+                "Menu Relatórios",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
 
         switch (menuRelatorios) {
@@ -974,10 +973,10 @@ public class Main {
             case 2: //Receitas
                 ChamaRelatorioReceitas();
                 break;
-            case 3: //Vendas
+            case 3: //Bebidas
                 ChamaRelatorioBebidas();
                 break;
-            case 4:
+            case 4: //Vendas
                 ChamaRelatorioVendas();
                 break;
             case 5: //Voltar
@@ -991,6 +990,7 @@ public class Main {
         if (CompraDAO.buscarTodos().size() < 1) {
             JOptionPane.showConfirmDialog(null, "Não foi realizada nenhuma compra até o momento !!!",
                     "Relatório Compras", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
             return;
         }
 
@@ -1003,10 +1003,11 @@ public class Main {
         if (EstoqueDAO.buscaTodos().size() < 1) {
             JOptionPane.showConfirmDialog(null, "Não foi cadastrado nenhum produto no estoque até o momento !!!",
                     "Relatório Estoque", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
             return;
         }
 
-        List<ProdutoEstoque> produtos = EstoqueDAO.buscaTodos();
+        List<Estoque> produtos = EstoqueDAO.buscaTodos();
         RelatorioEstoqueForm.emitirRelatorio(produtos);
     }
 
@@ -1015,6 +1016,7 @@ public class Main {
         if (ReceitaDAO.buscaTodos().size() < 1) {
             JOptionPane.showConfirmDialog(null, "Não foi cadastrada nenhuma receita até o momento !!!",
                     "Relatório Receitas", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
             return;
         }
 
@@ -1027,10 +1029,11 @@ public class Main {
         if (ProdutoDAO.buscaTodos().size() < 1) {
             JOptionPane.showConfirmDialog(null, "Não foi cadastrada nenhuma bebida até o momento !!!",
                     "Relatório Bebidas", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
             return;
         }
 
-        List<Produto> bebidas = ProdutoDAO.buscaTodos();
+        List<Produto> bebidas = ProdutoDAO.buscarBebidas();
         RelatorioBebidaForm.emitirRelatorio(bebidas);
     }
 
@@ -1039,6 +1042,7 @@ public class Main {
         if (VendaDAO.buscarTodos().size() < 1) {
             JOptionPane.showConfirmDialog(null, "Não foi realizada nenhuma venda até o momento !!!",
                     "Relatório Vendas", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+            chamaMenuPrincipal();
             return;
         }
 

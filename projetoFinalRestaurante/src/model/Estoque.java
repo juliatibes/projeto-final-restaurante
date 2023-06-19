@@ -1,12 +1,12 @@
 package model;
 
-public class ProdutoEstoque {
+public class Estoque {
 
     private Produto produto;
     private Double quantidade;
     private UnidadeMedidaEnum unidadeMedida;
 
-    public ProdutoEstoque(Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedida) {
+    public Estoque(Produto produto, Double quantidade, UnidadeMedidaEnum unidadeMedida) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.unidadeMedida = unidadeMedida;
