@@ -146,7 +146,7 @@ public class ReceitaDAO implements InterfaceAutoIncrement{
             if (receita.getNome().contains(nome)) {
                 posicaoReceitaFinal = posicaoReceita;
             }
-            posicaoReceita = +1;
+            posicaoReceita ++;
         }
         return posicaoReceitaFinal;
     }
@@ -193,11 +193,6 @@ public class ReceitaDAO implements InterfaceAutoIncrement{
         }
         return posicaoIngredienteFinal;
     }
-
-//    public static Integer aiID() {
-//        Integer id = listaReceita.size() + 1;
-//        return id;
-//    }
 
     @Override
     public Integer geraID() {

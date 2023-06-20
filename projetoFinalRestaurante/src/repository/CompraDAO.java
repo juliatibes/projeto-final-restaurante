@@ -91,12 +91,6 @@ public class CompraDAO implements InterfaceAutoIncrement {
         return listaCompras;
     }
 
-//    public static Integer aiID() {
-//        Integer id = listaCompras.size() + 1;
-//        return id;
-//    }
-//
-
     @Override
     public Integer geraID() {
         Integer id = listaCompras.size() + 1;
