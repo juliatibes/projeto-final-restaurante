@@ -146,7 +146,7 @@ public class ReceitaDAO implements InterfaceAutoIncrement{
             if (receita.getNome().contains(nome)) {
                 posicaoReceitaFinal = posicaoReceita;
             }
-            posicaoReceita = +1;
+            posicaoReceita ++;
         }
         return posicaoReceitaFinal;
     }
