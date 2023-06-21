@@ -6,7 +6,7 @@ public class BebidaOfertaDia extends OfertaDia{
 
     private Produto produto;
 
-    public BebidaOfertaDia(Integer id, LocalDate dataVenda, Double desconto, Produto produto) {
+    public BebidaOfertaDia(Integer id, Double desconto, Produto produto) {
         super(id, desconto);
         this.produto = produto;
     }
