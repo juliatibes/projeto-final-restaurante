@@ -13,7 +13,7 @@ public class ProdutoDAO implements InterfaceAutoIncrement {
 
     public static void inputProdutos() {
         if (ProdutoDAO.listaProdutos.isEmpty()) {
-            listaProdutos.add(new Produto(1, "Massa caseira zézé", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(1, "Massa caseira Zezé", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(2, "Bacon", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(3, "Coca-cola", ProdutoEnum.BEBIDA, BigDecimal.valueOf(3)));
             listaProdutos.add(new Produto(4, "Cebolinha verde", ProdutoEnum.INGREDIENTE));
@@ -23,28 +23,27 @@ public class ProdutoDAO implements InterfaceAutoIncrement {
             listaProdutos.add(new Produto(8, "Água com gás", ProdutoEnum.BEBIDA, BigDecimal.valueOf(2)));
             listaProdutos.add(new Produto(9, "Água sem gás", ProdutoEnum.BEBIDA, BigDecimal.valueOf(2)));
             listaProdutos.add(new Produto(10, "Suco de Uva", ProdutoEnum.BEBIDA, BigDecimal.valueOf(4)));
-            listaProdutos.add(new Produto(11, "Heineken", ProdutoEnum.BEBIDA, BigDecimal.valueOf(8)));
-            listaProdutos.add(new Produto(12, "Original", ProdutoEnum.BEBIDA, BigDecimal.valueOf(7)));
+            listaProdutos.add(new Produto(11, "Cerveja Heineken", ProdutoEnum.BEBIDA, BigDecimal.valueOf(8)));
+            listaProdutos.add(new Produto(12, "Cerveja Original", ProdutoEnum.BEBIDA, BigDecimal.valueOf(7)));
             listaProdutos.add(new Produto(13, "Batata", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(14, "Camarão", ProdutoEnum.INGREDIENTE));
-            listaProdutos.add(new Produto(15, "Gnocchi caseiro zézé", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(15, "Gnocchi caseiro Zezé", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(16, "Queijo Muçarela", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(17, "Queijo Parmesão", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(18, "Queijo Provolone", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(19, "Queijo Gorgonzola", ProdutoEnum.INGREDIENTE));
-            listaProdutos.add(new Produto(20, "Arroz arbóreo caseiro zézé", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(20, "Arroz arbóreo caseiro Zezé", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(21, "Molho de tomate", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(22, "Tomate", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(23, "Lula", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(24, "Marisco", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(25, "Siri", ProdutoEnum.INGREDIENTE));
-            listaProdutos.add(new Produto(26, "Picanha Friboi", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(26, "Picanha", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(27, "Rúcula", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(28, "Manteiga", ProdutoEnum.INGREDIENTE));
-            listaProdutos.add(new Produto(29, "Piadina caseira zezé", ProdutoEnum.INGREDIENTE));
+            listaProdutos.add(new Produto(29, "Piadina caseira Zezé", ProdutoEnum.INGREDIENTE));
             listaProdutos.add(new Produto(30, "Nutella", ProdutoEnum.INGREDIENTE));
-            listaProdutos.add(new Produto(31, "Sovete Kibom Creme", ProdutoEnum.INGREDIENTE));
-
+            listaProdutos.add(new Produto(31, "Sovete Creme Kibon", ProdutoEnum.INGREDIENTE));
         }
     }
 

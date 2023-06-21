@@ -60,7 +60,7 @@ public class ReceitaOfertaDoDIaDAO implements InterfaceAutoIncrement {
         removerDescontoReceita(ofertaReceita);
 
         listaReceitaOfertaDia.remove(ofertaReceita);
-        return JOptionPane.showConfirmDialog(null, "Oferta excluida com sucesso!",
+        return JOptionPane.showConfirmDialog(null, "Oferta excluída com sucesso!",
                 "Remover Oferta", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
     }
 

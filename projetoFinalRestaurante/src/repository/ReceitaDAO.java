@@ -134,7 +134,7 @@ public class ReceitaDAO implements InterfaceAutoIncrement{
 
     public static Integer removerReceita(Integer posicaoReceita) {
         listaReceita.remove(posicaoReceita);
-        return JOptionPane.showConfirmDialog(null, "Receita excluida com sucesso!",
+        return JOptionPane.showConfirmDialog(null, "Receita excluída com sucesso!",
                 "Remover Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
     }
 

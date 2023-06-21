@@ -138,7 +138,7 @@ public class EstoqueDAO {
             }
         }
 
-        return JOptionPane.showConfirmDialog(null, "Venda concluida com sucesso!",
+        return JOptionPane.showConfirmDialog(null, "Venda concluída com sucesso!",
                 "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
     }
 

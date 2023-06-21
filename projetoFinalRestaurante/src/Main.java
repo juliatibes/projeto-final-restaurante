@@ -73,7 +73,7 @@ public class Main {
 
         String[] opcoesMenuPlanejamento = {"Receita", "Bebida", "Voltar"};
         int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Cadastro Planejamento",
+                "Menu - Cadastro Planejamento",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
 
         switch (menuPlanejamento) {
@@ -93,7 +93,7 @@ public class Main {
     private static void cadastroPlanejamentoReceita() {
 
         if (ReceitaOfertaDoDIaDAO.findreceitasInArrayReceitaOferta().length < 1) {
-            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrado !!!",
+            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrada !!!",
                     "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
             chamaMenuPrincipal();
             return;
@@ -135,7 +135,7 @@ public class Main {
 
                 PlanejamentoProducaoDAO.salvarPlanejamento(planejamentoProducaoReceita);
 
-                JOptionPane.showConfirmDialog(null, "Disponivel em estoque!\nPlanejamento cadastrado com sucesso!"
+                JOptionPane.showConfirmDialog(null, "Disponível em estoque!\nPlanejamento cadastrado com sucesso!"
                         ,
                         "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
 
@@ -155,7 +155,7 @@ public class Main {
     private static void cadastroPlanejamentoBebida() {
 
         if (BebidaOfertaDoDIaDAO.findreceitasInArrayBebidaOferta().length < 1) {
-            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrado !!!",
+            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrada !!!",
                     "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
             chamaMenuPrincipal();
             return;
@@ -197,7 +197,7 @@ public class Main {
 
                 PlanejamentoProducaoDAO.salvarPlanejamento(planejamentoProducaoBebida);
 
-                JOptionPane.showConfirmDialog(null, "Disponivel em estoque!\nPlanejamento cadastrado com sucesso!",
+                JOptionPane.showConfirmDialog(null, "Disponível em estoque!\nPlanejamento cadastrado com sucesso!",
                         "Cadastro Planejamento", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
 
                 chamaMenuPrincipal();
@@ -216,7 +216,7 @@ public class Main {
     private static void menuOfertaDia() {
         String[] opcoesMenuOferta = {"Cadastrar Oferta", "Remover Oferta", "Voltar"};
         int menuOfertaDoDia = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Oferta do Dia",
+                "Menu - Oferta do Dia",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuOferta, opcoesMenuOferta[0]);
 
         switch (menuOfertaDoDia) {
@@ -237,7 +237,7 @@ public class Main {
 
         String[] opcoesMenuPlanejamento = {"Receita", "Bebida", "Voltar"};
         int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Oferta do Dia",
+                "Menu - Oferta do Dia",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
 
         switch (menuPlanejamento) {
@@ -271,7 +271,7 @@ public class Main {
                 Object selectionOfertaReceita = JOptionPane.showInputDialog(null, "Selecione uma receita para oferta do dia:",
                         "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceita, initialSelectionReceita);
                 List<Receita> receitas = ReceitaDAO.buscarPorNome((String) selectionOfertaReceita);
-                Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto:",
+                Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto (%):",
                         "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION));
 
                 if (desconto <= 0) {
@@ -313,7 +313,7 @@ public class Main {
                         "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutoBebida, initialSelectionProdutoBebida);
                 List<Produto> produtoBebida = ProdutoDAO.buscarPorNome((String) selectionOfertaProdutoBebida);
 
-                Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto:",
+                Double desconto = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o desconto (%):",
                         "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION));
 
                 if (desconto <= 0) {
@@ -332,7 +332,7 @@ public class Main {
                 chamaMenuPrincipal();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showConfirmDialog(null, "Formato Invalido!",
+            JOptionPane.showConfirmDialog(null, "Formato Inválido!",
                     "Cadastro oferta do dia", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
             chamaMenuPrincipal();
         }
@@ -343,7 +343,7 @@ public class Main {
 
         String[] opcoesMenuPlanejamento = {"Receita", "Bebida", "Voltar"};
         int menuPlanejamento = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Remover Oferta do Dia",
+                "Menu - Remover Oferta do Dia",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPlanejamento, opcoesMenuPlanejamento[0]);
 
         switch (menuPlanejamento) {
@@ -362,7 +362,7 @@ public class Main {
 
     private static void menuRemoverOfertaDiaReceita() {
         if (ReceitaOfertaDoDIaDAO.findreceitasInArrayReceitaOferta().length < 1) {
-            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrado !!!",
+            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrada !!!",
                     "Remover oferta do dia", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
             chamaMenuPrincipal();
             return;
@@ -382,7 +382,7 @@ public class Main {
 
     private static void menuRemoverOfertaDiaBebida() {
         if (BebidaOfertaDoDIaDAO.findreceitasInArrayBebidaOferta().length < 1) {
-            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrado !!!",
+            JOptionPane.showConfirmDialog(null, "Não existe oferta do dia cadastrada !!!",
                     "Remover oferta do dia", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
             chamaMenuPrincipal();
             return;
@@ -404,7 +404,7 @@ public class Main {
     private static void chamaMenuEstoque() {
         String[] opcoesMenuCadastro = {"Cadastrar Produto", "Remover Produto", "Voltar"};
         int menuCadastro = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Estoque",
+                "Menu - Estoque",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastro, opcoesMenuCadastro[0]);
 
         switch (menuCadastro) {
@@ -446,13 +446,13 @@ public class Main {
         try {
             ProdutoEnum[] opcoesTipoPagamento = {ProdutoEnum.BEBIDA, ProdutoEnum.INGREDIENTE};
 
-            String nomeProduto = JOptionPane.showInputDialog(null, "Informe o nome:",
+            String nomeProduto = JOptionPane.showInputDialog(null, "Informe o nome do ingrediente:",
                     "Cadastro Produto Ingrediente", JOptionPane.DEFAULT_OPTION);
 
             if (nomeProduto.length() == 0) {
-                JOptionPane.showConfirmDialog(null, "ERRO!",
+                JOptionPane.showConfirmDialog(null, "ERRO!\nO nome do ingrediente deve ser informado!",
                         "Cadastro Produto Ingrediente", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                chamaMenuPrincipal();
+                cadastroProdutoIngrediente();
                 return;
             }
 
@@ -474,7 +474,7 @@ public class Main {
                     break;
                 case 2: //Finalizar Cadastro
                     ProdutoDAO.salvarListaProdutos(produto1);
-                    JOptionPane.showConfirmDialog(null, "Produto cadastrado com sucesso!",
+                    JOptionPane.showConfirmDialog(null, "Produto(s) cadastrado(s) com sucesso!",
                             "Cadastrar Produto", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                     chamaMenuPrincipal();
                     break;
@@ -491,17 +491,17 @@ public class Main {
                 ProdutoEnum[] opcoesTipoProduto = {ProdutoEnum.BEBIDA, ProdutoEnum.INGREDIENTE};
 
 
-                String nomeProduto = JOptionPane.showInputDialog(null, "Informe o nome:",
+                String nomeProduto = JOptionPane.showInputDialog(null, "Informe o nome da bebida:",
                         "Cadastro Produto Bebida", JOptionPane.DEFAULT_OPTION);
 
                 if (nomeProduto.length() == 0) {
-                    JOptionPane.showConfirmDialog(null, "ERRO!",
+                    JOptionPane.showConfirmDialog(null, "ERRO!\nO nome da bebida deve ser informado!",
                             "Cadastro Produto Bebida", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                    chamaMenuPrincipal();
+                    cadastroProdutoBebida();
                     return;
                 }
 
-                BigDecimal valorCustoBebida = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Infome o valor de custo:",
+                BigDecimal valorCustoBebida = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Infome o valor de custo (R$):",
                         "Cadastrar Produto Bebida", JOptionPane.DEFAULT_OPTION)));
 
                 if (valorCustoBebida.byteValue() == 0 || valorCustoBebida.compareTo(BigDecimal.valueOf(0)) < 1) {
@@ -529,7 +529,7 @@ public class Main {
                         break;
                     case 2: //Finalizar Cadastro
                         ProdutoDAO.salvarListaProdutos(produto1);
-                        JOptionPane.showConfirmDialog(null, "Produto cadastrado com sucesso!",
+                        JOptionPane.showConfirmDialog(null, "Produto(s) cadastrado(s) com sucesso!",
                                 "Cadastrar Produto", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                         chamaMenuPrincipal();
                         break;
@@ -547,7 +547,7 @@ public class Main {
     private static void removerProduto() {
 
         if (ProdutoDAO.findprodutosInArray().length < 1) {
-            JOptionPane.showConfirmDialog(null, "Não existe produto cadastrado !!!",
+            JOptionPane.showConfirmDialog(null, "Não existem produtos cadastrados !!!",
                     "Remover Produto", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
             chamaMenuPrincipal();
             return;
@@ -592,12 +592,12 @@ public class Main {
                         UnidadeMedidaEnum.MILILITRO, UnidadeMedidaEnum.UNIDADE};
 
                 LocalDate dataCompra = LocalDate.now();
-                String inputData = JOptionPane.showInputDialog(null, "Digite uma data (formato: dd/MM/yyyy):",
+                String inputData = JOptionPane.showInputDialog(null, "Digite uma data (formato: dd/mm/aaaa):",
                         "Cadastrar Compra", JOptionPane.DEFAULT_OPTION);
                 try {
                     dataCompra = LocalDate.parse(inputData, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 } catch (DateTimeParseException e) {
-                    JOptionPane.showMessageDialog(null, "Formato inválido!",
+                    JOptionPane.showMessageDialog(null, "Formato de data inválido!",
                             "Cadastrar Compra", JOptionPane.ERROR_MESSAGE);
                     cadastroCompra();
                     return;
@@ -605,11 +605,11 @@ public class Main {
 
                 Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArray();
                 String initialSelectionProduto = (String) selectionValuesProdutos[0];
-                Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o produto da compra",
+                Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o produto da compra:",
                         "Cadastrar Compra", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutos, initialSelectionProduto);
                 List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionProduto);
 
-                Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a quantidade",
+                Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite a quantidade adquirida:",
                         "Cadastrar Compra", JOptionPane.DEFAULT_OPTION));
 
                 if (quantidade <= 0) {
@@ -677,9 +677,9 @@ public class Main {
                         "Cadastrar Receita", JOptionPane.DEFAULT_OPTION);
 
                 if (nome.length() == 0) {
-                    JOptionPane.showConfirmDialog(null, "ERRO!",
+                    JOptionPane.showConfirmDialog(null, "ERRO!\nUm nome para a receita deve ser informado!",
                             "Cadastrar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                    chamaMenuPrincipal();
+                    cadastroReceita();
                     return;
                 }
 
@@ -688,11 +688,11 @@ public class Main {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesReceitaClasse, opcoesReceitaClasse[0]);
 
 
-                BigDecimal valorCusto = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Infome o valor de custo:",
+                BigDecimal valorCusto = BigDecimal.valueOf(Double.parseDouble(JOptionPane.showInputDialog(null, "Infome o valor de custo (R$):",
                         "Cadastrar Receita", JOptionPane.DEFAULT_OPTION)));
 
                 if (valorCusto.byteValue() == 0 || valorCusto.compareTo(BigDecimal.valueOf(0)) < 1) {
-                    JOptionPane.showConfirmDialog(null, "Número Inválido!",
+                    JOptionPane.showConfirmDialog(null, "ERRO!\nO valor de custo para a receita deve ser informado",
                             "Cadastrar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     chamaMenuPrincipal();
                     return;
@@ -703,18 +703,18 @@ public class Main {
                 do {
 
                     if (ProdutoDAO.findprodutosInArrayIngrediente().length < 1) {
-                        JOptionPane.showConfirmDialog(null, "Não existe ingrediente cadastrado !!!",
+                        JOptionPane.showConfirmDialog(null, "Não existem ingredientes cadastrados !!!",
                                 "Cadastrar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
                         return;
                     }
 
                     Object[] selectionValuesProdutos = ProdutoDAO.findprodutosInArrayIngrediente();
                     String initialSelectionProduto = (String) selectionValuesProdutos[0];
-                    Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o ingrediente da Receita",
+                    Object selectionProduto = JOptionPane.showInputDialog(null, "Selecione o ingrediente da receita:",
                             "Cadastrar Receita", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutos, initialSelectionProduto);
                     List<Produto> produtos = ProdutoDAO.buscarPorNome((String) selectionProduto);
 
-                    Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe a quantidade",
+                    Double quantidade = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                             "Cadastrar Receita", JOptionPane.DEFAULT_OPTION));
 
                     if (quantidade <= 0) {
@@ -733,7 +733,7 @@ public class Main {
 
                     String[] opcoesMenuCadastroReceita = {"Adicionar Novo Ingrediente", "Finalizar Cadastro Ingrediente"};
                     int menuCadastroReceita = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                            "Cadastrar Receita Ingredientes",
+                            "Cadastrar Receita - Ingredientes",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuCadastroReceita, opcoesMenuCadastroReceita[0]);
 
                     switch (menuCadastroReceita) {
@@ -784,7 +784,7 @@ public class Main {
     private static void removerReceita() {
 
         if (ReceitaDAO.findreceitasInArray().length < 1) {
-            JOptionPane.showConfirmDialog(null, "Não existe receita cadastrada !!!",
+            JOptionPane.showConfirmDialog(null, "Não existem receitas cadastradas !!!",
                     "Remover Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
             chamaMenuPrincipal();
             return;
@@ -808,7 +808,7 @@ public class Main {
     private static void editarReceita() {
 
         if (ReceitaDAO.findreceitasInArray().length < 1) {
-            JOptionPane.showConfirmDialog(null, "Não existe receita cadastrada !!!",
+            JOptionPane.showConfirmDialog(null, "Não existem receitas cadastradas !!!",
                     "Remover Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
             chamaMenuPrincipal();
             return;
@@ -857,7 +857,7 @@ public class Main {
                                 "Editar Receita", JOptionPane.DEFAULT_OPTION)));
 
                         if (valorCusto.byteValue() == 0 || valorCusto.compareTo(BigDecimal.valueOf(0)) < 1) {
-                            JOptionPane.showConfirmDialog(null, "Número Inválido!",
+                            JOptionPane.showConfirmDialog(null, "Valor de custo inválido!",
                                     "Editar Receita", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                             chamaMenuPrincipal();
                             return;
@@ -875,7 +875,7 @@ public class Main {
                                 UnidadeMedidaEnum.MILILITRO, UnidadeMedidaEnum.UNIDADE};
 
                         if (ReceitaDAO.findReceitasIngredientesInArray(((String) selectionProduto)).length < 1) {
-                            JOptionPane.showConfirmDialog(null, "Não existe ingrediente cadastrado nessa receita !!!",
+                            JOptionPane.showConfirmDialog(null, "Não existem ingredientes cadastrados nessa receita !!!",
                                     "Editar Receita Ingredientes", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
                             return;
                         }
@@ -971,7 +971,7 @@ public class Main {
     public static void chamaMenuRelatorios() {
         String[] opcoesMenuRelatorio = {"Compras", "Estoque", "Receitas", "Bebidas", "Vendas", "Voltar"};
         int menuRelatorios = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
-                "Menu Relatórios",
+                "Menu - Relatórios",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null, opcoesMenuRelatorio, opcoesMenuRelatorio[0]);
 
         switch (menuRelatorios) {
@@ -1111,19 +1111,19 @@ public class Main {
                             boolean quantidadeEstoqueBebida = true;
 
                             if (VendaDAO.findprodutosInArrayProdutoBebida().length < 1) {
-                                JOptionPane.showConfirmDialog(null, "Não existe bebida cadastrada !!!",
-                                        "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
+                                JOptionPane.showConfirmDialog(null, "Não existem bebidas cadastradas !!!",
+                                        "Venda - bebidas", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
                                 chamaMenuPrincipal();
                                 return;
                             }
 
                             Object[] selectionValuesProdutoBebida = VendaDAO.findprodutosInArrayProdutoBebida();
                             String initialSelectionProdutoBebida = (String) selectionValuesProdutoBebida[0];
-                            Object selectionProdutoBebida = JOptionPane.showInputDialog(null, "Selecione a bebida",
+                            Object selectionProdutoBebida = JOptionPane.showInputDialog(null, "Selecione a bebida:",
                                     "Cardápio Bebida", JOptionPane.DEFAULT_OPTION, null, selectionValuesProdutoBebida, initialSelectionProdutoBebida);
                             List<Produto> produtoBebida = VendaDAO.buscarPorNomeBebida((String) selectionProdutoBebida);
 
-                            Integer quantidadeVendaBebida = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
+                            Integer quantidadeVendaBebida = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
                             if (quantidadeVendaBebida <= 0) {
@@ -1153,7 +1153,7 @@ public class Main {
                             VendaPedido vendaPedidoBebida = new VendaPedido(produtoBebida.get(0), quantidadeVendaBebida, observacaoBebida);
 
                             do {
-                                String[] opcoesMenuVendaBebida = {"Adicionar Novo Item", "Cancelar Venda", "Finalizar Venda", "Carrinho Venda"};
+                                String[] opcoesMenuVendaBebida = {"Adicionar Novo Item", "Cancelar Venda", "Finalizar Venda", "Carrinho de Venda"};
                                 int menuCadastroBebida = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                                         "Venda",
                                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuVendaBebida, opcoesMenuVendaBebida[0]);
@@ -1220,7 +1220,7 @@ public class Main {
                             boolean quantidadeEstoqueEntrada = true;
 
                             if (VendaDAO.findreceitaInArrayReceitaEntrada().length < 1) {
-                                JOptionPane.showConfirmDialog(null, "Não existe entrada cadastrada !!!",
+                                JOptionPane.showConfirmDialog(null, "Não existem entradas cadastradas !!!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
                                 chamaMenuPrincipal();
                                 return;
@@ -1228,11 +1228,11 @@ public class Main {
 
                             Object[] selectionValuesReceitaEntrada = VendaDAO.findreceitaInArrayReceitaEntrada();
                             String initialSelectionReceitaEntrada = (String) selectionValuesReceitaEntrada[0];
-                            Object selectionReceitaEntrada = JOptionPane.showInputDialog(null, "Selecione a entrada",
+                            Object selectionReceitaEntrada = JOptionPane.showInputDialog(null, "Selecione a entrada:",
                                     "Cardápio Entrada", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaEntrada, initialSelectionReceitaEntrada);
                             List<Receita> receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaEntrada);
 
-                            Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
+                            Integer quantidadeVendaEntrada = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
                             if (quantidadeVendaEntrada <= 0) {
@@ -1331,7 +1331,7 @@ public class Main {
                             boolean quantidadeEstoqueMassa = true;
 
                             if (VendaDAO.findreceitaInArrayReceitaMassa().length < 1) {
-                                JOptionPane.showConfirmDialog(null, "Não existe Massa cadastrada !!!",
+                                JOptionPane.showConfirmDialog(null, "Não existem massas cadastradas !!!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
                                 chamaMenuPrincipal();
                                 return;
@@ -1339,11 +1339,11 @@ public class Main {
 
                             Object[] selectionValuesReceitaMassa = VendaDAO.findreceitaInArrayReceitaMassa();
                             String initialSelectionReceitaMassa = (String) selectionValuesReceitaMassa[0];
-                            Object selectionReceitaMassa = JOptionPane.showInputDialog(null, "Selecione a massa",
+                            Object selectionReceitaMassa = JOptionPane.showInputDialog(null, "Selecione a massa:",
                                     "Cardápio Massa", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaMassa, initialSelectionReceitaMassa);
                             receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaMassa);
 
-                            Integer quantidadeVendaMassa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
+                            Integer quantidadeVendaMassa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
                             if (quantidadeVendaMassa <= 0) {
@@ -1441,7 +1441,7 @@ public class Main {
                             boolean quantidadeEstoqueRisoto = true;
 
                             if (VendaDAO.findreceitaInArrayReceitaRisoto().length < 1) {
-                                JOptionPane.showConfirmDialog(null, "Não existe risoto cadastrado !!!",
+                                JOptionPane.showConfirmDialog(null, "Não existem risotos cadastrados !!!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
                                 chamaMenuPrincipal();
                                 return;
@@ -1449,11 +1449,11 @@ public class Main {
 
                             Object[] selectionValuesReceitaRisoto = VendaDAO.findreceitaInArrayReceitaRisoto();
                             String initialSelectionReceitaRisoto = (String) selectionValuesReceitaRisoto[0];
-                            Object selectionReceitaRisoto = JOptionPane.showInputDialog(null, "Selecione o risoto",
+                            Object selectionReceitaRisoto = JOptionPane.showInputDialog(null, "Selecione o risoto:",
                                     "Cardapio Risoto", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaRisoto, initialSelectionReceitaRisoto);
                             receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaRisoto);
 
-                            Integer quantidadeVendaRisoto = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
+                            Integer quantidadeVendaRisoto = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
                             if (quantidadeVendaRisoto <= 0) {
@@ -1551,7 +1551,7 @@ public class Main {
                             boolean quantidadeEstoqueCarne = true;
 
                             if (VendaDAO.findreceitaInArrayReceitaCarne().length < 1) {
-                                JOptionPane.showConfirmDialog(null, "Não existe carne cadastrada !!!",
+                                JOptionPane.showConfirmDialog(null, "Não existes carnes cadastradas !!!",
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null);
                                 chamaMenuPrincipal();
                                 return;
@@ -1663,11 +1663,11 @@ public class Main {
 
                             Object[] selectionValuesReceitaSobremesa = VendaDAO.findreceitaInArrayReceitaSobremesa();
                             String initialSelectionReceitaSobremesa = (String) selectionValuesReceitaSobremesa[0];
-                            Object selectionReceitaSobremesa = JOptionPane.showInputDialog(null, "Selecione a sobremesa",
+                            Object selectionReceitaSobremesa = JOptionPane.showInputDialog(null, "Selecione a sobremesa:",
                                     "Venda", JOptionPane.DEFAULT_OPTION, null, selectionValuesReceitaSobremesa, initialSelectionReceitaSobremesa);
                             receita = VendaDAO.buscarPorNomeReceita((String) selectionReceitaSobremesa);
 
-                            Integer quantidadeVendaSobremesa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade",
+                            Integer quantidadeVendaSobremesa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:",
                                     "Venda", JOptionPane.DEFAULT_OPTION));
 
                             if (quantidadeVendaSobremesa <= 0) {
