@@ -46,6 +46,7 @@ public class Main {
                 chamaMenuRelatorios();
                 break;
             case 6://Sair
+                System.exit(0);
                 break;
         }
     }
