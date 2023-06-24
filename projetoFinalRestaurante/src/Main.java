@@ -1767,7 +1767,6 @@ public class Main {
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                             } else {
                                 Object[] listaOfertaDoDia = VendaDAO.geraListaOfertaDoDia();
-                                System.out.println(listaOfertaDoDia.length);
                                 JOptionPane.showConfirmDialog(null, listaOfertaDoDia,
                                         "Venda", JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION, null);
                             }

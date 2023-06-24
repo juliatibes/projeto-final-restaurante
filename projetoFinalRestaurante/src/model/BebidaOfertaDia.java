@@ -2,7 +2,8 @@ package model;
 
 import java.time.LocalDate;
 
-public class BebidaOfertaDia extends OfertaDia{
+public class
+BebidaOfertaDia extends OfertaDia{
 
     private Produto produto;
 
