@@ -22,22 +22,22 @@ public class Main {
     }
 
     private static void chamaMenuPrincipal() {
-        String[] opcoesMenuPrincipal = {"Planejamento de Produção", "Estoque", "Compra", "Receita", "Venda", "Relatórios", "Sair"};
+        String[] opcoesMenuPrincipal = {"Estoque", "Compra", "Receita","Planejamento de Produção", "Venda", "Relatórios", "Sair"};
         int opcaoMenuPrincipal = JOptionPane.showOptionDialog(null, "Escolha uma opção:",
                 "Menu Principal",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesMenuPrincipal, opcoesMenuPrincipal[0]);
         switch (opcaoMenuPrincipal) {
-            case 0: //Planejamento de produção
-                chamaMenuPlanejamento();
-                break;
-            case 1: //Estoque
+            case 0: //Estoque
                 chamaMenuEstoque();
                 break;
-            case 2: //Compra
+            case 1: //Compra
                 chamaMenuCadastroCompra();
                 break;
-            case 3:// Receitas
+            case 2:// Receitas
                 chamaMenuCadastroReceitas();
+                break;
+            case 3: //Planejamento de produção
+                chamaMenuPlanejamento();
                 break;
             case 4:// Vendas
                 chamaMenuVenda();
@@ -46,6 +46,7 @@ public class Main {
                 chamaMenuRelatorios();
                 break;
             case 6://Sair
+                System.exit(0);
                 break;
         }
     }
