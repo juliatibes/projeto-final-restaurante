@@ -203,11 +203,13 @@ public class VendaDAO implements InterfaceAutoIncrement{
                 if(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida() != null) {
 
                     valorTotalVendaBebida = valorTotalVendaBebida.add
-                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida().getValorVendaProduto());
+                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida().getValorVendaProduto()
+                                    .multiply(BigDecimal.valueOf(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getQuantidade())));
                 }else{
 
               valorTotalVendaReceita = valorTotalVendaReceita.add
-                   (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorVenda());
+                   (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorVenda()
+                           .multiply(BigDecimal.valueOf(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getQuantidade())));
                 }
             }
         }
@@ -227,11 +229,13 @@ public class VendaDAO implements InterfaceAutoIncrement{
                 if(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida() != null) {
 
                     valorTotalLucroBebida = valorTotalLucroBebida.add
-                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida().getValorCustoProduto());
+                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getProdutoBebida().getValorCustoProduto()
+                                    .multiply(BigDecimal.valueOf(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getQuantidade())));
                 }else{
 
                     valorTotalLucroReceita = valorTotalLucroReceita.add
-                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorCusto());
+                            (listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getReceita().getValorCusto()
+                                    .multiply(BigDecimal.valueOf(listaVenda.get(posicaoVenda).getListaVendaPedido().get(posicaoVendaPedidoR).getQuantidade())));
                 }
             }
         }
